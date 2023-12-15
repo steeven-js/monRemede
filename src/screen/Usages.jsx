@@ -1,37 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList } from 'react-native';
-import { apiCategories } from '../api/const';
+import { View, Text } from 'react-native';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCategories } from '../../store/fetchApi/FetchCategories';
 
 const Usages = () => {
-    // UseState
-    const [Categories, setCategories] = useState([]);
+    const dispatch = useDispatch();
+    const categoriesData = useSelector((state) => state.categories.data);
 
-    // Fetching data
-    const getCategories = async () => {
-        try {
-            const response = await fetch(apiCategories);
-            const Categories = await response.json();
-            setCategories(Categories);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    // useEffect
     useEffect(() => {
-        getCategories();
-    }, [])
+        dispatch(fetchCategories());
+    }, [dispatch]);
 
     return (
         <View>
-            <Text>Liste des catégories :</Text>
-            <FlatList
-                data={Categories}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => <Text>{item.name}</Text>}
-            />
+            {categoriesData ? (
+                <View>
+                    {categoriesData.map((category) => (
+                        <Text key={category.id}>{category.name}</Text>
+                    ))}
+                </View>
+            ) : (
+                <Text>Loading...</Text>
+            )}
         </View>
     );
-};
+}
 
-export default Usages;
+export default Usages
