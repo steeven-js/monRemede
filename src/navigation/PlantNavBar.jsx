@@ -14,7 +14,10 @@ const PlantNavBar = ({ navigation, route }) => {
     };
     return (
         <View style={styles.header}>
-            <Text onPress={() => navigation.goBack()}>Back</Text>
+            <View style={styles.divAboveTabs}>
+                <Text onPress={() => navigation.goBack()}>Back</Text>
+                <Text>Favoris</Text>
+            </View>
             <View style={styles.container}>
                 <TouchableOpacity onPress={() => navigateToScreen('Info')} >
                     <Text>Info</Text>
@@ -36,6 +39,12 @@ const PlantNavBar = ({ navigation, route }) => {
 const styles = StyleSheet.create({
     header: {
         backgroundColor: 'lightgreen',
+    },
+    divAboveTabs: {
+        padding: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     container: {
         flexDirection: 'row',

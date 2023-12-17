@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategory } from '../../store/fetchApi';
+import { fetchCategory } from '../../../store/fetchApi';
 
 const CategoryDetail = ({ route, navigation }) => {
     const { categoryId, categoryName } = route.params;

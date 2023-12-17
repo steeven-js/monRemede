@@ -10,8 +10,8 @@ import Plantes from './src/screen/Plantes';
 import Favoris from './src/screen/Favoris';
 import TopBar from './src/navigation/TopBar';
 import store from './store/store';
-import CategoryDetail from './src/screen/CategoryDetail';
-import PlantDetail from './src/screen/PlantDetail';
+import CategoryDetail from './src/screen/detailScreens/CategoryDetail';
+import PlantDetail from './src/screen/detailScreens/PlantDetail';
 
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
