@@ -15,6 +15,7 @@ import CategoryDetail from './src/screen/CategoryDetail';
 
 const HomeStack = createStackNavigator();
 const CategoryStack = createStackNavigator();
+const PlantStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const MainStack = () => {
@@ -60,20 +61,16 @@ const App = () => {
 const CategoryStackScreen = () => {
   return (
     <CategoryStack.Navigator>
-      {/* Ajouter les écrans de la pile CategoryStack ici */}
       <CategoryStack.Screen name="CategoryScreen" component={CategoryDetail} options={{ headerShown: false }} />
-      {/* ... autres écrans de catégorie */}
     </CategoryStack.Navigator>
   );
 };
 
 const PlantStackScreen = () => {
   return (
-    <CategoryStack.Navigator>
-      {/* Ajouter les écrans de la pile CategoryStack ici */}
-      <CategoryStack.Screen name="PlantScreen" component={PlantDetail} options={{ headerShown: false }} />
-      {/* ... autres écrans de catégorie */}
-    </CategoryStack.Navigator>
+    <PlantStack.Navigator>
+      <PlantStack.Screen name="PlantScreen" component={PlantDetail} options={{ headerShown: false }} />
+    </PlantStack.Navigator>
   );
 };
 
