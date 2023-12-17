@@ -11,7 +11,7 @@ const CategorySlice = createSlice({
     isLoader: false,
     isError: false,
     selectedCategory: null,
-    categoryPlants: [], // Set an empty array as the default value
+    categoryPlants: [],
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCategories.pending, (state) => {
