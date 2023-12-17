@@ -13,19 +13,22 @@ const PlantNavBar = ({ navigation, route }) => {
         navigation.navigate(screenName);
     };
     return (
-        <View style={styles.container}>
-            <TouchableOpacity onPress={() => navigateToScreen('Info')} >
-                <Text>Info</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigateToScreen('Propriete')} >
-                <Text>Propriete</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigateToScreen('Utilisation')} >
-                <Text>Utilisation</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigateToScreen('Precaution')} >
-                <Text>Precaution</Text>
-            </TouchableOpacity>
+        <View style={styles.header}>
+            <Text onPress={() => navigation.goBack()}>Back</Text>
+            <View style={styles.container}>
+                <TouchableOpacity onPress={() => navigateToScreen('Info')} >
+                    <Text>Info</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigateToScreen('Propriete')} >
+                    <Text>Propriete</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigateToScreen('Utilisation')} >
+                    <Text>Utilisation</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigateToScreen('Precaution')} >
+                    <Text>Precaution</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }

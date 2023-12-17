@@ -10,7 +10,11 @@ import Precaution from './plant/Precaution';
 const PlantInfoStack = createStackNavigator();
 
 const PlantDetail = ({ navigation, route }) => {
+    const { plantId } = route.params;
     const { plantName } = route.params;
+
+    // console.log('plantId', plantId)
+    // console.log('plantName', plantName)
 
     return (
         <PlantInfoStack.Navigator
@@ -20,10 +24,21 @@ const PlantDetail = ({ navigation, route }) => {
                 animationEnabled: false,
             }}
         >
-            <PlantInfoStack.Screen name="Info" component={Info} />
-            <PlantInfoStack.Screen name="Propriete" component={Propriete} />
-            <PlantInfoStack.Screen name="Utilisation" component={Utilisation} />
-            <PlantInfoStack.Screen name="Precaution" component={Precaution} />
+            <PlantInfoStack.Screen name="Info">
+                {(props) => <Info {...props} route={{ params: { plantId, plantName } }} />}
+            </PlantInfoStack.Screen>
+
+            <PlantInfoStack.Screen name="Propriete">
+                {(props) => <Propriete {...props} route={{ params: { plantId } }} />}
+            </PlantInfoStack.Screen>
+
+            <PlantInfoStack.Screen name="Utilisation">
+                {(props) => <Utilisation {...props} route={{ params: { plantId } }} />}
+            </PlantInfoStack.Screen>
+
+            <PlantInfoStack.Screen name="Precaution">
+                {(props) => <Precaution {...props} route={{ params: { plantId } }} />}
+            </PlantInfoStack.Screen>
         </PlantInfoStack.Navigator>
     );
 }
