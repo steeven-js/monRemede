@@ -14,8 +14,6 @@ import PlantDetail from './src/screen/PlantDetail';
 import CategoryDetail from './src/screen/CategoryDetail';
 
 const HomeStack = createStackNavigator();
-const CategoryStack = createStackNavigator();
-const PlantStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 const MainStack = () => {
