@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const Plantes = () => {
+const Plantes = ({navigation}) => {
     return (
         <View>
-            <Text>Plantes</Text>
+            <Text onPress={() => {navigation.navigate('PlantScreen')} }>Plantes</Text>
         </View>
     )
 }
