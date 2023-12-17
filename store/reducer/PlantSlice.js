@@ -1,5 +1,5 @@
 // PlantSlice.js
-import { FetchPlants } from '../fetchApi/FetchPlants'; 
+import { FetchPlants } from '../fetchApi/fetchPlants';
 
 const { createSlice, createAsyncThunk } = require('@reduxjs/toolkit');
 
