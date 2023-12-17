@@ -8,7 +8,7 @@ const Usages = ({ navigation }) => {
     const categoriesData = useSelector((state) => state.categories.data);
 
     useEffect(() => {
-        console.log('Fetching categories...');
+        // console.log('Fetching categories...');
         dispatch(fetchCategories());
     }, [dispatch]);
 
@@ -20,9 +20,10 @@ const Usages = ({ navigation }) => {
                         <Text
                             key={category.id}
                             onPress={() => {
-                                console.log('Navigating to CategoryDetail with category ID:', category.id);
+                                // console.log('Navigating to CategoryDetail with category ID:', category.id);
                                 navigation.navigate('CategoryScreen', {
                                     categoryId: category.id,
+                                    categoryName: category.name,
                                 });
                             }}
                         >
