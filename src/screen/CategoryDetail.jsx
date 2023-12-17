@@ -1,19 +1,30 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react';
+import { View, Text, ScrollView } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPlants } from '../../store/fetchApi/fetchPlants';
 
 const CategoryDetail = ({ route, navigation }) => {
-    const { categoryId } = route.params;
-    const { categoryName } = route.params;
+    const { categoryId, categoryName } = route.params;
+    const dispatch = useDispatch();
+    const categoryPlants = useSelector((state) => state.categories.categoryPlants);
 
-    console.log('CategoryDetail component loaded with category ID:', categoryId);
+    useEffect(() => {
+        dispatch(fetchPlants(categoryId));
+    }, [dispatch, categoryId]);
 
     return (
         <View>
-            <Text onPress={() => {
-                // console.log('Navigating back from CategoryDetail');
-                navigation.goBack();
-            }}>Back</Text>
+            <Text onPress={() => navigation.goBack()}>Back</Text>
             <Text>Category name: {categoryName}</Text>
+            {categoryPlants && categoryPlants.plants ? (
+                <ScrollView>
+                    {categoryPlants.plants.map((plant) => (
+                        <Text key={plant.id}>{plant.name}</Text>
+                    ))}
+                </ScrollView>
+            ) : (
+                <Text>Loading plants...</Text>
+            )}
         </View>
     );
 };
