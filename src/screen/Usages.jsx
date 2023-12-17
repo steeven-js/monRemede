@@ -3,14 +3,12 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../../store/fetchApi/FetchCategories';
 
-const Usages = ( {navigation} ) => {
-    // UseDispatch permet de dispatcher une action
+const Usages = ({ navigation }) => {
     const dispatch = useDispatch();
-    // useSelector permet de récupérer une donnée du store
     const categoriesData = useSelector((state) => state.categories.data);
 
     useEffect(() => {
-        // On dispatch l'action fetchCategories
+        console.log('Fetching categories...');
         dispatch(fetchCategories());
     }, [dispatch]);
 
@@ -19,7 +17,17 @@ const Usages = ( {navigation} ) => {
             {categoriesData ? (
                 <View>
                     {categoriesData.map((category) => (
-                        <Text key={category.id} onPress={() => {navigation.navigate('Category')} }>{category.name}</Text>
+                        <Text
+                            key={category.id}
+                            onPress={() => {
+                                console.log('Navigating to CategoryDetail with category ID:', category.id);
+                                navigation.navigate('CategoryScreen', {
+                                    categoryId: category.id,
+                                });
+                            }}
+                        >
+                            {category.name}
+                        </Text>
                     ))}
                 </View>
             ) : (
@@ -27,6 +35,6 @@ const Usages = ( {navigation} ) => {
             )}
         </View>
     );
-}
+};
 
-export default Usages
+export default Usages;

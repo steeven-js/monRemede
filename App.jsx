@@ -42,35 +42,19 @@ const App = () => {
           <Drawer.Screen name="Home" component={MainStack} options={{ headerShown: false }} />
           {/* Category */}
           <Drawer.Screen
-            name="Category"
-            component={CategoryStackScreen}
+            name="CategoryScreen"
+            component={CategoryDetail}
             options={{ headerShown: false, drawerLabel: () => null }}
           />
           {/* Plant */}
           <Drawer.Screen
             name="Plant"
-            component={PlantStackScreen}
+            component={PlantDetail}
             options={{ headerShown: false, drawerLabel: () => null }}
           />
         </Drawer.Navigator>
       </NavigationContainer>
     </Provider>
-  );
-};
-
-const CategoryStackScreen = () => {
-  return (
-    <CategoryStack.Navigator>
-      <CategoryStack.Screen name="CategoryScreen" component={CategoryDetail} options={{ headerShown: false }} />
-    </CategoryStack.Navigator>
-  );
-};
-
-const PlantStackScreen = () => {
-  return (
-    <PlantStack.Navigator>
-      <PlantStack.Screen name="PlantScreen" component={PlantDetail} options={{ headerShown: false }} />
-    </PlantStack.Navigator>
   );
 };
 
