@@ -1,8 +1,7 @@
 // PlantSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import { fetchPlants } from '../fetchApi/FetchPlants';
-import { fetchPlant } from '../fetchApi/FetchPlant';
+import { fetchPlant, fetchPlants } from '../fetchApi';
 
 const PlantSlice = createSlice({
     name: 'plants',

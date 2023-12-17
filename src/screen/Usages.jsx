@@ -1,7 +1,7 @@
 import { View, Text, ScrollView } from 'react-native';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories } from '../../store/fetchApi/FetchCategories';
+import { fetchCategories } from '../../store/fetchApi';
 
 const Usages = ({ navigation }) => {
     const dispatch = useDispatch();

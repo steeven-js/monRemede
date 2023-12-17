@@ -1,6 +1,5 @@
 // CategorySlice.js
-import { fetchCategories } from '../fetchApi/FetchCategories';
-import { fetchCategory } from '../fetchApi/FetchCategory';
+import { fetchCategories, fetchCategory } from '../fetchApi';
 
 const {createSlice, createAsyncThunk} = require('@reduxjs/toolkit');
 
