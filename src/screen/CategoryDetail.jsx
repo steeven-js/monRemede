@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPlants } from '../../store/fetchApi/fetchPlants';
+import { fetchCategory } from '../../store/fetchApi/FetchCategory';
 
 const CategoryDetail = ({ route, navigation }) => {
     const { categoryId, categoryName } = route.params;
@@ -9,7 +9,7 @@ const CategoryDetail = ({ route, navigation }) => {
     const categoryPlants = useSelector((state) => state.categories.categoryPlants);
 
     useEffect(() => {
-        dispatch(fetchPlants(categoryId));
+        dispatch(fetchCategory(categoryId));
     }, [dispatch, categoryId]);
 
     return (

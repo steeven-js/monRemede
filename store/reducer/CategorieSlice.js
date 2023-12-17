@@ -1,6 +1,6 @@
 // CategorySlice.js
 import { fetchCategories } from '../fetchApi/FetchCategories';
-import { fetchPlants } from '../fetchApi/fetchPlants';
+import { fetchCategory } from '../fetchApi/FetchCategory';
 
 const {createSlice, createAsyncThunk} = require('@reduxjs/toolkit');
 
@@ -25,14 +25,14 @@ const CategorySlice = createSlice({
       state.isLoader = false;
       state.isError = true;
     });
-    builder.addCase(fetchPlants.pending, (state) => {
+    builder.addCase(fetchCategory.pending, (state) => {
       state.isLoader = true;
     });
-    builder.addCase(fetchPlants.fulfilled, (state, action) => {
+    builder.addCase(fetchCategory.fulfilled, (state, action) => {
       state.isLoader = false;
       state.categoryPlants = action.payload;
     });
-    builder.addCase(fetchPlants.rejected, (state) => {
+    builder.addCase(fetchCategory.rejected, (state) => {
       state.isLoader = false;
       state.isError = true;
     });
