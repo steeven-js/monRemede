@@ -10,8 +10,8 @@ import Plantes from './src/screen/Plantes';
 import Favoris from './src/screen/Favoris';
 import TopBar from './src/navigation/TopBar';
 import { store } from './store/store';
-import CategoryScreen from './src/screen/CategoryScreen';
 import PlantDetail from './src/screen/PlantDetail';
+import CategoryDetail from './src/screen/CategoryDetail';
 
 const HomeStack = createStackNavigator();
 const CategoryStack = createStackNavigator();
@@ -39,15 +39,31 @@ const App = () => {
       <NavigationContainer>
         <Drawer.Navigator>
           <Drawer.Screen name="Home" component={MainStack} options={{ headerShown: false }} />
-          {/* Ajouter la pile de navigation CategoryStack ici */}
+          {/* Category */}
           <Drawer.Screen
-            name="Categories"
+            name="Category"
+            component={CategoryStackScreen}
+            options={{ headerShown: false, drawerLabel: () => null }}
+          />
+          {/* Plant */}
+          <Drawer.Screen
+            name="Plant"
             component={PlantStackScreen}
             options={{ headerShown: false, drawerLabel: () => null }}
           />
         </Drawer.Navigator>
       </NavigationContainer>
     </Provider>
+  );
+};
+
+const CategoryStackScreen = () => {
+  return (
+    <CategoryStack.Navigator>
+      {/* Ajouter les écrans de la pile CategoryStack ici */}
+      <CategoryStack.Screen name="CategoryScreen" component={CategoryDetail} options={{ headerShown: false }} />
+      {/* ... autres écrans de catégorie */}
+    </CategoryStack.Navigator>
   );
 };
 

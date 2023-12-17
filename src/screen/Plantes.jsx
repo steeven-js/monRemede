@@ -4,7 +4,7 @@ import React from 'react'
 const Plantes = ({navigation}) => {
     return (
         <View>
-            <Text onPress={() => {navigation.navigate('PlantScreen')} }>Plantes</Text>
+            <Text onPress={() => {navigation.navigate('Plant')} }>Plantes</Text>
         </View>
     )
 }
