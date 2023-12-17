@@ -37,7 +37,10 @@ const App = () => {
     <Provider store={store}>
       <NavigationContainer>
         <Drawer.Navigator>
-          <Drawer.Screen name="Home" component={MainStack} options={{ headerShown: false }} />
+          <Drawer.Screen
+            name="Home"
+            component={MainStack}
+            options={{ headerShown: false }} />
           {/* Category */}
           <Drawer.Screen
             name="CategoryScreen"

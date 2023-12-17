@@ -10,7 +10,7 @@ const CategoryDetail = ({ route, navigation }) => {
     return (
         <View>
             <Text onPress={() => {
-                console.log('Navigating back from CategoryDetail');
+                // console.log('Navigating back from CategoryDetail');
                 navigation.goBack();
             }}>Back</Text>
             <Text>Category name: {categoryName}</Text>
