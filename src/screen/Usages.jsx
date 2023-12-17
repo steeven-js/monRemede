@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../../store/fetchApi/FetchCategories';
@@ -15,7 +15,7 @@ const Usages = ({ navigation }) => {
     return (
         <View>
             {categoriesData ? (
-                <View>
+                <ScrollView>
                     {categoriesData.map((category) => (
                         <Text
                             key={category.id}
@@ -30,7 +30,7 @@ const Usages = ({ navigation }) => {
                             {category.name}
                         </Text>
                     ))}
-                </View>
+                </ScrollView>
             ) : (
                 <Text>Loading...</Text>
             )}
