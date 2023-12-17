@@ -1,8 +1,8 @@
 // PlantSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import { FetchPlants } from '../fetchApi/FetchPlants';
-import { FetchPlant } from '../fetchApi/FetchPlant';
+import { fetchPlants } from '../fetchApi/FetchPlants';
+import { fetchPlant } from '../fetchApi/FetchPlant';
 
 const PlantSlice = createSlice({
     name: 'plants',
@@ -13,25 +13,25 @@ const PlantSlice = createSlice({
         selectedPlant: null,
     },
     extraReducers: (builder) => {
-        builder.addCase(FetchPlants.pending, (state) => {
+        builder.addCase(fetchPlants.pending, (state) => {
             state.isLoader = true;
         });
-        builder.addCase(FetchPlants.fulfilled, (state, action) => {
+        builder.addCase(fetchPlants.fulfilled, (state, action) => {
             state.isLoader = false;
             state.data = action.payload;
         });
-        builder.addCase(FetchPlants.rejected, (state) => {
+        builder.addCase(fetchPlants.rejected, (state) => {
             state.isLoader = false;
             state.isError = true;
         });
-        builder.addCase(FetchPlant.pending, (state) => {
+        builder.addCase(fetchPlant.pending, (state) => {
             state.isLoader = true;
         });
-        builder.addCase(FetchPlant.fulfilled, (state, action) => {
+        builder.addCase(fetchPlant.fulfilled, (state, action) => {
             state.isLoader = false;
             state.selectedPlant = action.payload;
         });
-        builder.addCase(FetchPlant.rejected, (state) => {
+        builder.addCase(fetchPlant.rejected, (state) => {
             state.isLoader = false;
             state.isError = true;
         });

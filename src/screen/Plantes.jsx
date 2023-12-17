@@ -1,7 +1,7 @@
 import { View, Text, ScrollView } from 'react-native'
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FetchPlants } from '../../store/fetchApi/FetchPlants';
+import { fetchPlants } from '../../store/fetchApi/FetchPlants';
 
 const Plantes = ({navigation}) => {
     const dispatch = useDispatch();
@@ -9,7 +9,7 @@ const Plantes = ({navigation}) => {
 
     useEffect(() => {
         // console.log('Fetching categories...');
-        dispatch(FetchPlants());
+        dispatch(fetchPlants());
     }, [dispatch]);
 
     return (

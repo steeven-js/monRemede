@@ -9,9 +9,9 @@ import Usages from './src/screen/Usages';
 import Plantes from './src/screen/Plantes';
 import Favoris from './src/screen/Favoris';
 import TopBar from './src/navigation/TopBar';
-import { store } from './store/store';
-import PlantDetail from './src/screen/PlantDetail';
+import store from './store/store';
 import CategoryDetail from './src/screen/CategoryDetail';
+import PlantDetail from './src/screen/PlantDetail';
 
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -40,7 +40,8 @@ const App = () => {
           <Drawer.Screen
             name="Home"
             component={MainStack}
-            options={{ headerShown: false }} />
+            options={{ headerShown: false }}
+          />
           {/* Category */}
           <Drawer.Screen
             name="CategoryScreen"
