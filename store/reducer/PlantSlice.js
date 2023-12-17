@@ -1,7 +1,8 @@
 // PlantSlice.js
-import { FetchPlants } from '../fetchApi/fetchPlants';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-const { createSlice, createAsyncThunk } = require('@reduxjs/toolkit');
+import { FetchPlants } from '../fetchApi/FetchPlants';
+import { FetchPlant } from '../fetchApi/FetchPlant';
 
 const PlantSlice = createSlice({
     name: 'plants',
@@ -9,6 +10,7 @@ const PlantSlice = createSlice({
         data: null,
         isLoader: false,
         isError: false,
+        selectedPlant: null,
     },
     extraReducers: (builder) => {
         builder.addCase(FetchPlants.pending, (state) => {
@@ -19,6 +21,17 @@ const PlantSlice = createSlice({
             state.data = action.payload;
         });
         builder.addCase(FetchPlants.rejected, (state) => {
+            state.isLoader = false;
+            state.isError = true;
+        });
+        builder.addCase(FetchPlant.pending, (state) => {
+            state.isLoader = true;
+        });
+        builder.addCase(FetchPlant.fulfilled, (state, action) => {
+            state.isLoader = false;
+            state.selectedPlant = action.payload;
+        });
+        builder.addCase(FetchPlant.rejected, (state) => {
             state.isLoader = false;
             state.isError = true;
         });

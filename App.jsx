@@ -49,7 +49,7 @@ const App = () => {
           />
           {/* Plant */}
           <Drawer.Screen
-            name="Plant"
+            name="PlantScreen"
             component={PlantDetail}
             options={{ headerShown: false, drawerLabel: () => null }}
           />
