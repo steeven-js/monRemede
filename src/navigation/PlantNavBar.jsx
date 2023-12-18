@@ -8,7 +8,7 @@ import StarIcon from 'react-native-vector-icons/FontAwesome6';
 const PlantNavBar = ({ navigation, route }) => {
     const dispatch = useDispatch();
 
-    console.log('Route in PlantNavBar:', route); // Log the entire route object
+    // console.log('Route in PlantNavBar:', route);
 
     const navigateToScreen = (screenName) => {
         navigation.navigate(screenName);
