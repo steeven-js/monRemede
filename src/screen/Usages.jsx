@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, ScrollView, ImageBackground, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, ImageBackground, Dimensions, TouchableOpacity, Image, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../../store/fetchApi';
 
@@ -8,40 +8,58 @@ const Usages = ({ navigation }) => {
     const categoriesData = useSelector((state) => state.categories.data);
 
     useEffect(() => {
-        // console.log('Fetching categories...');
         dispatch(fetchCategories());
-    }, [dispatch]);
+        // console.log('Chargement Catégories');
+    }, []);
+
+    const renderCategoriesGrid = () => {
+        return (
+            <View style={styles.gridContainer}>
+                {categoriesData.map((category) => (
+                    <TouchableOpacity
+                        style={[styles.category, styles.spacing]}
+                        key={category.id}
+                        onPress={() => {
+                            navigation.navigate('CategoryScreen', {
+                                categoryId: category.id,
+                                categoryName: category.name,
+                            });
+                        }}
+                    >
+                        <Image
+                            source={require(`../assets/images/plante.jpg`)} // Remplacez par le chemin réel de votre image
+                            style={{ width: '100%', height: '100%', borderRadius: 5 }}
+                        />
+                        <View style={styles.categoryInfoContainer}>
+                            <Text style={styles.categoryName}>{category.name}</Text>
+                        </View>
+                    </TouchableOpacity>
+                ))}
+            </View>
+        );
+    };
 
     return (
         <ImageBackground
-            source={require('../assets/images/bois.jpg')}
+            source={require('../assets/images/fond4.jpg')}
             style={styles.backgroundImage}
         >
             <View style={styles.overlay}>
-                <ScrollView style={styles.container}>
-                    {categoriesData ? (
-                        categoriesData.map((category) => (
-                            <Text
-                                style={[styles.category, styles.spacing]}
-                                key={category.id}
-                                onPress={() => {
-                                    navigation.navigate('CategoryScreen', {
-                                        categoryId: category.id,
-                                        categoryName: category.name,
-                                    });
-                                }}
-                            >
-                                {category.name}
-                            </Text>
-                        ))
-                    ) : (
-                        <Text>Loading...</Text>
-                    )}
-                </ScrollView>
+                {categoriesData ? (
+                    <ScrollView style={styles.container}>
+                        {renderCategoriesGrid()}
+                    </ScrollView>
+                ) : (
+                    <Text>Loading...</Text>
+                )}
             </View>
         </ImageBackground>
     );
 };
+
+const { width } = Dimensions.get('window');
+const numColumns = 2;
+const columnWidth = width / numColumns;
 
 const styles = StyleSheet.create({
     backgroundImage: {
@@ -55,17 +73,40 @@ const styles = StyleSheet.create({
     },
     container: {
         backgroundColor: 'transparent',
-        paddingTop: 10,
+        padding: 10,
     },
     spacing: {
-        padding: 10,
         color: 'white', // Couleur du texte sur l'image assombrie
     },
+    gridContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+    },
     category: {
-        borderWidth: 1, // Épaisseur de la bordure
-        borderColor: 'rgba(255, 255, 255, 0.6)', // Couleur de la bordure (blanc semi-transparent)
-        borderRadius: 5, // Rayon des coins pour arrondir la bordure
-        marginBottom: 10, // Marge en bas pour séparer les catégories
+        width: columnWidth - 20,
+        height: columnWidth - 20,
+        borderWidth: 1,
+        borderColor: 'rgba(255, 255, 255, 0.6)',
+        borderRadius: 5,
+        marginBottom: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'relative',
+    },
+    categoryInfoContainer: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        width: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        borderBottomLeftRadius: 5,
+        borderBottomRightRadius: 5,
+        padding: 5,
+    },
+    categoryName: {
+        color: 'white',
+        textAlign: 'center',
         fontFamily: 'Dosis-Regular',
     },
 });

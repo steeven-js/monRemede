@@ -7,9 +7,14 @@ const Plantes = ({ navigation }) => {
     const dispatch = useDispatch();
     const plantsData = useSelector((state) => state.plants.data);
 
+    // useEffect(() => {
+    //     dispatch(fetchPlants());
+    // }, [dispatch]);
+
     useEffect(() => {
         dispatch(fetchPlants());
-    }, [dispatch]);
+        console.log('Chargement Plante')
+    }, []);
 
     const renderPlantsGrid = () => {
         return (
@@ -40,7 +45,7 @@ const Plantes = ({ navigation }) => {
 
     return (
         <ImageBackground
-            source={require('../assets/images/bois.jpg')}
+            source={require('../assets/images/fond4.jpg')}
             style={styles.backgroundImage}
         >
             <View style={styles.overlay}>

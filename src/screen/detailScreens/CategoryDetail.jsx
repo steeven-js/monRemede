@@ -17,7 +17,7 @@ const CategoryDetail = ({ route, navigation }) => {
 
     return (
         <ImageBackground
-            source={require('../../assets/images/bois.jpg')}
+            source={require('../../assets/images/fond4.jpg')}
             style={styles.backgroundImage}
         >
             <LinearGradient
