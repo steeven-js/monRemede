@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategory } from '../../../store/fetchApi';
 
@@ -19,7 +19,15 @@ const CategoryDetail = ({ route, navigation }) => {
             {categoryPlants && categoryPlants.plants ? (
                 <ScrollView>
                     {categoryPlants.plants.map((plant) => (
-                        <Text key={plant.id}>{plant.name}</Text>
+                        <Text
+                            key={plant.id}
+                            onPress={() => {
+                                // console.log('Navigating to CategoryDetail with category ID:', category.id);
+                                navigation.navigate('PlantScreen', {
+                                    plantId: plant.id,
+                                });
+                            }}
+                        >{plant.name}</Text>
                     ))}
                 </ScrollView>
             ) : (
