@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, ScrollView, StyleSheet, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
+import { View, ScrollView, StyleSheet, ImageBackground, Dimensions, TouchableOpacity, Image, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPlants } from '../../store/fetchApi';
 
@@ -25,7 +25,13 @@ const Plantes = ({ navigation }) => {
                             });
                         }}
                     >
-                        <Text style={styles.plantName}>{plant.name}</Text>
+                        <Image
+                            source={require(`../images/plante.jpg`)} // Remplacez par le chemin réel de votre image
+                            style={{ width: '100%', height: '100%', borderRadius: 5 }}
+                        />
+                        <View style={styles.plantInfoContainer}>
+                            <Text style={styles.plantName}>{plant.name}</Text>
+                        </View>
                     </TouchableOpacity>
                 ))}
             </View>
@@ -69,14 +75,12 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     spacing: {
-        padding: 10,
         color: 'white', // Couleur du texte sur l'image assombrie
     },
     gridContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
-        paddingl: 10,
     },
     plant: {
         width: columnWidth - 20, // -20 pour prendre en compte la marge entre les éléments
@@ -87,9 +91,21 @@ const styles = StyleSheet.create({
         marginBottom: 10, // Marge en bas pour séparer les plantes
         justifyContent: 'center', // Centrer le contenu à l'intérieur du carré
         alignItems: 'center',
+        position: 'relative', // Position relative pour permettre le positionnement absolu du texte
+    },
+    plantInfoContainer: {
+        position: 'absolute', // Position absolue par rapport au conteneur parent (TouchableOpacity)
+        bottom: 0, // Aligner le bas du conteneur au bas du TouchableOpacity
+        left: 0, // Aligner le côté gauche du conteneur au côté gauche du TouchableOpacity
+        width: '100%', // Occuper toute la largeur du TouchableOpacity
+        backgroundColor: 'rgba(0, 0, 0, 0.7)', // Fond sombre semi-transparent
+        borderBottomLeftRadius: 5, // Rayon des coins pour arrondir le coin en bas à gauche
+        borderBottomRightRadius: 5, // Rayon des coins pour arrondir le coin en bas à droite
+        padding: 5, // Espace interne pour le texte
     },
     plantName: {
         color: 'white',
+        textAlign: 'center',
     },
 });
 

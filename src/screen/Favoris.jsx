@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ImageBackground, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Image } from 'react-native';
 import { useSelector } from 'react-redux';
 
 const Favoris = () => {
@@ -13,12 +13,17 @@ const Favoris = () => {
                         style={[styles.favorite, styles.spacing]}
                         key={item.plantId}
                         onPress={() => {
-                            // Add navigation logic if needed
-                            console.log('Navigate to plant details or perform other action');
+                            // Ajoutez la logique de navigation si nécessaire
+                            console.log('Naviguer vers les détails de la plante ou effectuer une autre action');
                         }}
                     >
-                        <Text style={styles.favoriteName}>{item.plantName}</Text>
-                        {/* Add more details if needed */}
+                        <Image
+                            source={require(`../images/plante.jpg`)} // Remplacez par le chemin réel de votre image
+                            style={{ width: '100%', height: '100%', borderRadius: 5 }}
+                        />
+                        <View style={styles.favoriteInfoContainer}>
+                            <Text style={styles.favoriteName}>{item.plantName}</Text>
+                        </View>
                     </TouchableOpacity>
                 ))}
             </View>
@@ -58,14 +63,12 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     spacing: {
-        padding: 10,
-        color: 'white', // Couleur du texte sur l'image assombrie
+        color: 'white',
     },
     gridContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
-        paddingl: 10,
     },
     favorite: {
         width: columnWidth - 20, // -20 pour prendre en compte la marge entre les éléments
@@ -76,16 +79,21 @@ const styles = StyleSheet.create({
         marginBottom: 10, // Marge en bas pour séparer les favoris
         justifyContent: 'center', // Centrer le contenu à l'intérieur du carré
         alignItems: 'center',
+        position: 'relative', // Position relative pour permettre le positionnement absolu du texte
+    },
+    favoriteInfoContainer: {
+        position: 'absolute', // Position absolue par rapport au conteneur parent (TouchableOpacity)
+        bottom: 0, // Aligner le bas du conteneur au bas du TouchableOpacity
+        left: 0, // Aligner le côté gauche du conteneur au côté gauche du TouchableOpacity
+        width: '100%', // Occuper toute la largeur du TouchableOpacity
+        backgroundColor: 'rgba(0, 0, 0, 0.7)', // Fond sombre semi-transparent
+        borderBottomLeftRadius: 5, // Rayon des coins pour arrondir le coin en bas à gauche
+        borderBottomRightRadius: 5, // Rayon des coins pour arrondir le coin en bas à droite
+        padding: 5, // Espace interne pour le texte
     },
     favoriteName: {
         color: 'white',
-        textAlign: 'center', // Centrer le texte à l'intérieur du carré
-    },
-    headerText: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: 'white',
-        marginBottom: 10,
+        textAlign: 'center',
     },
 });
 
