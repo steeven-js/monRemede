@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch } from 'react-redux';
 import { addToFavorites } from '../../store/reducer/FavoritesSlice';
 import BackIcon from 'react-native-vector-icons/Ionicons';
@@ -35,43 +36,74 @@ const PlantNavBar = ({ navigation, route }) => {
 
     return (
         <View style={styles.header}>
-            <View style={styles.divAboveTabs}>
-                <BackIcon name="arrow-back" size={30} color="#900" onPress={() => navigation.goBack()} />
-                <Text>{plantName}</Text>
-                <StarIcon onPress={addToFavoritesHandler} name="star" size={30} color="#900" />
-            </View>
-            <View style={styles.container}>
-                <TouchableOpacity onPress={() => navigateToScreen('Info')} >
-                    <Text>Info</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigateToScreen('Propriete')} >
-                    <Text>Propriete</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigateToScreen('Utilisation')} >
-                    <Text>Utilisation</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigateToScreen('Precaution')} >
-                    <Text>Precaution</Text>
-                </TouchableOpacity>
+            {/* Parent container for the ImageBackground */}
+            <View>
+                <ImageBackground
+                    source={require('../assets/images/plante.jpg')}
+                    style={styles.backgroundImage}
+                >
+                    {/* Icons placed at the top of the ImageBackground */}
+                    <View style={styles.divAboveTabs}>
+                        <View style={styles.divAboveTabsContent}>
+                            <BackIcon name="arrow-back" size={30} color="#fff" onPress={() => navigation.goBack()} />
+                            <StarIcon onPress={addToFavoritesHandler} name="star" size={30} color="#fff" />
+                        </View>
+                    </View>
+                    <View style={styles.container}>
+                        <View style={styles.content}>
+                            {/* Rest of your components */}
+                            <TouchableOpacity onPress={() => navigateToScreen('Info')} >
+                                <Text style={styles.divText}>Info</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigateToScreen('Propriete')} >
+                                <Text style={styles.divText}>Propriéte</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigateToScreen('Utilisation')} >
+                                <Text style={styles.divText}>Utilisation</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigateToScreen('Precaution')} >
+                                <Text style={styles.divText}>Précaution</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </ImageBackground>
             </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    header: {
-        backgroundColor: 'lightgreen',
+    backgroundImage: {
+        height: 200,
+        resizeMode: 'cover',
+        justifyContent: 'center',
     },
     divAboveTabs: {
         padding: 10,
+        position: 'absolute',
+        top: 0,
+        width: '100%',
+    },
+    divAboveTabsContent: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
     },
     container: {
+        position: 'absolute',
+        bottom: 0,
+        width: '100%',
+    },
+    content: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.4)', // couleur noire semi-transparente
+    },
+    divText: {
+        fontSize: 18,
+        color: 'white',
+        fontFamily: 'Dosis-Regular',
     },
 });
 

@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Image } from 'react-native';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPlant } from '../../../store/fetchApi';
@@ -28,13 +28,52 @@ const Propriete = ({ route }) => {
     const { proprietes } = plant;
 
     return (
-        <View>
-            <Text>Propriete - Plant ID: {plantId}</Text>
-
-            {/* Render property information */}
-            <Text>Property: {proprietes.propriete}</Text>
-        </View>
+        <ImageBackground
+            source={require('../../assets/images/bois.jpg')}
+            style={styles.backgroundImage}
+        >
+            <View style={styles.overlay}>
+                <View style={styles.container}>
+                    <View style={styles.content}>
+                        <View style={styles.section}>
+                            <Text style={styles.soustitre}>Propriétés</Text>
+                        </View>
+                        <Text>{proprietes.propriete}</Text>
+                    </View>
+                </View>
+            </View>
+        </ImageBackground>
     );
 }
+
+const styles = StyleSheet.create({
+    backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover',
+        justifyContent: 'center',
+    },
+    overlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.4)', // couleur noire semi-transparente
+    },
+    container: {
+        backgroundColor: '#f1e3c6',
+        borderRadius: 10,
+        borderColor: 'lightgreen',
+        borderWidth: 3,
+        margin: 20,
+        marginTop: 30,
+    },
+    content: {
+        paddingHorizontal: 10,
+    },
+    soustitre: {
+        fontFamily: 'Dosis-Medium',
+        color: 'black',
+        textDecorationLine: 'underline',
+        textAlign: 'center',
+        marginVertical: 10,
+    },
+});
 
 export default Propriete;
