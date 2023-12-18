@@ -14,7 +14,7 @@ const Usages = ({ navigation }) => {
 
     return (
         <ImageBackground
-            source={require('../images/bois.jpg')}
+            source={require('../assets/images/bois.jpg')}
             style={styles.backgroundImage}
         >
             <View style={styles.overlay}>
@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(255, 255, 255, 0.6)', // Couleur de la bordure (blanc semi-transparent)
         borderRadius: 5, // Rayon des coins pour arrondir la bordure
         marginBottom: 10, // Marge en bas pour séparer les catégories
+        fontFamily: 'Dosis-Regular',
     },
 });
 

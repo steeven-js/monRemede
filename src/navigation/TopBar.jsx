@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     divText: {
         fontSize: 18,
         color: 'white',
+        fontFamily: 'Dosis-Regular',
     },
     container: {
         flexDirection: 'row',

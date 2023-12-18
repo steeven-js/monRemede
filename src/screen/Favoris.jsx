@@ -18,7 +18,7 @@ const Favoris = () => {
                         }}
                     >
                         <Image
-                            source={require(`../images/plante.jpg`)} // Remplacez par le chemin réel de votre image
+                            source={require(`../assets/images/plante.jpg`)} // Remplacez par le chemin réel de votre image
                             style={{ width: '100%', height: '100%', borderRadius: 5 }}
                         />
                         <View style={styles.favoriteInfoContainer}>
@@ -32,7 +32,7 @@ const Favoris = () => {
 
     return (
         <ImageBackground
-            source={require('../images/bois.jpg')}
+            source={require('../assets/images/bois.jpg')}
             style={styles.backgroundImage}
         >
             <View style={styles.overlay}>
@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
     favoriteName: {
         color: 'white',
         textAlign: 'center',
+        fontFamily: 'Dosis-Regular',
     },
 });
 
