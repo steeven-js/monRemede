@@ -46,7 +46,7 @@ const PlantNavBar = ({ navigation, route }) => {
                     <View style={styles.divAboveTabs}>
                         <View style={styles.divAboveTabsContent}>
                             <BackIcon name="arrow-back" size={30} color="#fff" onPress={() => navigation.navigate('Plantes médicinales')} />
-                            <StarIcon onPress={addToFavoritesHandler} name="star" size={30} color="#fff" />
+                            <StarIcon name="star" size={30} color="#fff" />
                         </View>
                     </View>
                     <View style={styles.container}>
