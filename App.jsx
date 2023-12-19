@@ -14,6 +14,7 @@ import SymptomeDetail from './src/screen/detailScreens/SymptomeDetail';
 import PlantDetail from './src/screen/detailScreens/PlantDetail';
 import Login from './src/screen/user/Login';
 import Register from './src/screen/user/Register';
+import Profile from './src/screen/user/Profile';
 
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -44,11 +45,17 @@ const App = () => {
             component={MainStack}
             options={{ headerShown: false }}
           />
+          {/* Profile */}
+          <Drawer.Screen
+            name="ProfileScreen"
+            component={Profile}
+            options={{ headerShown: false }}
+          />
           {/* Login */}
           <Drawer.Screen
             name="LoginScreen"
             component={Login}
-            options={{ headerShown: false }}
+            options={{ headerShown: false, drawerLabel: () => null }}
           />
           {/* Register */}
           <Drawer.Screen
