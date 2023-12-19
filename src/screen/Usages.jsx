@@ -1,21 +1,24 @@
 import React, { useEffect } from 'react';
 import { View, ScrollView, StyleSheet, ImageBackground, Dimensions, TouchableOpacity, Image, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories } from '../../store/fetchApi';
+import { fetchSymptomes } from '../../store/fetchApi';
 
 const Usages = ({ navigation }) => {
     const dispatch = useDispatch();
-    const categoriesData = useSelector((state) => state.categories.data);
+    const symtomesData = useSelector((state) => state.symptomes.data);
 
     useEffect(() => {
-        dispatch(fetchCategories());
-        // console.log('Chargement Catégories');
+        dispatch(fetchSymptomes());
+        // console.log('symtomesData', symtomesData);
     }, []);
 
     const renderCategoriesGrid = () => {
+        if (!symtomesData) {
+            return <Text>Loading...</Text>;
+        }
         return (
             <View style={styles.gridContainer}>
-                {categoriesData.map((category) => (
+                {symtomesData.map((category) => (
                     <TouchableOpacity
                         style={[styles.category, styles.spacing]}
                         key={category.id}
@@ -45,7 +48,7 @@ const Usages = ({ navigation }) => {
             style={styles.backgroundImage}
         >
             <View style={styles.overlay}>
-                {categoriesData ? (
+                {symtomesData ? (
                     <ScrollView style={styles.container}>
                         {renderCategoriesGrid()}
                     </ScrollView>

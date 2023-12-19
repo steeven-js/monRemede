@@ -1,10 +1,10 @@
 // CategorySlice.js
-import { fetchCategories, fetchCategory } from '../fetchApi';
+import { fetchSymptomes, fetchSymptome } from '../fetchApi';
 
 const {createSlice, createAsyncThunk} = require('@reduxjs/toolkit');
 
 const CategorySlice = createSlice({
-  name: 'categories',
+  name: 'symptomes',
   initialState: {
     data: null,
     isLoader: false,
@@ -13,25 +13,25 @@ const CategorySlice = createSlice({
     categoryPlants: [],
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchCategories.pending, (state) => {
+    builder.addCase(fetchSymptomes.pending, (state) => {
       state.isLoader = true;
     });
-    builder.addCase(fetchCategories.fulfilled, (state, action) => {
+    builder.addCase(fetchSymptomes.fulfilled, (state, action) => {
       state.isLoader = false;
       state.data = action.payload;
     });
-    builder.addCase(fetchCategories.rejected, (state) => {
+    builder.addCase(fetchSymptomes.rejected, (state) => {
       state.isLoader = false;
       state.isError = true;
     });
-    builder.addCase(fetchCategory.pending, (state) => {
+    builder.addCase(fetchSymptome.pending, (state) => {
       state.isLoader = true;
     });
-    builder.addCase(fetchCategory.fulfilled, (state, action) => {
+    builder.addCase(fetchSymptome.fulfilled, (state, action) => {
       state.isLoader = false;
       state.categoryPlants = action.payload;
     });
-    builder.addCase(fetchCategory.rejected, (state) => {
+    builder.addCase(fetchSymptome.rejected, (state) => {
       state.isLoader = false;
       state.isError = true;
     });

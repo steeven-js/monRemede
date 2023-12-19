@@ -24,9 +24,6 @@ const Info = ({ route }) => {
         );
     }
 
-    // Extract the relevant information from the plant data
-    const { name, infos, proprietes, utilisations, precautions } = plant;
-
     return (
         <ImageBackground
             source={require('../../assets/images/fond4.jpg')}
@@ -37,7 +34,7 @@ const Info = ({ route }) => {
                     <View style={styles.content}>
 
                         <View style={styles.section}>
-                            <Text style={styles.title}>{name}</Text>
+                            <Text style={styles.title}>{plant.name}</Text>
                         </View>
 
                         <View style={[styles.section, styles.borderBottom]}>
@@ -45,27 +42,27 @@ const Info = ({ route }) => {
                                 <Text style={styles.bold}>
                                     N.Scient:{' '}
                                 </Text>
-                                {infos.nscient}</Text>
+                                {plant.nscient}</Text>
                             <Text>
                                 <Text style={styles.bold}>
                                     Famille:{' '}
                                 </Text>
-                                {infos.famille}</Text>
+                                {plant.famille}</Text>
                             <Text>
                                 <Text style={styles.bold}>
                                     Genre:{' '}
                                 </Text>
-                                {infos.genre}</Text>
+                                {plant.genre}</Text>
                         </View>
 
                         <View style={[styles.section, styles.borderBottom]}>
                             <Text style={styles.soustitre}>Description</Text>
-                            <Text>{infos.description}</Text>
+                            <Text>{plant.description}</Text>
                         </View>
 
                         <View style={[styles.section, styles.borderBottom]}>
                             <Text style={styles.soustitre}>Habitat</Text>
-                            <Text>{infos.habitat}</Text>
+                            <Text>{plant.habitat}</Text>
                         </View>
 
                     </View>

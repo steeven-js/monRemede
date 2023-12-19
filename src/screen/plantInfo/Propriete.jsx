@@ -38,7 +38,11 @@ const Propriete = ({ route }) => {
                         <View style={styles.section}>
                             <Text style={styles.soustitre}>Propriétés</Text>
                         </View>
-                        <Text>{proprietes.propriete}</Text>
+                        {proprietes.map((proprietesItem) => (
+                            <View key={proprietesItem.id} style={styles.text}>
+                                <Text>{'.'} {proprietesItem.value}</Text>
+                            </View>
+                        ))}
                     </View>
                 </View>
             </View>

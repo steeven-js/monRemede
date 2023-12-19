@@ -45,7 +45,7 @@ const PlantNavBar = ({ navigation, route }) => {
                     {/* Icons placed at the top of the ImageBackground */}
                     <View style={styles.divAboveTabs}>
                         <View style={styles.divAboveTabsContent}>
-                            <BackIcon name="arrow-back" size={30} color="#fff" onPress={() => navigation.goBack()} />
+                            <BackIcon name="arrow-back" size={30} color="#fff" onPress={() => navigation.navigate('Plantes médicinales')} />
                             <StarIcon onPress={addToFavoritesHandler} name="star" size={30} color="#fff" />
                         </View>
                     </View>

@@ -1,13 +1,13 @@
 // store.js
 
 import { configureStore } from '@reduxjs/toolkit';
-import CategoryReducer from './reducer/CategorieSlice';
+import SymptomeReducer from './reducer/SymptomeSlice';
 import PlantReducer from './reducer/PlantSlice';
 import FavoritesReducer from './reducer/FavoritesSlice';
 
 const store = configureStore({
     reducer: {
-        categories: CategoryReducer,
+        symptomes: SymptomeReducer,
         plants: PlantReducer,
         favorites: FavoritesReducer,
     },

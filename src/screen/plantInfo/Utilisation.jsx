@@ -27,6 +27,10 @@ const Utilisation = ({ route }) => {
     // Extract the relevant information from the plant data
     const { utilisations } = plant;
 
+    // Filter utilisations based on type (interne or externe)
+    const utilisationsInterne = utilisations.filter(item => item.type === 'interne');
+    const utilisationsExterne = utilisations.filter(item => item.type === 'externe');
+
     return (
         <ImageBackground
             source={require('../../assets/images/fond4.jpg')}
@@ -40,11 +44,19 @@ const Utilisation = ({ route }) => {
                         </View>
                         <View style={[styles.section, styles.borderBottom]}>
                             <Text style={styles.soustitre}>Usage Interne</Text>
-                            <Text style={styles.text}>{utilisations.interne}</Text>
+                            {utilisationsInterne.map((utilisationItem) => (
+                                <Text key={utilisationItem.id} style={styles.text}>
+                                    {utilisationItem.value}
+                                </Text>
+                            ))}
                         </View>
                         <View style={styles.section}>
                             <Text style={styles.soustitre}>Usage Externe</Text>
-                            <Text style={styles.text}>{utilisations.externe}</Text>
+                            {utilisationsExterne.map((utilisationItem) => (
+                                <Text key={utilisationItem.id} style={styles.text}>
+                                    {utilisationItem.value}
+                                </Text>
+                            ))}
                         </View>
                     </View>
                 </View>

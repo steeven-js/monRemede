@@ -44,7 +44,6 @@ const CategoryDetail = ({ route, navigation }) => {
                                     style={[styles.favorite, styles.spacing]}
                                     key={plant.id}
                                     onPress={() => {
-                                        // console.log('Navigating to CategoryDetail with category ID:', category.id);
                                         navigation.navigate('PlantScreen', {
                                             plantId: plant.id,
                                         });

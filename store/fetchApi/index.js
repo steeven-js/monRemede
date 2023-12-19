@@ -1,24 +1,24 @@
 // index.js
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const fetchCategories = createAsyncThunk('fetchCategories', async () => {
+export const fetchSymptomes = createAsyncThunk('fetchSymptomes', async () => {
     try {
-        const res = await fetch('https://apimonremede.jsprod.fr/api/categories');
+        const res = await fetch('https://apimonremede.jsprod.fr/api/symptomes');
         const final = await res.json();
         return final;
     } catch (error) {
-        console.error('Error fetching categories:', error);
+        console.error('Error fetching symptomes:', error);
         throw error;
     }
 });
 
-export const fetchCategory = createAsyncThunk('fetchCategory', async (categoryId) => {
+export const fetchSymptome = createAsyncThunk('fetchSymptome', async (symptomesId) => {
     try {
-        const res = await fetch(`https://apimonremede.jsprod.fr/api/categories/${categoryId}`);
+        const res = await fetch(`https://apimonremede.jsprod.fr/api/symptomes/${symptomesId}`);
         const final = await res.json();
         return final;
     } catch (error) {
-        console.error('Error fetching category:', error);
+        console.error('Error fetching symptome:', error);
         throw error;
     }
 });

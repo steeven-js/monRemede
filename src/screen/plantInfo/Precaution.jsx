@@ -37,7 +37,11 @@ const Precaution = ({ route }) => {
                     <View style={styles.content}>
                         <View style={styles.section}>
                             <Text style={styles.title}>Précautions</Text>
-                            <Text>{precautions.precaution}</Text>
+                            {precautions.map((precautionItem) => (
+                                <View key={precautionItem.id} style={styles.text}>
+                                    <Text>{'.'} {precautionItem.value}</Text>
+                                </View>
+                            ))}
                         </View>
                     </View>
                 </View>
