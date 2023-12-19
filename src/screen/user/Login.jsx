@@ -17,16 +17,21 @@ const Login = ({ navigation }) => {
                 password
             );
             const user = userCredential.user;
+
             // Dispatch l'action pour mettre à jour le state Redux avec l'utilisateur
             dispatch(setUser(user));
             console.log('User logged in successfully!');
+
+            // Réinitialiser les champs d'entrée après une identification réussie
+            setEmail('');
+            setPassword('');
+
             // Rediriger vers la page d'accueil après l'authentification réussie
             navigation.navigate('Home');
         } catch (error) {
             console.error('Error logging in:', error.message);
         }
     };
-
 
     return (
         <View>
