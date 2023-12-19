@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../../redux/actions/userActions';
 import auth from '@react-native-firebase/auth';
 import BackIcon from 'react-native-vector-icons/Ionicons';
 
 const Login = ({ navigation }) => {
+    const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleLogin = async () => {
         try {
-            await auth().signInWithEmailAndPassword(email, password);
+            const userCredential = await auth().signInWithEmailAndPassword(
+                email,
+                password
+            );
+            const user = userCredential.user;
+            // Dispatch l'action pour mettre à jour le state Redux avec l'utilisateur
+            dispatch(setUser(user));
             console.log('User logged in successfully!');
             // Rediriger vers la page d'accueil après l'authentification réussie
             navigation.navigate('Home');
@@ -17,6 +26,7 @@ const Login = ({ navigation }) => {
             console.error('Error logging in:', error.message);
         }
     };
+
 
     return (
         <View>
