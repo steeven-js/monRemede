@@ -12,6 +12,8 @@ import TopBar from './src/navigation/TopBar';
 import store from './store/store';
 import SymptomeDetail from './src/screen/detailScreens/SymptomeDetail';
 import PlantDetail from './src/screen/detailScreens/PlantDetail';
+import Login from './src/screen/user/Login';
+import Register from './src/screen/user/Register';
 
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -41,6 +43,18 @@ const App = () => {
             name="Home"
             component={MainStack}
             options={{ headerShown: false }}
+          />
+          {/* Login */}
+          <Drawer.Screen
+            name="LoginScreen"
+            component={Login}
+            options={{ headerShown: false }}
+          />
+          {/* Register */}
+          <Drawer.Screen
+            name="RegisterScreen"
+            component={Register}
+            options={{ headerShown: false, drawerLabel: () => null }}
           />
           {/* Category */}
           <Drawer.Screen

@@ -3,43 +3,43 @@ import { View, Text, ImageBackground, StyleSheet, ScrollView, Dimensions, Toucha
 import { useSelector } from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
 
-const Favoris = () => {
+const Favoris = ({navigation}) => {
     const favorites = useSelector((state) => state.favorites);
 
-    const test = () => {
-        console.log("Button clicked!");
-    };
+    // const test = () => {
+    //     console.log("Button clicked!");
+    // };
 
-    const renderFavoritesGrid = () => {
-        return (
-            <View style={styles.gridContainer}>
-                {favorites.map((item) => (
-                    <TouchableOpacity
-                        style={[styles.favorite, styles.spacing]}
-                        key={item.plantId}
-                        onPress={() => {
-                            // Ajoutez la logique de navigation si nécessaire
-                            console.log('Naviguer vers les détails de la plante ou effectuer une autre action');
-                        }}
-                    >
-                        <Image
-                            source={require(`../assets/images/plante.jpg`)} // Remplacez par le chemin réel de votre image
-                            style={{ width: '100%', height: '100%', borderRadius: 5 }}
-                        />
-                        <View style={styles.favoriteInfoContainer}>
-                            <Text style={styles.favoriteName}>{item.plantName}</Text>
-                        </View>
-                    </TouchableOpacity>
-                ))}
-            </View>
-        );
-    };
+    // const renderFavoritesGrid = () => {
+    //     return (
+    //         <View style={styles.gridContainer}>
+    //             {favorites.map((item) => (
+    //                 <TouchableOpacity
+    //                     style={[styles.favorite, styles.spacing]}
+    //                     key={item.plantId}
+    //                     onPress={() => {
+    //                         // Ajoutez la logique de navigation si nécessaire
+    //                         console.log('Naviguer vers les détails de la plante ou effectuer une autre action');
+    //                     }}
+    //                 >
+    //                     <Image
+    //                         source={require(`../assets/images/plante.jpg`)} // Remplacez par le chemin réel de votre image
+    //                         style={{ width: '100%', height: '100%', borderRadius: 5 }}
+    //                     />
+    //                     <View style={styles.favoriteInfoContainer}>
+    //                         <Text style={styles.favoriteName}>{item.plantName}</Text>
+    //                     </View>
+    //                 </TouchableOpacity>
+    //             ))}
+    //         </View>
+    //     );
+    // };
 
     useEffect(() => {
         const subscriber = firestore()
             .collection('Users').limit(10)
             .onSnapshot(documentSnapshot => {
-                console.log('User data: ', documentSnapshot);
+                // console.log('User data: ', documentSnapshot);
             });
 
         // Stop listening for updates when no longer required
@@ -58,7 +58,7 @@ const Favoris = () => {
                     ) : (
                         <View>
                             <Text>No favorites yet.</Text>
-                            <Button title="Se connecter" onPress={test} />
+                            <Button title="Se connecter" onPress={() => { navigation.navigate('LoginScreen') }} />
                         </View>
                     )}
                 </ScrollView>
