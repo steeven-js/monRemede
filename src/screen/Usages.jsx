@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, ScrollView, StyleSheet, ImageBackground, Dimensions, TouchableOpacity, Image, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSymptomes } from '../../store/fetchApi';
+import { fetchSymptomes } from '../../redux/fetchApi';
 
 const Usages = ({ navigation }) => {
     const dispatch = useDispatch();

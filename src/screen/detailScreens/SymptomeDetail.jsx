@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View, Text, ImageBackground, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSymptome } from '../../../store/fetchApi';
+import { fetchSymptome } from '../../../redux/fetchApi';
 import BackIcon from 'react-native-vector-icons/Ionicons';
 import StarIcon from 'react-native-vector-icons/FontAwesome6';
 

@@ -9,7 +9,7 @@ import Usages from './src/screen/Usages';
 import Plantes from './src/screen/Plantes';
 import Favoris from './src/screen/Favoris';
 import TopBar from './src/navigation/TopBar';
-import store from './store/store';
+import store from './redux/redux';
 import SymptomeDetail from './src/screen/detailScreens/SymptomeDetail';
 import PlantDetail from './src/screen/detailScreens/PlantDetail';
 import Login from './src/screen/user/Login';

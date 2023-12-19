@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, ScrollView, StyleSheet, ImageBackground, Dimensions, TouchableOpacity, Image, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPlants } from '../../store/fetchApi';
+import { fetchPlants } from '../../redux/fetchApi';
 
 const Plantes = ({ navigation }) => {
     const dispatch = useDispatch();

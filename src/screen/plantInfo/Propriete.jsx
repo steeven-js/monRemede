@@ -1,7 +1,7 @@
 import { View, Text, ImageBackground, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Image } from 'react-native';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPlant } from '../../../store/fetchApi';
+import { fetchPlant } from '../../../redux/fetchApi';
 
 const Propriete = ({ route }) => {
     const { plantId } = route.params;

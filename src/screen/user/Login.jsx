@@ -1,15 +1,43 @@
-import { View, Text, Button } from 'react-native'
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button } from 'react-native';
+import auth from '@react-native-firebase/auth';
 import BackIcon from 'react-native-vector-icons/Ionicons';
-import React from 'react'
 
-const Login = ( {navigation} ) => {
+const Login = ({ navigation }) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleLogin = async () => {
+        try {
+            await auth().signInWithEmailAndPassword(email, password);
+            console.log('User logged in successfully!');
+            // Rediriger vers la page d'accueil après l'authentification réussie
+            navigation.navigate('Home');
+        } catch (error) {
+            console.error('Error logging in:', error.message);
+        }
+    };
+
     return (
         <View>
-            <BackIcon name="arrow-back" size={30} color="#000" onPress={() => navigation.navigate('Plantes médicinales')} />
+            <BackIcon name="arrow-back" size={30} color="#000" onPress={() => navigation.navigate('Home')} />
             <Text>Login</Text>
-            <Button title="Register" onPress={() => {navigation.navigate('RegisterScreen')}} />
+            <TextInput
+                placeholder="Email"
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+            />
+            <TextInput
+                placeholder="Password"
+                secureTextEntry
+                value={password}
+                onChangeText={(text) => setPassword(text)}
+            />
+            <Button title="Login" onPress={handleLogin} />
+            <Text>Don't have an account? </Text>
+            <Text onPress={() => navigation.navigate('RegisterScreen')}>Register</Text>
         </View>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;
