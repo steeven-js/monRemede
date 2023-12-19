@@ -1,9 +1,14 @@
-import React from 'react';
-import { View, Text, ImageBackground, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Image } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Text, ImageBackground, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Image, Button } from 'react-native';
 import { useSelector } from 'react-redux';
+import firestore from '@react-native-firebase/firestore';
 
 const Favoris = () => {
     const favorites = useSelector((state) => state.favorites);
+
+    const test = () => {
+        console.log("Button clicked!");
+    };
 
     const renderFavoritesGrid = () => {
         return (
@@ -30,6 +35,17 @@ const Favoris = () => {
         );
     };
 
+    useEffect(() => {
+        const subscriber = firestore()
+            .collection('Users').limit(10)
+            .onSnapshot(documentSnapshot => {
+                console.log('User data: ', documentSnapshot);
+            });
+
+        // Stop listening for updates when no longer required
+        return () => subscriber();
+    }, []);
+
     return (
         <ImageBackground
             source={require('../assets/images/fond4.jpg')}
@@ -40,7 +56,10 @@ const Favoris = () => {
                     {favorites.length > 0 ? (
                         renderFavoritesGrid()
                     ) : (
-                        <Text>No favorites yet.</Text>
+                        <View>
+                            <Text>No favorites yet.</Text>
+                            <Button title="Se connecter" onPress={test} />
+                        </View>
                     )}
                 </ScrollView>
             </View>
