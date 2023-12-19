@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "62541315106",
+    "project_id": "monremede-d8bfe",
+    "storage_bucket": "monremede-d8bfe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:62541315106:android:72d7d3e3a32b0d65695e7b",
+        "android_client_info": {
+          "package_name": "com.monremede"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7DYQRFT86C3wRh9p3R5Tuo_7Hw1sh_uQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
