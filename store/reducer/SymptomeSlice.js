@@ -1,16 +1,16 @@
-// CategorySlice.js
+// SymptomeSlice.js
 import { fetchSymptomes, fetchSymptome } from '../fetchApi';
 
 const {createSlice, createAsyncThunk} = require('@reduxjs/toolkit');
 
-const CategorySlice = createSlice({
+const SymptomeSlice = createSlice({
   name: 'symptomes',
   initialState: {
     data: null,
     isLoader: false,
     isError: false,
-    selectedCategory: null,
-    categoryPlants: [],
+    selectedSymptome: null,
+    symptomePlants: [],
   },
   extraReducers: (builder) => {
     builder.addCase(fetchSymptomes.pending, (state) => {
@@ -29,7 +29,7 @@ const CategorySlice = createSlice({
     });
     builder.addCase(fetchSymptome.fulfilled, (state, action) => {
       state.isLoader = false;
-      state.categoryPlants = action.payload;
+      state.symptomePlants = action.payload;
     });
     builder.addCase(fetchSymptome.rejected, (state) => {
       state.isLoader = false;
@@ -38,4 +38,4 @@ const CategorySlice = createSlice({
   },
 });
 
-export default CategorySlice.reducer;
+export default SymptomeSlice.reducer;

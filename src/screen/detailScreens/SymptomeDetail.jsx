@@ -2,18 +2,18 @@ import React, { useEffect } from 'react';
 import { View, Text, ImageBackground, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategory } from '../../../store/fetchApi';
+import { fetchSymptome } from '../../../store/fetchApi';
 import BackIcon from 'react-native-vector-icons/Ionicons';
 import StarIcon from 'react-native-vector-icons/FontAwesome6';
 
-const CategoryDetail = ({ route, navigation }) => {
-    const { categoryId, categoryName } = route.params;
+const SymptomeDetail = ({ route, navigation }) => {
+    const { symptomeId, symptomeName } = route.params;
     const dispatch = useDispatch();
-    const categoryPlants = useSelector((state) => state.categories.categoryPlants);
+    const symptomePlants = useSelector((state) => state.symptomes.symptomePlants);
 
     useEffect(() => {
-        dispatch(fetchCategory(categoryId));
-    }, [dispatch, categoryId]);
+        dispatch(fetchSymptome(symptomeId));
+    }, [dispatch, symptomeId]);
 
     return (
         <ImageBackground
@@ -29,17 +29,17 @@ const CategoryDetail = ({ route, navigation }) => {
             >
                 <View style={styles.divAboveTabs}>
                     <BackIcon name="arrow-back" size={30} color="#fff" onPress={() => navigation.goBack()} />
-                    <Text style={styles.divText}>{categoryName}</Text>
-                    <Text style={styles.divText}>{categoryPlants.plants_count}</Text>
+                    <Text style={styles.divText}>{symptomeName}</Text>
+                    <Text style={styles.divText}>{symptomePlants.plants_count}</Text>
                 </View>
             </LinearGradient>
 
             <View style={styles.overlay}>
 
-                {categoryPlants && categoryPlants.plants ? (
+                {symptomePlants && symptomePlants.plants ? (
                     <ScrollView style={styles.container}>
                         <View style={styles.gridContainer}>
-                            {categoryPlants.plants.map((plant) => (
+                            {symptomePlants.plants.map((plant) => (
                                 <TouchableOpacity
                                     style={[styles.favorite, styles.spacing]}
                                     key={plant.id}
@@ -143,4 +143,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default CategoryDetail;
+export default SymptomeDetail;

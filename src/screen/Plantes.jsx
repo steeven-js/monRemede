@@ -13,7 +13,7 @@ const Plantes = ({ navigation }) => {
 
     useEffect(() => {
         dispatch(fetchPlants());
-        console.log('Chargement Plante')
+        // console.log('Chargement Plante')
     }, []);
 
     const renderPlantsGrid = () => {

@@ -10,7 +10,7 @@ import Plantes from './src/screen/Plantes';
 import Favoris from './src/screen/Favoris';
 import TopBar from './src/navigation/TopBar';
 import store from './store/store';
-import CategoryDetail from './src/screen/detailScreens/CategoryDetail';
+import SymptomeDetail from './src/screen/detailScreens/SymptomeDetail';
 import PlantDetail from './src/screen/detailScreens/PlantDetail';
 
 const HomeStack = createStackNavigator();
@@ -45,7 +45,7 @@ const App = () => {
           {/* Category */}
           <Drawer.Screen
             name="CategoryScreen"
-            component={CategoryDetail}
+            component={SymptomeDetail}
             options={{ headerShown: false, drawerLabel: () => null }}
           />
           {/* Plant */}

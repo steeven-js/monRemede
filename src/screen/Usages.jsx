@@ -24,8 +24,8 @@ const Usages = ({ navigation }) => {
                         key={category.id}
                         onPress={() => {
                             navigation.navigate('CategoryScreen', {
-                                categoryId: category.id,
-                                categoryName: category.name,
+                                symptomeId: category.id,
+                                symptomeName: category.name,
                             });
                         }}
                     >
@@ -34,7 +34,7 @@ const Usages = ({ navigation }) => {
                             style={{ width: '100%', height: '100%', borderRadius: 5 }}
                         />
                         <View style={styles.categoryInfoContainer}>
-                            <Text style={styles.categoryName}>{category.name}</Text>
+                            <Text style={styles.symptomeName}>{category.name}</Text>
                         </View>
                     </TouchableOpacity>
                 ))}
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 5,
         padding: 5,
     },
-    categoryName: {
+    symptomeName: {
         color: 'white',
         textAlign: 'center',
         fontFamily: 'Dosis-Regular',
