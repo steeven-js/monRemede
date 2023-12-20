@@ -52,17 +52,17 @@ const App = () => {
             options={{ headerShown: false }}
           />
           {/* Login */}
-          {/* <Drawer.Screen
+          <Drawer.Screen
             name="LoginScreen"
             component={Login}
-            options={{ headerShown: false }}
-          /> */}
+            options={{ headerShown: false, drawerLabel: () => null }}
+          />
           {/* Register */}
-          {/* <Drawer.Screen
+          <Drawer.Screen
             name="RegisterScreen"
             component={Register}
             options={{ headerShown: false, drawerLabel: () => null }}
-          /> */}
+          />
           {/* Category */}
           <Drawer.Screen
             name="CategoryScreen"
