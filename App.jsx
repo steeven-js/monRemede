@@ -1,9 +1,11 @@
+// App
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import HomeDrawer from './src/navigation/drawer/HomeDrawer';
 import Splash from './src/screen/splash';
+import { fetchPlants, fetchSymptomes } from './redux/fetchApi'; // Importez l'action fetchSymptomes
 
 const App = () => {
 
@@ -12,16 +14,20 @@ const App = () => {
 
   // Hooks
   useEffect(() => {
-    // Updating state value after 2500 milliseconds(2.5 seconds) of delay.
+    // Exécutez le chargement initial des symptômes ici
+    store.dispatch(fetchSymptomes());
+    store.dispatch(fetchPlants());
+
+    // Mise à jour de l'état après un délai de 2500 millisecondes (2.5 secondes)
     setTimeout(() => {
-      // Updating states
+      // Mise à jour de l'état
       setIsStarting(false);
     }, 2500);
   }, []);
 
-  // Checking
+  // Vérification
   if (isStarting) {
-    // Returning
+    // Retourner l'écran de chargement
     return <Splash />;
   }
 

@@ -23,7 +23,7 @@ const Usages = ({ navigation }) => {
                         style={[styles.category, styles.spacing]}
                         key={category.id}
                         onPress={() => {
-                            navigation.navigate('CategoryScreen', {
+                            navigation.navigate('SymptomeDetail', {
                                 symptomeId: category.id,
                                 symptomeName: category.name,
                             });
