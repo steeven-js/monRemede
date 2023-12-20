@@ -11,9 +11,12 @@ const SymptomeDetail = ({ route, navigation }) => {
     const dispatch = useDispatch();
     const symptomePlants = useSelector((state) => state.symptomes.symptomePlants);
 
+    // Check if data is already available, if not, fetch it
     useEffect(() => {
-        dispatch(fetchSymptome(symptomeId));
-    }, [dispatch, symptomeId]);
+        if (!symptomePlants) {
+            dispatch(fetchSymptome(symptomeId));
+        }
+    }, []);
 
     return (
         <ImageBackground
@@ -30,12 +33,11 @@ const SymptomeDetail = ({ route, navigation }) => {
                 <View style={styles.divAboveTabs}>
                     <BackIcon name="arrow-back" size={30} color="#fff" onPress={() => navigation.goBack()} />
                     <Text style={styles.divText}>{symptomeName}</Text>
-                    <Text style={styles.divText}>{symptomePlants.plants_count}</Text>
+                    <Text style={styles.divText}>{symptomePlants?.plants_count}</Text>
                 </View>
             </LinearGradient>
 
             <View style={styles.overlay}>
-
                 {symptomePlants && symptomePlants.plants ? (
                     <ScrollView style={styles.container}>
                         <View style={styles.gridContainer}>
@@ -63,7 +65,6 @@ const SymptomeDetail = ({ route, navigation }) => {
                 ) : (
                     <Text>Loading plants...</Text>
                 )}
-
             </View>
         </ImageBackground>
     );
