@@ -11,13 +11,13 @@ const SymptomeDetail = ({ route, navigation }) => {
     const symptomePlants = useSelector((state) => state.symptomes.symptomePlants);
 
     // Check if data is already available, if not, fetch it
-    // useEffect(() => {
-    //     dispatch(fetchSymptome(symptomeId));
-    // }, []);
+    useEffect(() => {
+        dispatch(fetchSymptome(symptomeId));
+    }, []);
 
-    if (!symptomePlants) {
-    dispatch(fetchSymptome(symptomeId));
-    }
+    // if (!symptomePlants) {
+    // dispatch(fetchSymptome(symptomeId));
+    // }
 
     return (
         <ImageBackground
