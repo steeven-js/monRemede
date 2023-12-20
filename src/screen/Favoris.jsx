@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Button, Dimensions } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Button, Dimensions, Image } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { firebase } from '@react-native-firebase/auth';
 
@@ -65,8 +65,15 @@ const Favoris = ({ navigation }) => {
                                         <TouchableOpacity
                                             key={favorite.id}
                                             style={styles.favorite}
-                                            onPress={() => { /* Naviguez vers les détails de la plante si nécessaire */ }}
+                                            onPress={() => {
+                                                // Redirigez vers l'écran PlantDetail avec l'ID de la plante
+                                                navigation.navigate('PlantScreen', { plantId: favorite.plantId });
+                                            }}
                                         >
+                                            <Image
+                                                source={require(`../assets/images/plante/plante.jpg`)} // Replace with the actual path of your image
+                                                style={{ width: '100%', height: '100%', borderRadius: 5 }}
+                                            />
                                             <View style={styles.favoriteInfoContainer}>
                                                 <Text style={styles.favoriteName}>{plant ? plant.name : 'Unknown Plant'}</Text>
                                             </View>
