@@ -1,46 +1,70 @@
-import React, { useEffect } from 'react';
-import { View, ScrollView, StyleSheet, ImageBackground, Dimensions, TouchableOpacity, Image, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+    View,
+    StyleSheet,
+    ImageBackground,
+    Dimensions,
+    TouchableOpacity,
+    Image,
+    Text,
+    FlatList,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSymptomes } from '../../redux/fetchApi';
 
 const Usages = ({ navigation }) => {
     const dispatch = useDispatch();
-    const symtomesData = useSelector((state) => state.symptomes.data);
+    const symptomesData = useSelector((state) => state.symptomes.data);
+    const [isLoading, setIsLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        dispatch(fetchSymptomes());
-        // console.log('symtomesData', symtomesData);
+        // Chargement initial des symptômes
+        loadSymptomes();
     }, []);
 
-    const renderCategoriesGrid = () => {
-        if (!symtomesData) {
-            return <Text>Loading...</Text>;
-        }
-        return (
-            <View style={styles.gridContainer}>
-                {symtomesData.map((category) => (
-                    <TouchableOpacity
-                        style={[styles.category, styles.spacing]}
-                        key={category.id}
-                        onPress={() => {
-                            navigation.navigate('SymptomeDetail', {
-                                symptomeId: category.id,
-                                symptomeName: category.name,
-                            });
-                        }}
-                    >
-                        <Image
-                            source={require(`../assets/images/plante/plante.jpg`)} // Remplacez par le chemin réel de votre image
-                            style={{ width: '100%', height: '100%', borderRadius: 5 }}
-                        />
-                        <View style={styles.categoryInfoContainer}>
-                            <Text style={styles.symptomeName}>{category.name}</Text>
-                        </View>
-                    </TouchableOpacity>
-                ))}
-            </View>
-        );
+    const loadSymptomes = () => {
+        if (isLoading) return;
+
+        setIsLoading(true);
+        dispatch(fetchSymptomes(currentPage))
+            .then(() => {
+                setCurrentPage(currentPage + 1);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
     };
+
+    const handleItemClick = (item) => {
+        navigation.navigate('SymptomeDetail', {
+            symptomeId: item.id,
+            symptomeName: item.name,
+        });
+    };
+
+    const renderCategoryItem = ({ item }) => (
+        <TouchableOpacity
+            style={[styles.category, styles.spacing]}
+            onPress={() => handleItemClick(item)}
+        >
+            <Image
+                source={require(`../assets/images/plante/plante.jpg`)} // Remplacez par le chemin réel de votre image
+                style={{ width: '100%', height: '100%', borderRadius: 5 }}
+            />
+            <View style={styles.categoryInfoContainer}>
+                <Text style={styles.symptomeName}>{item.name}</Text>
+            </View>
+        </TouchableOpacity>
+    );
+
+    const renderFooter = () => {
+        if (!isLoading) return null;
+
+        return <Text>Loading...</Text>;
+    };
+
+    const keyExtractor = (item) => item.id.toString();
 
     return (
         <ImageBackground
@@ -48,10 +72,17 @@ const Usages = ({ navigation }) => {
             style={styles.backgroundImage}
         >
             <View style={styles.overlay}>
-                {symtomesData ? (
-                    <ScrollView style={styles.container}>
-                        {renderCategoriesGrid()}
-                    </ScrollView>
+                {symptomesData ? (
+                    <FlatList
+                        data={symptomesData}
+                        renderItem={renderCategoryItem}
+                        keyExtractor={keyExtractor}
+                        numColumns={2}
+                        onEndReachedThreshold={0.1}
+                        onEndReached={loadSymptomes}
+                        ListFooterComponent={renderFooter}
+                        contentContainerStyle={styles.container}
+                    />
                 ) : (
                     <Text>Loading...</Text>
                 )}
@@ -76,7 +107,6 @@ const styles = StyleSheet.create({
     },
     container: {
         backgroundColor: 'transparent',
-        padding: 10,
     },
     spacing: {
         color: 'white', // Couleur du texte sur l'image assombrie
@@ -96,6 +126,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         position: 'relative',
+        margin: 10,
     },
     categoryInfoContainer: {
         position: 'absolute',
