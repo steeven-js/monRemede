@@ -5,6 +5,7 @@ import { setUser } from '../../../redux/actions/userActions';
 import auth from '@react-native-firebase/auth';
 import BackIcon from 'react-native-vector-icons/Ionicons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import styles from './styles';
 
 const Connexion = ({ navigation }) => {
     const dispatch = useDispatch();
@@ -69,20 +70,5 @@ const Connexion = ({ navigation }) => {
         </SafeAreaView>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        padding: 16,
-    },
-    input: {
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 12,
-        paddingHorizontal: 8,
-    },
-});
 
 export default Connexion;

@@ -3,6 +3,7 @@ import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Ionicons';
+import styles from './styles';
 
 const Register = ({ navigation }) => {
     const dispatch = useDispatch();
@@ -89,25 +90,5 @@ const Register = ({ navigation }) => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        padding: 16,
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 16,
-    },
-    input: {
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 12,
-        paddingHorizontal: 8,
-    },
-});
 
 export default Register;

@@ -3,6 +3,7 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import BackIcon from 'react-native-vector-icons/Ionicons';
 import IconLogout from 'react-native-vector-icons/AntDesign';
+import styles from './styles';
 
 const Profile = ({ navigation }) => {
     const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
@@ -60,26 +61,5 @@ const Profile = ({ navigation }) => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    profile: {
-        flex: 1,
-    },
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    nav: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        padding: 10,
-    },
-    font: {
-        fontFamily: 'Dosis-Regular',
-    }
-});
 
 export default Profile;

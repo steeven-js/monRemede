@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSymptomes } from '../../../redux/fetchApi';
+import styles from './styles';
 
 const Usages = ({ navigation }) => {
     const dispatch = useDispatch();
@@ -53,32 +54,5 @@ const Usages = ({ navigation }) => {
         </ImageBackground>
     );
 };
-
-const { width } = Dimensions.get('window');
-
-const styles = StyleSheet.create({
-    backgroundImage: {
-        flex: 1,
-        resizeMode: 'cover',
-        justifyContent: 'center',
-    },
-    overlay: {
-        flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.6)', // semi-transparent dark color
-        padding: 10,
-    },
-    symptomeItem: {
-        marginBottom: 10,
-        borderRadius: 5,
-        overflow: 'hidden',
-        backgroundColor: 'rgba(30, 30, 30, 0.8)', // dark background color
-        padding: 10,
-    },
-    symptomeName: {
-        color: 'white',
-        textAlign: 'center',
-        fontFamily: 'Dosis-Regular',
-    },
-});
 
 export default Usages;
