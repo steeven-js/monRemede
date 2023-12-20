@@ -4,7 +4,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSymptome } from '../../../redux/fetchApi';
 import BackIcon from 'react-native-vector-icons/Ionicons';
-import StarIcon from 'react-native-vector-icons/FontAwesome6';
 
 const SymptomeDetail = ({ route, navigation }) => {
     const { symptomeId, symptomeName } = route.params;
@@ -12,11 +11,13 @@ const SymptomeDetail = ({ route, navigation }) => {
     const symptomePlants = useSelector((state) => state.symptomes.symptomePlants);
 
     // Check if data is already available, if not, fetch it
-    useEffect(() => {
-        if (!symptomePlants) {
-            dispatch(fetchSymptome(symptomeId));
-        }
-    }, []);
+    // useEffect(() => {
+    //     dispatch(fetchSymptome(symptomeId));
+    // }, []);
+
+    if (!symptomePlants) {
+    dispatch(fetchSymptome(symptomeId));
+    }
 
     return (
         <ImageBackground

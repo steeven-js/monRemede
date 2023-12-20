@@ -6,7 +6,6 @@ import {
     ImageBackground,
     Dimensions,
     TouchableOpacity,
-    Image,
     Text,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,16 +13,16 @@ import { fetchSymptomes } from '../../redux/fetchApi';
 
 const Usages = ({ navigation }) => {
     const dispatch = useDispatch();
-    const symtomesData = useSelector((state) => state.symptomes.data);
+    const symptomesData = useSelector((state) => state.symptomes.data);
 
-    // Check if data is already available, if not, fetch it
-    if (!symtomesData) {
+    // Check if data is already available; if not, fetch it
+    if (!symptomesData) {
         dispatch(fetchSymptomes());
     }
 
-    const renderCategoriesGrid = ({ item }) => (
+    const renderSymptomeItem = ({ item }) => (
         <TouchableOpacity
-            style={[styles.category, styles.spacing]}
+            style={styles.symptomeItem}
             onPress={() => {
                 navigation.navigate('SymptomeDetail', {
                     symptomeId: item.id,
@@ -31,13 +30,7 @@ const Usages = ({ navigation }) => {
                 });
             }}
         >
-            <Image
-                source={require(`../assets/images/plante/plante.jpg`)} // Replace with the actual path of your image
-                style={{ width: '100%', height: '100%', borderRadius: 5 }}
-            />
-            <View style={styles.categoryInfoContainer}>
-                <Text style={styles.symptomeName}>{item.name}</Text>
-            </View>
+            <Text style={styles.symptomeName}>{item.name}</Text>
         </TouchableOpacity>
     );
 
@@ -47,13 +40,11 @@ const Usages = ({ navigation }) => {
             style={styles.backgroundImage}
         >
             <View style={styles.overlay}>
-                {symtomesData ? (
+                {symptomesData ? (
                     <FlatList
-                        data={symtomesData}
-                        renderItem={renderCategoriesGrid}
+                        data={symptomesData}
+                        renderItem={renderSymptomeItem}
                         keyExtractor={(item) => item.id.toString()}
-                        numColumns={2}
-                        contentContainerStyle={styles.container}
                     />
                 ) : (
                     <Text>Loading...</Text>
@@ -64,8 +55,6 @@ const Usages = ({ navigation }) => {
 };
 
 const { width } = Dimensions.get('window');
-const numColumns = 2;
-const columnWidth = width / numColumns;
 
 const styles = StyleSheet.create({
     backgroundImage: {
@@ -75,40 +64,15 @@ const styles = StyleSheet.create({
     },
     overlay: {
         flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.4)', // semi-transparent black color
+        backgroundColor: 'rgba(0, 0, 0, 0.6)', // semi-transparent dark color
+        padding: 10,
     },
-    container: {
-        backgroundColor: 'transparent',
-    },
-    spacing: {
-        color: 'white', // Text color on darkened image
-    },
-    gridContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-    },
-    category: {
-        width: columnWidth - 20,
-        height: columnWidth - 20,
-        borderWidth: 1,
-        borderColor: 'rgba(255, 255, 255, 0.6)',
-        borderRadius: 5,
+    symptomeItem: {
         marginBottom: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'relative',
-        margin: 10,
-    },
-    categoryInfoContainer: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        width: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        borderBottomLeftRadius: 5,
-        borderBottomRightRadius: 5,
-        padding: 5,
+        borderRadius: 5,
+        overflow: 'hidden',
+        backgroundColor: 'rgba(30, 30, 30, 0.8)', // dark background color
+        padding: 10,
     },
     symptomeName: {
         color: 'white',
