@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -26,7 +26,7 @@ const Register = ({ navigation }) => {
             console.log('Utilisateur déconnecté avec succès !');
 
             // Dispatch l'action pour mettre à jour le state Redux avec l'utilisateur
-            dispatch(setUser(user));
+            dispatch(setUser(null));
 
             // Rediriger vers la page d'accueil
             navigation.navigate('Home');
@@ -56,9 +56,9 @@ const Register = ({ navigation }) => {
     }, []);
 
     return (
-        <View>
+        <View style={styles.container}>
             <Icon name="arrow-back" size={30} color="#000" onPress={() => navigation.navigate('Home')} />
-            <Text>Inscription</Text>
+            <Text style={styles.title}>Inscription</Text>
             {user ? (
                 <View>
                     <Text>Bienvenue {user.email}</Text>
@@ -67,11 +67,15 @@ const Register = ({ navigation }) => {
             ) : (
                 <View>
                     <TextInput
+                        style={styles.input}
                         placeholder="Email"
                         value={email}
                         onChangeText={(text) => setEmail(text)}
+                        autoCapitalize="none"
+                        keyboardType="email-address"
                     />
                     <TextInput
+                        style={styles.input}
                         placeholder="Mot de passe"
                         secureTextEntry
                         value={password}
@@ -85,5 +89,25 @@ const Register = ({ navigation }) => {
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        padding: 16,
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 16,
+    },
+    input: {
+        height: 40,
+        borderColor: 'gray',
+        borderWidth: 1,
+        marginBottom: 12,
+        paddingHorizontal: 8,
+    },
+});
 
 export default Register;

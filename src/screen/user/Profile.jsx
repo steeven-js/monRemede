@@ -35,6 +35,7 @@ const Profile = ({ navigation }) => {
             console.log('User logged out successfully!');
             setIsUserAuthenticated(false);
             setUserEmail('');
+            navigation.navigate('Home');
         } catch (error) {
             console.error('Error logging out:', error.message);
         }
@@ -49,14 +50,12 @@ const Profile = ({ navigation }) => {
             </View>
             <View style={styles.container}>
                 <Text style={[styles.font]}>Profile</Text>
-                {isUserAuthenticated ? (
+                {isUserAuthenticated && (
                     <View>
                         <Text style={[styles.font]}>Email: {userEmail}</Text>
-                        <Button title="Logout" onPress={handleLogout} />
                     </View>
-                ) : (
-                    <Button title="Login" onPress={handleLogin} />
                 )}
+                {!isUserAuthenticated && <Button title="Login" onPress={handleLogin} />}
             </View>
         </View>
     );

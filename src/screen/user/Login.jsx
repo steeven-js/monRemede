@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../../redux/actions/userActions';
 import auth from '@react-native-firebase/auth';
 import BackIcon from 'react-native-vector-icons/Ionicons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-const Login = ({ navigation }) => {
+const Connexion = ({ navigation }) => {
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [afficherMotDePasse, setAfficherMotDePasse] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleLogin = async () => {
+    const handleConnexion = async () => {
         try {
-            const userCredential = await auth().signInWithEmailAndPassword(
-                email,
-                password
-            );
+            setIsLoading(true);
+
+            const userCredential = await auth().signInWithEmailAndPassword(email, password);
             const user = userCredential.user;
 
             // Dispatch l'action pour mettre à jour le state Redux avec l'utilisateur
             dispatch(setUser(user));
-            console.log('User logged in successfully!');
+            console.log('Utilisateur connecté avec succès !');
 
             // Réinitialiser les champs d'entrée après une identification réussie
             setEmail('');
@@ -29,30 +31,58 @@ const Login = ({ navigation }) => {
             // Rediriger vers la page d'accueil après l'authentification réussie
             navigation.navigate('Home');
         } catch (error) {
-            console.error('Error logging in:', error.message);
+            console.error('Erreur de connexion :', error.message);
+            // Afficher un message d'erreur à l'utilisateur, par exemple avec une alerte
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
-        <View>
-            <BackIcon name="arrow-back" size={30} color="#000" onPress={() => navigation.navigate('Home')} />
-            <Text>Login</Text>
-            <TextInput
-                placeholder="Email"
-                value={email}
-                onChangeText={(text) => setEmail(text)}
-            />
-            <TextInput
-                placeholder="Password"
-                secureTextEntry
-                value={password}
-                onChangeText={(text) => setPassword(text)}
-            />
-            <Button title="Login" onPress={handleLogin} />
-            <Text>Don't have an account? </Text>
-            <Text onPress={() => navigation.navigate('RegisterScreen')}>Register</Text>
-        </View>
+        <SafeAreaView style={styles.container}>
+            <View>
+                <BackIcon name="arrow-back" size={30} color="#000" onPress={() => navigation.navigate('Home')} />
+                <Text>Connexion</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Email"
+                    value={email}
+                    onChangeText={(text) => setEmail(text)}
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Mot de passe"
+                    secureTextEntry={!afficherMotDePasse}
+                    value={password}
+                    onChangeText={(text) => setPassword(text)}
+                />
+                <Button title="Connexion" onPress={handleConnexion} disabled={isLoading} />
+                <Button
+                    title={afficherMotDePasse ? 'Cacher le mot de passe' : 'Afficher le mot de passe'}
+                    onPress={() => setAfficherMotDePasse(!afficherMotDePasse)}
+                />
+                <Text>Vous n'avez pas de compte ? </Text>
+                <Text onPress={() => navigation.navigate('RegisterScreen')}>Inscription</Text>
+            </View>
+        </SafeAreaView>
     );
 };
 
-export default Login;
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        padding: 16,
+    },
+    input: {
+        height: 40,
+        borderColor: 'gray',
+        borderWidth: 1,
+        marginBottom: 12,
+        paddingHorizontal: 8,
+    },
+});
+
+export default Connexion;
