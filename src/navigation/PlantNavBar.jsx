@@ -38,7 +38,7 @@ const PlantNavBar = ({ navigation, route }) => {
             {/* Parent container for the ImageBackground */}
             <View>
                 <ImageBackground
-                    source={require('../assets/images/plante.jpg')}
+                    source={require('../assets/images/plante/plante.jpg')}
                     style={styles.backgroundImage}
                 >
                     {/* Icons placed at the top of the ImageBackground */}
