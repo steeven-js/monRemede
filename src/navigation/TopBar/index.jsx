@@ -6,6 +6,7 @@ import StarIcon from 'react-native-vector-icons/FontAwesome6';
 import LeafIcon from 'react-native-vector-icons/FontAwesome';
 import SearchIcon from 'react-native-vector-icons/Ionicons';
 import MenuIcon from 'react-native-vector-icons/Ionicons';
+import styles from './styles';
 
 const TopBar = ({ navigation, route }) => {
     const navigateToScreen = (screenName) => {
@@ -42,52 +43,5 @@ const TopBar = ({ navigation, route }) => {
         </LinearGradient>
     );
 };
-
-const styles = StyleSheet.create({
-    header: {
-        flexDirection: 'column', // Ajuster la direction du dégradé
-    },
-    icon: {
-        padding: 10,
-    },
-    divAboveTabs: {
-        padding: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    divText: {
-        fontSize: 18,
-        color: 'white',
-        fontFamily: 'Dosis-Regular',
-    },
-    container: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-    },
-    tab: {
-        alignItems: 'center',
-        flex: 1,
-        borderBottomWidth: 2,
-        borderBottomColor: 'transparent',
-        textAlign: 'center',
-    },
-    tabText: {
-        paddingVertical: 10,
-        fontSize: 16,
-        alignItems: 'center',
-        color: 'black',
-    },
-    activeTab1: {
-        borderBottomColor: 'red',
-    },
-    activeTab2: {
-        borderBottomColor: 'green',
-    },
-    activeTab3: {
-        borderBottomColor: 'yellow',
-    },
-});
 
 export default TopBar;

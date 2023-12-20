@@ -4,6 +4,7 @@ import { firebase } from '@react-native-firebase/auth';
 import BackIcon from 'react-native-vector-icons/Ionicons';
 import StarIcon from 'react-native-vector-icons/FontAwesome6';
 import { useNavigation } from '@react-navigation/native';
+import styles from './styles';
 
 const PlantNavBar = ({ route }) => {
 
@@ -57,8 +58,6 @@ const PlantNavBar = ({ route }) => {
         }
     };
 
-    const plantName = route.params?.plantName;
-
     return (
         <View style={styles.header}>
             <View>
@@ -93,40 +92,5 @@ const PlantNavBar = ({ route }) => {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    backgroundImage: {
-        height: 200,
-        resizeMode: 'cover',
-        justifyContent: 'center',
-    },
-    divAboveTabs: {
-        padding: 10,
-        position: 'absolute',
-        top: 0,
-        width: '100%',
-    },
-    divAboveTabsContent: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    container: {
-        position: 'absolute',
-        bottom: 0,
-        width: '100%',
-    },
-    content: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.4)', // couleur noire semi-transparente
-    },
-    divText: {
-        fontSize: 18,
-        color: 'white',
-        fontFamily: 'Dosis-Regular',
-    },
-});
 
 export default PlantNavBar;
