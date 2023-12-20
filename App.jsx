@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import HomeDrawer from './src/navigation/drawer/HomeDrawer';
-import Splash from './src/screen/Splash';
+import Splash from './src/screen/splash';
 import { fetchPlants, fetchSymptomes } from './redux/fetchApi'; // Importez l'action fetchSymptomes
 
 const App = () => {

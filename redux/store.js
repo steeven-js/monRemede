@@ -1,14 +1,14 @@
 // store.js
 
 import { configureStore } from '@reduxjs/toolkit';
-import SymptomeReducer from './reducer/symptomeSlice';
-import PlantReducer from './reducer/plantSlice';
+import symptomeReducer from './reducer/symptomeSlice';
+import plantReducer from './reducer/plantSlice';
 import userReducer from './reducer/userReducer';
 
 const store = configureStore({
     reducer: {
-        symptomes: SymptomeReducer,
-        plants: PlantReducer,
+        symptomes: symptomeReducer,
+        plants: plantReducer,
         user: userReducer,
     },
 });
