@@ -2,6 +2,7 @@ import { View, Text, ImageBackground, StyleSheet, ScrollView, Dimensions, Toucha
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPlant } from '../../../redux/fetchApi';
+import styles from './styles';
 
 const Propriete = ({ route }) => {
     const { plantId } = route.params;
