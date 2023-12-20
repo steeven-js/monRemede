@@ -1,36 +1,64 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { addToFavorites } from '../../redux/reducer/FavoritesSlice';
+import { firebase } from '@react-native-firebase/auth'; // Importez le module d'authentification Firebase
 import BackIcon from 'react-native-vector-icons/Ionicons';
 import StarIcon from 'react-native-vector-icons/FontAwesome6';
 
 const PlantNavBar = ({ navigation, route }) => {
-    const dispatch = useDispatch();
 
-    // console.log('Route in PlantNavBar:', route);
+    const [user, setUser] = useState(null);
 
-    const navigateToScreen = (screenName) => {
-        navigation.navigate(screenName);
-    };
+    useEffect(() => {
+        // Vérifiez l'état d'authentification actuel lors de l'initialisation du composant
+        const unsubscribe = firebase.auth().onAuthStateChanged((authUser) => {
+            setUser(authUser);
+        });
 
-    const addToFavoritesHandler = () => {
-        console.log('Route.params in addToFavoritesHandler:', route.params); // Log route.params
+        // Nettoyez l'écouteur lors de la suppression du composant pour éviter les fuites de mémoire
+        return () => unsubscribe();
+    }, []);
 
-        // Assuming you have the plantId and plantName in route.params
-        const { plantId, plantName } = route.params || {};
+    const addToFavoritesHandler = async () => {
+        // Assurez-vous que l'utilisateur est connecté
+        if (!user) {
+            console.log("L'utilisateur n'est pas connecté");
+            return;
+        }
 
-        console.log('plantId:', plantId);
-        console.log('plantName:', plantName);
+        try {
+            const plantId = route.params?.plantId;
 
-        if (plantId && plantName) {
-            dispatch(addToFavorites({ plantId, plantName }));
-        } else {
-            console.error('Missing plantId or plantName in route.params');
+            // Vérifiez si la combinaison d'ID de plante et d'utilisateur existe déjà dans la collection "favoris"
+            const existingFavoriteQuery = await firebase.firestore().collection('favoris')
+                .where('userId', '==', user.uid)
+                .where('plantId', '==', plantId)
+                .get();
+
+            if (!existingFavoriteQuery.empty) {
+                // Si la combinaison existe, supprimez le document et affichez un message
+                const existingFavoriteDoc = existingFavoriteQuery.docs[0];
+                await existingFavoriteDoc.ref.delete();
+                console.log("Plante retirée des favoris avec succès!");
+                return;
+            }
+
+            // Ajoutez la plante aux favoris si elle n'existe pas encore
+            await firebase.firestore().collection('favoris').add({
+                userId: user.uid,
+                plantId: plantId,
+            });
+
+            console.log("Plante ajoutée aux favoris avec succès!");
+        } catch (error) {
+            console.error("Erreur lors de la gestion des favoris:", error);
         }
     };
 
-    // Utilisez le nom de la plante dans le composant
+
+    const navigateToScreen = () => {
+        navigation.navigate();
+    };
+
     const plantName = route.params?.plantName;
 
     return (
@@ -45,7 +73,7 @@ const PlantNavBar = ({ navigation, route }) => {
                     <View style={styles.divAboveTabs}>
                         <View style={styles.divAboveTabsContent}>
                             <BackIcon name="arrow-back" size={30} color="#fff" onPress={() => navigation.navigate('Plantes médicinales')} />
-                            <StarIcon name="star" size={30} color="#fff" />
+                            <StarIcon name="star" size={30} color="#fff" onPress={addToFavoritesHandler} />
                         </View>
                     </View>
                     <View style={styles.container}>
