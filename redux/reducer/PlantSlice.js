@@ -37,4 +37,9 @@ const PlantSlice = createSlice({
     },
 });
 
+export const selectPlants = (state) => state.plants.data;
+export const selectIsLoading = (state) => state.plants.isLoader;
+export const selectIsError = (state) => state.plants.isError;
+export const selectSelectedPlant = (state) => state.plants.selectedPlant;
+
 export default PlantSlice.reducer;

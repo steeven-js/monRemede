@@ -6,14 +6,16 @@ import { firebase } from '@react-native-firebase/auth';
 const Favoris = ({ navigation }) => {
     const [user, setUser] = useState(null);
     const [favorites, setFavorites] = useState([]);
-    const initialLoad = useRef(true); // Utilisation d'une référence
+    const [plantsData, setPlantsData] = useState([]);
+    const initialLoad = useRef(true);
 
     useEffect(() => {
         const unsubscribe = firebase.auth().onAuthStateChanged((authUser) => {
             setUser(authUser);
-            if (authUser && initialLoad.current) { // Vérifiez si c'est la première fois
+            if (authUser && initialLoad.current) {
                 loadFavorites(authUser.uid);
-                initialLoad.current = false; // Mettez à jour la référence
+                fetchPlantsData(); // Nouvelle fonction pour récupérer les données des plantes
+                initialLoad.current = false;
             }
         });
 
@@ -30,6 +32,19 @@ const Favoris = ({ navigation }) => {
         }
     };
 
+    const fetchPlantsData = async () => {
+        try {
+            const res = await fetch('http://apimonremede.jsprod.fr/api/plants/');
+            if (!res.ok) {
+                throw new Error('Failed to fetch plants');
+            }
+            const plants = await res.json();
+            setPlantsData(plants);
+        } catch (error) {
+            console.error('Error fetching plants:', error);
+        }
+    };
+
     return (
         <ImageBackground
             source={require('../assets/images/backgrounds/fond4.jpg')}
@@ -42,23 +57,22 @@ const Favoris = ({ navigation }) => {
                         {!user && (
                             <Button title="Se connecter" onPress={() => { navigation.navigate('LoginScreen') }} />
                         )}
-                        {user && favorites.length > 0 && (
+                        {user && favorites.length > 0 && plantsData.length > 0 && (
                             <View style={styles.gridContainer}>
-                                {favorites.map(favorite => (
-                                    <TouchableOpacity
-                                        key={favorite.id}
-                                        style={styles.favorite}
-                                        onPress={() => {
-                                            // Redirigez vers l'écran PlantDetail avec l'ID de la plante
-                                            navigation.navigate('PlantScreen', { plantId: favorite.plantId });
-                                        }}
-                                    >
-                                        {/* Affichez les informations de la plante favorite */}
-                                        <View style={styles.favoriteInfoContainer}>
-                                            <Text style={styles.favoriteName}>{favorite.plantId}</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                ))}
+                                {favorites.map(favorite => {
+                                    const plant = plantsData.find(p => p.id === favorite.plantId);
+                                    return (
+                                        <TouchableOpacity
+                                            key={favorite.id}
+                                            style={styles.favorite}
+                                            onPress={() => { /* Naviguez vers les détails de la plante si nécessaire */ }}
+                                        >
+                                            <View style={styles.favoriteInfoContainer}>
+                                                <Text style={styles.favoriteName}>{plant ? plant.name : 'Unknown Plant'}</Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    );
+                                })}
                             </View>
                         )}
                     </View>
@@ -80,14 +94,11 @@ const styles = StyleSheet.create({
     },
     overlay: {
         flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.4)', // couleur noire semi-transparente
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
     },
     container: {
         backgroundColor: 'transparent',
         padding: 10,
-    },
-    spacing: {
-        color: 'white',
     },
     gridContainer: {
         flexDirection: 'row',
