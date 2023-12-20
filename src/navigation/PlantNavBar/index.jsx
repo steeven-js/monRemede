@@ -63,7 +63,7 @@ const PlantNavBar = ({ route }) => {
         <View style={styles.header}>
             <View>
                 <ImageBackground
-                    source={require('../assets/images/plante/plante.jpg')}
+                    source={require('../../assets/images/plante/plante.jpg')}
                     style={styles.backgroundImage}
                 >
                     <View style={styles.divAboveTabs}>
