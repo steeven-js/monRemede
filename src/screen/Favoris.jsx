@@ -1,50 +1,34 @@
-import React, { useEffect } from 'react';
-import { View, Text, ImageBackground, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Image, Button } from 'react-native';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Button, Dimensions } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
+import { firebase } from '@react-native-firebase/auth';
 
-const Favoris = ({navigation}) => {
-    const favorites = useSelector((state) => state.favorites);
-
-    // const test = () => {
-    //     console.log("Button clicked!");
-    // };
-
-    // const renderFavoritesGrid = () => {
-    //     return (
-    //         <View style={styles.gridContainer}>
-    //             {favorites.map((item) => (
-    //                 <TouchableOpacity
-    //                     style={[styles.favorite, styles.spacing]}
-    //                     key={item.plantId}
-    //                     onPress={() => {
-    //                         // Ajoutez la logique de navigation si nécessaire
-    //                         console.log('Naviguer vers les détails de la plante ou effectuer une autre action');
-    //                     }}
-    //                 >
-    //                     <Image
-    //                         source={require(`../assets/images/plante/plante.jpg`)} // Remplacez par le chemin réel de votre image
-    //                         style={{ width: '100%', height: '100%', borderRadius: 5 }}
-    //                     />
-    //                     <View style={styles.favoriteInfoContainer}>
-    //                         <Text style={styles.favoriteName}>{item.plantName}</Text>
-    //                     </View>
-    //                 </TouchableOpacity>
-    //             ))}
-    //         </View>
-    //     );
-    // };
+const Favoris = ({ navigation }) => {
+    const [user, setUser] = useState(null);
+    const [favorites, setFavorites] = useState([]);
+    const initialLoad = useRef(true); // Utilisation d'une référence
 
     useEffect(() => {
-        const subscriber = firestore()
-            .collection('Users').limit(10)
-            .onSnapshot(documentSnapshot => {
-                // console.log('User data: ', documentSnapshot);
-            });
+        const unsubscribe = firebase.auth().onAuthStateChanged((authUser) => {
+            setUser(authUser);
+            if (authUser && initialLoad.current) { // Vérifiez si c'est la première fois
+                loadFavorites(authUser.uid);
+                initialLoad.current = false; // Mettez à jour la référence
+            }
+        });
 
-        // Stop listening for updates when no longer required
-        return () => subscriber();
+        return () => unsubscribe();
     }, []);
+
+    const loadFavorites = async (userId) => {
+        try {
+            const favoritesSnapshot = await firestore().collection('favoris').where('userId', '==', userId).get();
+            const favoritePlants = favoritesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setFavorites(favoritePlants);
+        } catch (error) {
+            console.error("Erreur lors du chargement des favoris :", error);
+        }
+    };
 
     return (
         <ImageBackground
@@ -52,16 +36,33 @@ const Favoris = ({navigation}) => {
             style={styles.backgroundImage}
         >
             <View style={styles.overlay}>
-                <ScrollView style={styles.container}>
-                    {favorites.length > 0 ? (
-                        renderFavoritesGrid()
-                    ) : (
-                        <View>
-                            <Text>No favorites yet.</Text>
+                <View style={styles.container}>
+                    <View>
+                        {favorites.length === 0 && <Text>No favorites yet.</Text>}
+                        {!user && (
                             <Button title="Se connecter" onPress={() => { navigation.navigate('LoginScreen') }} />
-                        </View>
-                    )}
-                </ScrollView>
+                        )}
+                        {user && favorites.length > 0 && (
+                            <View style={styles.gridContainer}>
+                                {favorites.map(favorite => (
+                                    <TouchableOpacity
+                                        key={favorite.id}
+                                        style={styles.favorite}
+                                        onPress={() => {
+                                            // Redirigez vers l'écran PlantDetail avec l'ID de la plante
+                                            navigation.navigate('PlantScreen', { plantId: favorite.plantId });
+                                        }}
+                                    >
+                                        {/* Affichez les informations de la plante favorite */}
+                                        <View style={styles.favoriteInfoContainer}>
+                                            <Text style={styles.favoriteName}>{favorite.plantId}</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                ))}
+                            </View>
+                        )}
+                    </View>
+                </View>
             </View>
         </ImageBackground>
     );

@@ -1,16 +1,14 @@
 // store.js
 
 import { configureStore } from '@reduxjs/toolkit';
-import SymptomeReducer from './reducer/SymptomeSlice';
-import PlantReducer from './reducer/PlantSlice';
-import FavoritesReducer from './reducer/FavoritesSlice';
+import SymptomeReducer from './reducer/symptomeSlice';
+import PlantReducer from './reducer/plantSlice';
 import userReducer from './reducer/userReducer';
 
 const store = configureStore({
     reducer: {
         symptomes: SymptomeReducer,
         plants: PlantReducer,
-        favorites: FavoritesReducer,
         user: userReducer,
     },
 });
