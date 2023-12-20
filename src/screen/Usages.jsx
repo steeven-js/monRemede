@@ -1,55 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
     View,
+    FlatList,
     StyleSheet,
     ImageBackground,
     Dimensions,
     TouchableOpacity,
     Image,
     Text,
-    FlatList,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSymptomes } from '../../redux/fetchApi';
 
 const Usages = ({ navigation }) => {
     const dispatch = useDispatch();
-    const symptomesData = useSelector((state) => state.symptomes.data);
-    const [isLoading, setIsLoading] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
+    const symtomesData = useSelector((state) => state.symptomes.data);
 
-    useEffect(() => {
-        // Chargement initial des symptômes
-        loadSymptomes();
-    }, []);
+    // Check if data is already available, if not, fetch it
+    if (!symtomesData) {
+        dispatch(fetchSymptomes());
+    }
 
-    const loadSymptomes = () => {
-        if (isLoading) return;
-
-        setIsLoading(true);
-        dispatch(fetchSymptomes(currentPage))
-            .then(() => {
-                setCurrentPage(currentPage + 1);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
-    };
-
-    const handleItemClick = (item) => {
-        navigation.navigate('SymptomeDetail', {
-            symptomeId: item.id,
-            symptomeName: item.name,
-        });
-    };
-
-    const renderCategoryItem = ({ item }) => (
+    const renderCategoriesGrid = ({ item }) => (
         <TouchableOpacity
             style={[styles.category, styles.spacing]}
-            onPress={() => handleItemClick(item)}
+            onPress={() => {
+                navigation.navigate('SymptomeDetail', {
+                    symptomeId: item.id,
+                    symptomeName: item.name,
+                });
+            }}
         >
             <Image
-                source={require(`../assets/images/plante/plante.jpg`)} // Remplacez par le chemin réel de votre image
+                source={require(`../assets/images/plante/plante.jpg`)} // Replace with the actual path of your image
                 style={{ width: '100%', height: '100%', borderRadius: 5 }}
             />
             <View style={styles.categoryInfoContainer}>
@@ -58,29 +41,18 @@ const Usages = ({ navigation }) => {
         </TouchableOpacity>
     );
 
-    const renderFooter = () => {
-        if (!isLoading) return null;
-
-        return <Text>Loading...</Text>;
-    };
-
-    const keyExtractor = (item) => item.id.toString();
-
     return (
         <ImageBackground
             source={require('../assets/images/backgrounds/fond4.jpg')}
             style={styles.backgroundImage}
         >
             <View style={styles.overlay}>
-                {symptomesData ? (
+                {symtomesData ? (
                     <FlatList
-                        data={symptomesData}
-                        renderItem={renderCategoryItem}
-                        keyExtractor={keyExtractor}
+                        data={symtomesData}
+                        renderItem={renderCategoriesGrid}
+                        keyExtractor={(item) => item.id.toString()}
                         numColumns={2}
-                        onEndReachedThreshold={0.1}
-                        onEndReached={loadSymptomes}
-                        ListFooterComponent={renderFooter}
                         contentContainerStyle={styles.container}
                     />
                 ) : (
@@ -103,13 +75,13 @@ const styles = StyleSheet.create({
     },
     overlay: {
         flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.4)', // couleur noire semi-transparente
+        backgroundColor: 'rgba(0, 0, 0, 0.4)', // semi-transparent black color
     },
     container: {
         backgroundColor: 'transparent',
     },
     spacing: {
-        color: 'white', // Couleur du texte sur l'image assombrie
+        color: 'white', // Text color on darkened image
     },
     gridContainer: {
         flexDirection: 'row',

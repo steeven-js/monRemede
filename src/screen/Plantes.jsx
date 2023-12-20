@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, StyleSheet, ImageBackground, Dimensions, TouchableOpacity, Image, Text, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPlants } from '../../redux/fetchApi';
@@ -7,9 +7,10 @@ const Plantes = ({ navigation }) => {
     const dispatch = useDispatch();
     const plantsData = useSelector((state) => state.plants.data);
 
-    useEffect(() => {
+    // Check if data is already available, if not, fetch it
+    if (!plantsData) {
         dispatch(fetchPlants());
-    }, []);
+    }
 
     const renderPlantItem = ({ item }) => (
         <TouchableOpacity
@@ -22,7 +23,7 @@ const Plantes = ({ navigation }) => {
             }}
         >
             <Image
-                source={require(`../assets/images/plante/plante.jpg`)} // Remplacez par le chemin réel de votre image
+                source={require(`../assets/images/plante/plante.jpg`)} // Replace with the actual path of your image
                 style={{ width: '100%', height: '100%', borderRadius: 5 }}
             />
             <View style={styles.plantInfoContainer}>
