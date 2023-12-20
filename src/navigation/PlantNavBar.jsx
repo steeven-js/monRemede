@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch } from 'react-redux';
 import { addToFavorites } from '../../redux/reducer/FavoritesSlice';
 import BackIcon from 'react-native-vector-icons/Ionicons';
