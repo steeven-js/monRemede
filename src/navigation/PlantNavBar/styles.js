@@ -29,15 +29,29 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.4)',
         paddingVertical: 10,
     },
-    activeBar: {
-        width: 50,
-        height: 5,
-        backgroundColor: 'white',
-    },
     divText: {
         fontSize: 18,
         color: 'white',
         fontFamily: 'Dosis-Regular',
+    },
+    tab: {
+        alignItems: 'center',
+        flex: 1,
+        borderBottomWidth: 2,
+        borderBottomColor: 'transparent',
+        textAlign: 'center',
+    },
+    activeTab1: {
+        borderBottomColor: 'blue',
+    },
+    activeTab2: {
+        borderBottomColor: 'green',
+    },
+    activeTab3: {
+        borderBottomColor: 'orange',
+    },
+    activeTab4: {
+        borderBottomColor: 'red',
     },
 });
 
