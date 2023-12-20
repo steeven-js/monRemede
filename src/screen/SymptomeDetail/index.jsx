@@ -53,7 +53,7 @@ const SymptomeDetail = ({ route, navigation }) => {
                                     }}
                                 >
                                     <Image
-                                        source={require(`../../assets/images/plante/plante.jpg`)} // Remplacez par le chemin réel de votre image
+                                        source={require('../../assets/images/plante/plante.jpg')}
                                         style={{ width: '100%', height: '100%', borderRadius: 5 }}
                                     />
                                     <View style={styles.favoriteInfoContainer}>

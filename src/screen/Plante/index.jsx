@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, ImageBackground, Dimensions, TouchableOpacity, Image, Text, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPlants } from '../../redux/fetchApi';
+import { fetchPlants } from '../../../redux/fetchApi';
 
 const Plantes = ({ navigation }) => {
     const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const Plantes = ({ navigation }) => {
             }}
         >
             <Image
-                source={require(`../assets/images/plante/plante.jpg`)} // Replace with the actual path of your image
+                source={require('../../assets/images/plante/plante.jpg')} 
                 style={{ width: '100%', height: '100%', borderRadius: 5 }}
             />
             <View style={styles.plantInfoContainer}>
@@ -34,7 +34,7 @@ const Plantes = ({ navigation }) => {
 
     return (
         <ImageBackground
-            source={require('../assets/images/backgrounds/fond4.jpg')}
+            source={require('../../assets/images/backgrounds/fond4.jpg')}
             style={styles.backgroundImage}
         >
             <View style={styles.overlay}>

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
-import { firebase } from '@react-native-firebase/auth'; // Importez le module d'authentification Firebase
+import { firebase } from '@react-native-firebase/auth';
 import BackIcon from 'react-native-vector-icons/Ionicons';
 import StarIcon from 'react-native-vector-icons/FontAwesome6';
+import { useNavigation } from '@react-navigation/native';
 
-const PlantNavBar = ({ navigation, route }) => {
+const PlantNavBar = ({ route }) => {
+
+    const navigation = useNavigation();
 
     const [user, setUser] = useState(null);
 
@@ -54,22 +57,15 @@ const PlantNavBar = ({ navigation, route }) => {
         }
     };
 
-
-    const navigateToScreen = () => {
-        navigation.navigate();
-    };
-
     const plantName = route.params?.plantName;
 
     return (
         <View style={styles.header}>
-            {/* Parent container for the ImageBackground */}
             <View>
                 <ImageBackground
                     source={require('../assets/images/plante/plante.jpg')}
                     style={styles.backgroundImage}
                 >
-                    {/* Icons placed at the top of the ImageBackground */}
                     <View style={styles.divAboveTabs}>
                         <View style={styles.divAboveTabsContent}>
                             <BackIcon name="arrow-back" size={30} color="#fff" onPress={() => navigation.navigate('Plantes médicinales')} />
@@ -78,17 +74,16 @@ const PlantNavBar = ({ navigation, route }) => {
                     </View>
                     <View style={styles.container}>
                         <View style={styles.content}>
-                            {/* Rest of your components */}
-                            <TouchableOpacity onPress={() => navigateToScreen('Info')} >
+                            <TouchableOpacity onPress={() => navigation.navigate('Info')} >
                                 <Text style={styles.divText}>Info</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => navigateToScreen('Propriete')} >
-                                <Text style={styles.divText}>Propriéte</Text>
+                            <TouchableOpacity onPress={() => navigation.navigate('Propriete')} >
+                                <Text style={styles.divText}>Propriété</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => navigateToScreen('Utilisation')} >
+                            <TouchableOpacity onPress={() => navigation.navigate('Utilisation')} >
                                 <Text style={styles.divText}>Utilisation</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => navigateToScreen('Precaution')} >
+                            <TouchableOpacity onPress={() => navigation.navigate('Precaution')} >
                                 <Text style={styles.divText}>Précaution</Text>
                             </TouchableOpacity>
                         </View>

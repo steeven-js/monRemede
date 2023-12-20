@@ -9,7 +9,7 @@ import {
     Text,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSymptomes } from '../../redux/fetchApi';
+import { fetchSymptomes } from '../../../redux/fetchApi';
 
 const Usages = ({ navigation }) => {
     const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const Usages = ({ navigation }) => {
 
     return (
         <ImageBackground
-            source={require('../assets/images/backgrounds/fond4.jpg')}
+            source={require('../../assets/images/backgrounds/fond4.jpg')}
             style={styles.backgroundImage}
         >
             <View style={styles.overlay}>

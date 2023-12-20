@@ -2,10 +2,10 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import PlantNavBar from '../../navigation/PlantNavBar';
-import Info from '../plantInfo/Info';
-import Propriete from '../plantInfo/Propriete';
-import Utilisation from '../plantInfo/Utilisation';
-import Precaution from '../plantInfo/Precaution';
+import Info from '../Info';
+import Propriete from '../Propriete';
+import Utilisation from '../Utilisation';
+import Precaution from '../Precaution';
 
 const PlantInfoStack = createStackNavigator();
 

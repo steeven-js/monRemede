@@ -47,7 +47,7 @@ const Favoris = ({ navigation }) => {
 
     return (
         <ImageBackground
-            source={require('../assets/images/backgrounds/fond4.jpg')}
+            source={require('../../assets/images/backgrounds/fond4.jpg')}
             style={styles.backgroundImage}
         >
             <View style={styles.overlay}>
@@ -71,7 +71,7 @@ const Favoris = ({ navigation }) => {
                                             }}
                                         >
                                             <Image
-                                                source={require(`../assets/images/plante/plante.jpg`)} // Replace with the actual path of your image
+                                                source={require('../../assets/images/plante/plante.jpg')}
                                                 style={{ width: '100%', height: '100%', borderRadius: 5 }}
                                             />
                                             <View style={styles.favoriteInfoContainer}>
