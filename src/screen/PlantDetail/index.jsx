@@ -15,11 +15,13 @@ const PlantDetail = ({ navigation, route }) => {
     // console.log('plantId', plantId)
     // console.log('plantName', plantName)
 
+    const screenNames = ["Info", "Propriete", "Utilisation", "Precaution"];
+
     return (
         <PlantInfoStack.Navigator
             initialRouteName="Info"
             screenOptions={{
-                header: (props) => <PlantNavBar {...props} route={{ params: { plantId, plantName } }} />,
+                header: (props) => <PlantNavBar {...props} screenNames={screenNames} />,
                 animationEnabled: false,
             }}
         >

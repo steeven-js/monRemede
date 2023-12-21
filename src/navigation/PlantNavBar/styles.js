@@ -27,12 +27,15 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0.4)',
-        paddingVertical: 10,
     },
     divText: {
         fontSize: 18,
         color: 'white',
         fontFamily: 'Dosis-Regular',
+        padding: 10,
+    },
+    textColor: {
+        color: 'white',
     },
     tab: {
         alignItems: 'center',
@@ -40,18 +43,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2,
         borderBottomColor: 'transparent',
         textAlign: 'center',
-    },
-    activeTab1: {
-        borderBottomColor: 'blue',
-    },
-    activeTab2: {
-        borderBottomColor: 'green',
-    },
-    activeTab3: {
-        borderBottomColor: 'orange',
-    },
-    activeTab4: {
-        borderBottomColor: 'red',
+        width: '100%',
     },
 });
 

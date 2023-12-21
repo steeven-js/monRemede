@@ -3,16 +3,29 @@ import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from 'react
 import { firebase } from '@react-native-firebase/auth';
 import BackIcon from 'react-native-vector-icons/Ionicons';
 import StarIcon from 'react-native-vector-icons/FontAwesome6';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused, useRoute } from '@react-navigation/native';
 import styles from './styles';
 
-const PlantNavBar = ({ route }) => {
-
+const colorMapping = {
+    Info: 'blue',
+    Propriete: 'green',
+    Utilisation: 'orange',
+    Precaution: 'red',
+};
+const PlantNavBar = ({ route, screenNames }) => {
     const navigation = useNavigation();
+    const isFocused = useIsFocused();
+    const currentRoute = useRoute();
 
     const [user, setUser] = useState(null);
+    const [activeScreen, setActiveScreen] = useState(screenNames[0]); // Initialize with the first screen
+
 
     useEffect(() => {
+        // Update the active screen when the screen changes
+        if (isFocused) {
+            setActiveScreen(currentRoute.name);
+        }
         // Vérifiez l'état d'authentification actuel lors de l'initialisation du composant
         const unsubscribe = firebase.auth().onAuthStateChanged((authUser) => {
             setUser(authUser);
@@ -20,7 +33,7 @@ const PlantNavBar = ({ route }) => {
 
         // Nettoyez l'écouteur lors de la suppression du composant pour éviter les fuites de mémoire
         return () => unsubscribe();
-    }, []);
+    }, [isFocused, currentRoute]);
 
     const addToFavoritesHandler = async () => {
         // Assurez-vous que l'utilisateur est connecté
@@ -73,18 +86,20 @@ const PlantNavBar = ({ route }) => {
                     </View>
                     <View style={styles.container}>
                         <View style={styles.content}>
-                            <TouchableOpacity onPress={() => navigation.navigate('Info')} >
-                                <Text style={styles.divText}>Info</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => navigation.navigate('Propriete')} >
-                                <Text style={styles.divText}>Propriété</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => navigation.navigate('Utilisation')} >
-                                <Text style={styles.divText}>Utilisation</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => navigation.navigate('Precaution')} >
-                                <Text style={styles.divText}>Précaution</Text>
-                            </TouchableOpacity>
+                            {screenNames.map((screenName) => (
+                                <TouchableOpacity
+                                    key={screenName}
+                                    onPress={() => {
+                                        setActiveScreen(screenName);
+                                        navigation.navigate(screenName);
+                                    }}
+                                    style={[styles.textColor, styles.tab, { borderBottomColor: isFocused && activeScreen === screenName ? colorMapping[screenName] : 'transparent' }]}
+                                >
+                                    <Text style={[ styles.divText, styles.textColor]}>
+                                        {screenName}
+                                    </Text>
+                                </TouchableOpacity>
+                            ))}
                         </View>
                     </View>
                 </ImageBackground>
