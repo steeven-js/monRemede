@@ -44,7 +44,7 @@ const SymptomeDetail = ({ route, navigation }) => {
                                     style={[styles.favorite, styles.spacing]}
                                     key={plant.id}
                                     onPress={() => {
-                                        navigation.navigate('Info', {
+                                        navigation.navigate('PlantScreen', {
                                             plantId: plant.id,
                                         });
                                     }}
