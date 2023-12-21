@@ -8,7 +8,6 @@ const Plantes = ({ navigation }) => {
     const dispatch = useDispatch();
     const plantsData = useSelector((state) => state.plants.data);
 
-    // Check if data is already available, if not, fetch it
     if (!plantsData) {
         dispatch(fetchPlants());
     }
@@ -17,7 +16,7 @@ const Plantes = ({ navigation }) => {
         <TouchableOpacity
             style={[styles.plant, styles.spacing]}
             onPress={() => {
-                navigation.navigate('PlantScreen', {
+                navigation.navigate('Info', {
                     plantId: item.id,
                     plantName: item.name,
                 });

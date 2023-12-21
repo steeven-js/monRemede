@@ -18,7 +18,7 @@ const PlantNavBar = ({ route, screenNames }) => {
     const currentRoute = useRoute();
 
     const [user, setUser] = useState(null);
-    const [activeScreen, setActiveScreen] = useState(screenNames[0]); // Initialize with the first screen
+    const [activeScreen, setActiveScreen] = useState(screenNames[0]);
 
 
     useEffect(() => {
