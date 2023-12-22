@@ -29,8 +29,7 @@ const Propriete = ({ route }) => {
     const { proprietes } = plant;
 
     return (
-        <ImageBackground
-            source={require('../../assets/images/backgrounds/fond4.jpg')}
+        <View
             style={styles.backgroundImage}
         >
             <View style={styles.overlay}>
@@ -47,7 +46,7 @@ const Propriete = ({ route }) => {
                     </View>
                 </View>
             </View>
-        </ImageBackground>
+        </View>
     );
 }
 

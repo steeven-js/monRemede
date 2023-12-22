@@ -36,8 +36,7 @@ const Usages = ({ navigation }) => {
     );
 
     return (
-        <ImageBackground
-            source={require('../../assets/images/backgrounds/fond4.jpg')}
+        <View
             style={styles.backgroundImage}
         >
             <View style={styles.overlay}>
@@ -51,7 +50,7 @@ const Usages = ({ navigation }) => {
                     <Text>Loading...</Text>
                 )}
             </View>
-        </ImageBackground>
+        </View>
     );
 };
 

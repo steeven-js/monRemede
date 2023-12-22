@@ -26,8 +26,7 @@ const Info = ({ route }) => {
     }
 
     return (
-        <ImageBackground
-            source={require('../../assets/images/backgrounds/fond4.jpg')}
+        <View
             style={styles.backgroundImage}
         >
             <View style={styles.overlay}>
@@ -69,7 +68,7 @@ const Info = ({ route }) => {
                     </View>
                 </View>
             </View>
-        </ImageBackground>
+        </View>
     );
 }
 

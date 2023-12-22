@@ -17,8 +17,7 @@ const SymptomeDetail = ({ route, navigation }) => {
     }, []);
 
     return (
-        <ImageBackground
-            source={require('../../assets/images/backgrounds/fond4.jpg')}
+        <View
             style={styles.backgroundImage}
         >
             <LinearGradient
@@ -64,7 +63,7 @@ const SymptomeDetail = ({ route, navigation }) => {
                     <Text>Loading plants...</Text>
                 )}
             </View>
-        </ImageBackground>
+        </View>
     );
 };
 

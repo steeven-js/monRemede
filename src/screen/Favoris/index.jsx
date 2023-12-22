@@ -47,8 +47,7 @@ const Favoris = ({ navigation }) => {
     };
 
     return (
-        <ImageBackground
-            source={require('../../assets/images/backgrounds/fond4.jpg')}
+        <View
             style={styles.backgroundImage}
         >
             <View style={styles.overlay}>
@@ -86,7 +85,7 @@ const Favoris = ({ navigation }) => {
                     </View>
                 </View>
             </View>
-        </ImageBackground>
+        </View>
     );
 };
 

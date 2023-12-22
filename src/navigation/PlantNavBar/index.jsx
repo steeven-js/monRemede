@@ -16,10 +16,8 @@ const PlantNavBar = ({ route, screenNames }) => {
     const navigation = useNavigation();
     const isFocused = useIsFocused();
     const currentRoute = useRoute();
-
     const [user, setUser] = useState(null);
     const [activeScreen, setActiveScreen] = useState(screenNames[0]);
-
 
     useEffect(() => {
         // Update the active screen when the screen changes
@@ -80,7 +78,7 @@ const PlantNavBar = ({ route, screenNames }) => {
                 >
                     <View style={styles.divAboveTabs}>
                         <View style={styles.divAboveTabsContent}>
-                            <BackIcon name="arrow-back" size={30} color="#fff" onPress={() => navigation.navigate('Plantes médicinales')} />
+                            <BackIcon name="arrow-back" size={30} color="#fff" onPress={() => navigation.goBack()} />
                             <StarIcon name="star" size={30} color="#fff" onPress={addToFavoritesHandler} />
                         </View>
                     </View>

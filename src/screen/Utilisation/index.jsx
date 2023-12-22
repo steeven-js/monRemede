@@ -33,8 +33,7 @@ const Utilisation = ({ route }) => {
     const utilisationsExterne = utilisations.filter(item => item.type === 'externe');
 
     return (
-        <ImageBackground
-            source={require('../../assets/images/backgrounds/fond4.jpg')}
+        <View
             style={styles.backgroundImage}
         >
             <View style={styles.overlay}>
@@ -62,7 +61,7 @@ const Utilisation = ({ route }) => {
                     </View>
                 </View>
             </View>
-        </ImageBackground>
+        </View>
     );
 }
 
