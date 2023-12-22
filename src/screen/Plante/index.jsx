@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
     View,
     StyleSheet,
@@ -9,11 +9,15 @@ import {
     Text,
     FlatList,
 } from 'react-native';
-import { fetchPlants } from '../../../redux/fetchApi';
+import firestore from '@react-native-firebase/firestore';
+import { firebase } from '@react-native-firebase/auth';
 import styles from './styles';
 
 const Plantes = ({ navigation }) => {
+    const [user, setUser] = useState(null);
     const [plantsData, setPlantsData] = useState(null);
+    const [favorites, setFavorites] = useState([]);
+    const initialLoad = useRef(true);
 
     useEffect(() => {
         const fetchPlantsData = async () => {
@@ -29,11 +33,40 @@ const Plantes = ({ navigation }) => {
         if (!plantsData) {
             fetchPlantsData();
         }
-    }, [plantsData]); // Dependency array includes plantsData to refetch data when it changes
+
+        const unsubscribe = firebase.auth().onAuthStateChanged((authUser) => {
+            setUser(authUser);
+            if (authUser && initialLoad.current) {
+                loadFavorites(authUser.uid);
+                fetchPlantsData();
+                initialLoad.current = false;
+            }
+        });
+
+        return () => unsubscribe();
+    }, [plantsData]);
+
+    const loadFavorites = async (userId) => {
+        try {
+            const favoritesSnapshot = await firestore().collection('favoris').where('userId', '==', userId).get();
+            const favoritePlants = favoritesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setFavorites(favoritePlants);
+        } catch (error) {
+            console.error("Erreur lors du chargement des favoris :", error);
+        }
+    };
+
+    const getPlantItemStyle = (item) => {
+        const isFavorite = favorites.some(favorite => favorite.plantId === item.id);
+        return isFavorite ? styles.favoritePlant : styles.plant;
+    };
 
     const renderPlantItem = ({ item }) => (
         <TouchableOpacity
-            style={[styles.plant, styles.spacing]}
+            style={[
+                getPlantItemStyle(item),
+                styles.spacing,
+            ]}
             onPress={() => {
                 navigation.navigate('PlantDetail', {
                     plantId: item.id,
