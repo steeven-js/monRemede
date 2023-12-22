@@ -11,6 +11,9 @@ const PlantInfoStack = createStackNavigator();
 const PlantDetail = ({ navigation, route }) => {
     const { plantId } = route.params;
     const { plantName } = route.params;
+    const { symptomeId } = route.params;
+    const { symptomeName } = route.params;
+    // console.log('route', route)
 
     // console.log('plantId', plantId)
     // console.log('plantName', plantName)
@@ -21,7 +24,7 @@ const PlantDetail = ({ navigation, route }) => {
         <PlantInfoStack.Navigator
             initialRouteName="Info"
             screenOptions={{
-                header: (props) => <PlantNavBar {...props}  route={{ params: { plantId, plantName } }} screenNames={screenNames} />,
+                header: (props) => <PlantNavBar {...props}  route={{ params: { plantId, plantName, symptomeId, symptomeName } }} screenNames={screenNames} />,
                 animationEnabled: false,
             }}
         >

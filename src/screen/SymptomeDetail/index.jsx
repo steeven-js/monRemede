@@ -63,8 +63,10 @@ const SymptomeDetail = ({ route, navigation }) => {
                                     style={[styles.favorite, styles.spacing]}
                                     key={plant.id}
                                     onPress={() => {
-                                        navigation.navigate('PlantScreen', {
+                                        navigation.navigate('PlantDetail', {
                                             plantId: plant.id,
+                                            symptomeId: symptomeId,
+                                            symptomeName: symptomeName,
                                         });
                                     }}
                                 >

@@ -67,7 +67,7 @@ const Favoris = ({ navigation }) => {
                                             style={styles.favorite}
                                             onPress={() => {
                                                 // Redirigez vers l'écran PlantDetail avec l'ID de la plante
-                                                navigation.navigate('PlantScreen', { plantId: favorite.plantId });
+                                                navigation.navigate('PlantDetail', { plantId: favorite.plantId });
                                             }}
                                         >
                                             <Image

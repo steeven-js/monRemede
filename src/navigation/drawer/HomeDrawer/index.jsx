@@ -81,7 +81,7 @@ const HomeDrawer = () => {
                 options={{ headerShown: false, drawerLabel: () => null }}
             />
             <Drawer.Screen
-                name="PlantScreen"
+                name="PlantDetail"
                 component={PlantDetail}
                 options={{ headerShown: false, drawerLabel: () => null }}
             />

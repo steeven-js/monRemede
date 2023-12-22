@@ -19,7 +19,7 @@ const PlantNavBar = ({ route, screenNames }) => {
     const [user, setUser] = useState(null);
     const [activeScreen, setActiveScreen] = useState(screenNames[0]);
 
-    console.log('route', route);
+    // console.log('route', route);
 
     useEffect(() => {
         // Update the active screen when the screen changes
@@ -71,6 +71,13 @@ const PlantNavBar = ({ route, screenNames }) => {
         }
     };
 
+    const backSymptomeDetail = () => {
+        navigation.navigate('SymptomeDetail', { 
+            symptomeId: route.params?.symptomeId,
+            symptomeName: route.params?.symptomeName
+        });
+    }
+
     return (
         <View style={styles.header}>
             <View>
@@ -81,7 +88,9 @@ const PlantNavBar = ({ route, screenNames }) => {
                     <View style={styles.divAboveTabs}>
                         <View style={styles.divAboveTabsContent}>
                             <TouchableOpacity style={styles.back}>
-                                <BackIcon name="arrow-back" size={30} color="#fff" onPress={() => navigation.goBack()} />
+                                {route.params?.symptomeId ? (
+                                    <BackIcon name="arrow-back" size={30} color="#fff" onPress={backSymptomeDetail} />
+                                ) : <BackIcon name="arrow-back" size={30} color="#fff" onPress={() => navigation.goBack()} />}
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.star}>
                                 <StarIcon name="star" size={30} color="#fff" onPress={addToFavoritesHandler} />
