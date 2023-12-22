@@ -5,21 +5,17 @@ const numColumns = 2;
 const columnWidth = width / numColumns;
 
 const styles = StyleSheet.create({
-    header: {
-        backgroundColor: 'lightgreen',
-    },
-    divAboveTabs: {
+    TopNavBar: {
         padding: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
     },
-    container: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
+    textTopNavBar: {
+        fontSize: 18,
+        color: 'white',
+        fontFamily: 'Dosis-Regular',
     },
-
     background: {
         flex: 1,
         resizeMode: 'cover',
@@ -27,50 +23,49 @@ const styles = StyleSheet.create({
     },
     overlay: {
         flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.4)', // couleur noire semi-transparente
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
     },
     container: {
-        backgroundColor: 'transparent',
-        padding: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
     },
     spacing: {
         color: 'white',
-    },
-    gridContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
+        height: 150,
     },
     favorite: {
-        width: columnWidth - 20, // -20 pour prendre en compte la marge entre les éléments
-        height: columnWidth - 20, // Hauteur égale à la largeur pour obtenir un carré
-        borderWidth: 1, // Épaisseur de la bordure
-        borderColor: 'rgba(255, 255, 255, 0.6)', // Couleur de la bordure (blanc semi-transparent)
-        borderRadius: 5, // Rayon des coins pour arrondir la bordure
-        marginBottom: 10, // Marge en bas pour séparer les favoris
-        justifyContent: 'center', // Centrer le contenu à l'intérieur du carré
+        width: columnWidth - 20,
+        height: columnWidth - 20,
+        borderWidth: 1,
+        borderColor: 'rgba(255, 255, 255, 0.6)',
+        borderRadius: 15,
+        marginBottom: 10,
+        justifyContent: 'center',
         alignItems: 'center',
-        position: 'relative', // Position relative pour permettre le positionnement absolu du texte
+        position: 'relative',
+        margin: 10,
+        borderColor: 'white',
     },
     favoriteInfoContainer: {
-        position: 'absolute', // Position absolue par rapport au conteneur parent (TouchableOpacity)
-        bottom: 0, // Aligner le bas du conteneur au bas du TouchableOpacity
-        left: 0, // Aligner le côté gauche du conteneur au côté gauche du TouchableOpacity
-        width: '100%', // Occuper toute la largeur du TouchableOpacity
-        backgroundColor: 'rgba(0, 0, 0, 0.7)', // Fond sombre semi-transparent
-        borderBottomLeftRadius: 5, // Rayon des coins pour arrondir le coin en bas à gauche
-        borderBottomRightRadius: 5, // Rayon des coins pour arrondir le coin en bas à droite
-        padding: 5, // Espace interne pour le texte
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        width: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
+        padding: 5,
     },
     favoriteName: {
         color: 'white',
         textAlign: 'center',
         fontFamily: 'Dosis-Regular',
     },
-    divText: {
-        fontSize: 18,
-        color: 'white',
-        fontFamily: 'Dosis-Regular',
+    plantImage: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 15,
     },
 });
 

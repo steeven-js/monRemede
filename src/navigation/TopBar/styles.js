@@ -7,13 +7,13 @@ const styles = StyleSheet.create({
     icon: {
         padding: 10,
     },
-    divAboveTabs: {
+    TopNavBar: {
         padding: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
     },
-    divText: {
+    textTopNavBar: {
         fontSize: 18,
         color: 'white',
         fontFamily: 'Dosis-Regular',

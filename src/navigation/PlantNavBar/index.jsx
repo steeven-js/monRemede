@@ -85,8 +85,8 @@ const PlantNavBar = ({ route, screenNames }) => {
                     source={require('../../assets/images/plante/plante.jpg')}
                     style={styles.background}
                 >
-                    <View style={styles.divAboveTabs}>
-                        <View style={styles.divAboveTabsContent}>
+                    <View style={styles.TopNavBar}>
+                        <View style={styles.TopNavBarContent}>
                             <TouchableOpacity style={styles.back}>
                                 {route.params?.symptomeId ? (
                                     <BackIcon name="arrow-back" size={30} color="#fff" onPress={backSymptomeDetail} />
@@ -108,7 +108,7 @@ const PlantNavBar = ({ route, screenNames }) => {
                                     }}
                                     style={[styles.textColor, styles.tab, { borderBottomColor: isFocused && activeScreen === screenName ? colorMapping[screenName] : 'transparent' }]}
                                 >
-                                    <Text style={[styles.divText, styles.textColor]}>
+                                    <Text style={[styles.textTopNavBar, styles.textColor]}>
                                         {screenName}
                                     </Text>
                                 </TouchableOpacity>

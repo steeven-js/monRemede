@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Button, Dimensions, Image } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Button, Dimensions, Image, FlatList } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { firebase } from '@react-native-firebase/auth';
 import styles from './styles';
@@ -15,7 +15,7 @@ const Favoris = ({ navigation }) => {
             setUser(authUser);
             if (authUser && initialLoad.current) {
                 loadFavorites(authUser.uid);
-                fetchPlantsData(); // Nouvelle fonction pour récupérer les données des plantes
+                fetchPlantsData();
                 initialLoad.current = false;
             }
         });
@@ -46,10 +46,28 @@ const Favoris = ({ navigation }) => {
         }
     };
 
+    const renderItem = ({ item }) => {
+        const plant = plantsData.find(p => p.id === item.plantId);
+        return (
+            <TouchableOpacity
+                style={styles.favorite}
+                onPress={() => {
+                    navigation.navigate('PlantDetail', { plantId: item.plantId });
+                }}
+            >
+                <Image
+                    source={require('../../assets/images/plante/plante.jpg')}
+                    style={styles.plantImage}
+                />
+                <View style={styles.favoriteInfoContainer}>
+                    <Text style={styles.favoriteName}>{plant ? plant.name : 'Unknown Plant'}</Text>
+                </View>
+            </TouchableOpacity>
+        );
+    };
+
     return (
-        <View
-            style={styles.background}
-        >
+        <View style={styles.background}>
             <View style={styles.overlay}>
                 <View style={styles.container}>
                     <View>
@@ -58,29 +76,12 @@ const Favoris = ({ navigation }) => {
                             <Button title="Se connecter" onPress={() => { navigation.navigate('LoginScreen') }} />
                         )}
                         {user && favorites.length > 0 && plantsData.length > 0 && (
-                            <View style={styles.gridContainer}>
-                                {favorites.map(favorite => {
-                                    const plant = plantsData.find(p => p.id === favorite.plantId);
-                                    return (
-                                        <TouchableOpacity
-                                            key={favorite.id}
-                                            style={styles.favorite}
-                                            onPress={() => {
-                                                // Redirigez vers l'écran PlantDetail avec l'ID de la plante
-                                                navigation.navigate('PlantDetail', { plantId: favorite.plantId });
-                                            }}
-                                        >
-                                            <Image
-                                                source={require('../../assets/images/plante/plante.jpg')}
-                                                style={{ width: '100%', height: '100%', borderRadius: 5 }}
-                                            />
-                                            <View style={styles.favoriteInfoContainer}>
-                                                <Text style={styles.favoriteName}>{plant ? plant.name : 'Unknown Plant'}</Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                    );
-                                })}
-                            </View>
+                            <FlatList
+                                data={favorites}
+                                keyExtractor={item => item.id}
+                                renderItem={renderItem}
+                                numColumns={2} // Nombre de colonnes dans la grille (ajustez selon vos besoins)
+                            />
                         )}
                     </View>
                 </View>

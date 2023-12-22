@@ -16,23 +16,22 @@ const styles = StyleSheet.create({
     },
     container: {
         backgroundColor: 'transparent',
-        padding: 10,
-    },
-    gridContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     favorite: {
         width: columnWidth - 20,
         height: columnWidth - 20,
         borderWidth: 1,
         borderColor: 'rgba(255, 255, 255, 0.6)',
-        borderRadius: 5,
+        borderRadius: 15,
         marginBottom: 10,
         justifyContent: 'center',
         alignItems: 'center',
         position: 'relative',
+        margin: 10,
+        borderColor: 'yellow',
+        height: 150,
     },
     favoriteInfoContainer: {
         position: 'absolute',
@@ -40,14 +39,19 @@ const styles = StyleSheet.create({
         left: 0,
         width: '100%',
         backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        borderBottomLeftRadius: 5,
-        borderBottomRightRadius: 5,
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
         padding: 5,
     },
     favoriteName: {
         color: 'white',
         textAlign: 'center',
         fontFamily: 'Dosis-Regular',
+    },
+    plantImage: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 15,
     },
 });
 

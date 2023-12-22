@@ -22,9 +22,9 @@ const TopBar = ({ navigation, route }) => {
             style={styles.header}
         >
             {/* Div au-dessus des onglets */}
-            <View style={styles.divAboveTabs}>
+            <View style={styles.TopNavBar}>
                 <MenuIcon name="menu" size={30} color="#fff" onPress={() => navigation.openDrawer()} />
-                <Text style={styles.divText}>{route && route.name}</Text>
+                <Text style={styles.textTopNavBar}>{route && route.name}</Text>
                 <SearchIcon name="search" size={30} color="#fff" />
             </View>
 

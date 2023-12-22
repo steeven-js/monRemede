@@ -6,13 +6,13 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
         justifyContent: 'center',
     },
-    divAboveTabs: {
+    TopNavBar: {
         padding: 10,
         position: 'absolute',
         top: 0,
         width: '100%',
     },
-    divAboveTabsContent: {
+    TopNavBarContent: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0.4)',
     },
-    divText: {
+    textTopNavBar: {
         fontSize: 18,
         color: 'white',
         fontFamily: 'Dosis-Regular',

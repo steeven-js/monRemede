@@ -44,11 +44,17 @@ const Plantes = ({ navigation }) => {
 
     const loadFavorites = async (userId) => {
         try {
-            const favoritesSnapshot = await firestore().collection('favoris').where('userId', '==', userId).get();
-            const favoritePlants = favoritesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            const favoritesSnapshot = await firestore()
+                .collection('favoris')
+                .where('userId', '==', userId)
+                .get();
+            const favoritePlants = favoritesSnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
             setFavorites(favoritePlants);
         } catch (error) {
-            console.error("Erreur lors du chargement des favoris :", error);
+            console.error('Error loading favorites:', error);
         }
     };
 
@@ -72,7 +78,7 @@ const Plantes = ({ navigation }) => {
         >
             <Image
                 source={require('../../assets/images/plante/plante.jpg')}
-                style={{ width: '100%', height: '100%', borderRadius: 15 }}
+                style={styles.plantImage}
             />
             <View style={styles.plantInfoContainer}>
                 <Text style={styles.plantName}>{item.name}</Text>

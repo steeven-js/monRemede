@@ -7,6 +7,7 @@ import {
     ScrollView,
     TouchableOpacity,
     Image,
+    FlatList,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import BackIcon from 'react-native-vector-icons/Ionicons';
@@ -31,6 +32,27 @@ const SymptomeDetail = ({ route, navigation }) => {
         fetchSymptome();
     }, [symptomeId]); // Dependency array includes symptomeId to refetch data when it changes
 
+    const renderItem = ({ item }) => (
+        <TouchableOpacity
+            style={[styles.favorite, styles.spacing]}
+            onPress={() => {
+                navigation.navigate('PlantDetail', {
+                    plantId: item.id,
+                    symptomeId: symptomeId,
+                    symptomeName: symptomeName,
+                });
+            }}
+        >
+            <Image
+                source={require('../../assets/images/plante/plante.jpg')}
+                style={styles.plantImage}
+            />
+            <View style={styles.favoriteInfoContainer}>
+                <Text style={styles.favoriteName}>{item.name}</Text>
+            </View>
+        </TouchableOpacity>
+    );
+
     return (
         <View style={styles.background}>
             <LinearGradient
@@ -40,15 +62,15 @@ const SymptomeDetail = ({ route, navigation }) => {
                 angle={180}
                 style={styles.header}
             >
-                <View style={styles.divAboveTabs}>
+                <View style={styles.TopNavBar}>
                     <BackIcon
                         name="arrow-back"
                         size={30}
                         color="#fff"
                         onPress={() => navigation.goBack()}
                     />
-                    <Text style={styles.divText}>{symptomeName}</Text>
-                    <Text style={styles.divText}>
+                    <Text style={styles.textTopNavBar}>{symptomeName}</Text>
+                    <Text style={styles.textTopNavBar}>
                         {symptomePlants?.plants_count}
                     </Text>
                 </View>
@@ -56,31 +78,12 @@ const SymptomeDetail = ({ route, navigation }) => {
 
             <View style={styles.overlay}>
                 {symptomePlants && symptomePlants.plants ? (
-                    <ScrollView style={styles.container}>
-                        <View style={styles.gridContainer}>
-                            {symptomePlants.plants.map((plant) => (
-                                <TouchableOpacity
-                                    style={[styles.favorite, styles.spacing]}
-                                    key={plant.id}
-                                    onPress={() => {
-                                        navigation.navigate('PlantDetail', {
-                                            plantId: plant.id,
-                                            symptomeId: symptomeId,
-                                            symptomeName: symptomeName,
-                                        });
-                                    }}
-                                >
-                                    <Image
-                                        source={require('../../assets/images/plante/plante.jpg')}
-                                        style={{ width: '100%', height: '100%', borderRadius: 5 }}
-                                    />
-                                    <View style={styles.favoriteInfoContainer}>
-                                        <Text style={styles.favoriteName}>{plant.name}</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            ))}
-                        </View>
-                    </ScrollView>
+                    <FlatList
+                        data={symptomePlants.plants}
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={renderItem}
+                        numColumns={2}
+                    />
                 ) : (
                     <Text>Loading plants...</Text>
                 )}

@@ -64,4 +64,9 @@ export default StyleSheet.create({
         textAlign: 'center',
         fontFamily: 'Dosis-Regular',
     },
+    plantImage: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 15,
+    },
 });
