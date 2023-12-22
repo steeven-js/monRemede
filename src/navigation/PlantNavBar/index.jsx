@@ -19,6 +19,8 @@ const PlantNavBar = ({ route, screenNames }) => {
     const [user, setUser] = useState(null);
     const [activeScreen, setActiveScreen] = useState(screenNames[0]);
 
+    console.log('route', route);
+
     useEffect(() => {
         // Update the active screen when the screen changes
         if (isFocused) {

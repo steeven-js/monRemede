@@ -21,7 +21,7 @@ const PlantDetail = ({ navigation, route }) => {
         <PlantInfoStack.Navigator
             initialRouteName="Info"
             screenOptions={{
-                header: (props) => <PlantNavBar {...props} screenNames={screenNames} />,
+                header: (props) => <PlantNavBar {...props}  route={{ params: { plantId, plantName } }} screenNames={screenNames} />,
                 animationEnabled: false,
             }}
         >
