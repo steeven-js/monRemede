@@ -44,7 +44,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         position: 'relative',
         margin: 10,
-        borderColor: 'red',
+        borderColor: 'yellow',
     },
     plantInfoContainer: {
         position: 'absolute',
