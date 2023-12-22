@@ -8,8 +8,15 @@ import Precaution from '../Precaution';
 
 const PlantInfoStack = createStackNavigator();
 
-const PlantDetail = ({ route }) => {
-    const { plantId, plantName, symptomeId, symptomeName } = route.params;
+const PlantDetail = ({ navigation, route }) => {
+    const { plantId } = route.params;
+    const { plantName } = route.params;
+    const { symptomeId } = route.params;
+    const { symptomeName } = route.params;
+    // console.log('route', route)
+
+    // console.log('plantId', plantId)
+    // console.log('plantName', plantName)
 
     const screenNames = ["Info", "Propriete", "Utilisation", "Precaution"];
 
@@ -17,16 +24,25 @@ const PlantDetail = ({ route }) => {
         <PlantInfoStack.Navigator
             initialRouteName="Info"
             screenOptions={{
-                header: (props) => (
-                    <PlantNavBar {...props} route={{ params: { plantId, plantName, symptomeId, symptomeName } }} screenNames={screenNames} />
-                ),
+                header: (props) => <PlantNavBar {...props}  route={{ params: { plantId, plantName, symptomeId, symptomeName } }} screenNames={screenNames} />,
                 animationEnabled: false,
             }}
         >
-            <PlantInfoStack.Screen name="Info" component={Info} initialParams={{ plantId, plantName }} />
-            <PlantInfoStack.Screen name="Propriete" component={Propriete} initialParams={{ plantId }} />
-            <PlantInfoStack.Screen name="Utilisation" component={Utilisation} initialParams={{ plantId }} />
-            <PlantInfoStack.Screen name="Precaution" component={Precaution} initialParams={{ plantId }} />
+            <PlantInfoStack.Screen name="Info">
+                {(props) => <Info {...props} route={{ params: { plantId, plantName } }} />}
+            </PlantInfoStack.Screen>
+
+            <PlantInfoStack.Screen name="Propriete">
+                {(props) => <Propriete {...props} route={{ params: { plantId } }} />}
+            </PlantInfoStack.Screen>
+
+            <PlantInfoStack.Screen name="Utilisation">
+                {(props) => <Utilisation {...props} route={{ params: { plantId } }} />}
+            </PlantInfoStack.Screen>
+
+            <PlantInfoStack.Screen name="Precaution">
+                {(props) => <Precaution {...props} route={{ params: { plantId } }} />}
+            </PlantInfoStack.Screen>
         </PlantInfoStack.Navigator>
     );
 }
