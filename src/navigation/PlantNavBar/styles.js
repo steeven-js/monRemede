@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     backgroundImage: {
-        height: 450,
+        height: 350,
         resizeMode: 'cover',
         justifyContent: 'center',
     },
