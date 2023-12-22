@@ -1,29 +1,48 @@
-import React from 'react';
-import { View, StyleSheet, ImageBackground, Dimensions, TouchableOpacity, Image, Text, FlatList } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import {
+    View,
+    StyleSheet,
+    ImageBackground,
+    Dimensions,
+    TouchableOpacity,
+    Image,
+    Text,
+    FlatList,
+} from 'react-native';
 import { fetchPlants } from '../../../redux/fetchApi';
 import styles from './styles';
 
 const Plantes = ({ navigation }) => {
-    const dispatch = useDispatch();
-    const plantsData = useSelector((state) => state.plants.data);
+    const [plantsData, setPlantsData] = useState(null);
 
-    if (!plantsData) {
-        dispatch(fetchPlants());
-    }
+    useEffect(() => {
+        const fetchPlantsData = async () => {
+            try {
+                const response = await fetch('http://apimonremede.jsprod.fr/api/plants/');
+                const data = await response.json();
+                setPlantsData(data);
+            } catch (error) {
+                console.error('Error fetching plants:', error);
+            }
+        };
+
+        if (!plantsData) {
+            fetchPlantsData();
+        }
+    }, [plantsData]); // Dependency array includes plantsData to refetch data when it changes
 
     const renderPlantItem = ({ item }) => (
         <TouchableOpacity
             style={[styles.plant, styles.spacing]}
             onPress={() => {
-                navigation.navigate('Info', {
+                navigation.navigate('PlantScreen', {
                     plantId: item.id,
                     plantName: item.name,
                 });
             }}
         >
             <Image
-                source={require('../../assets/images/plante/plante.jpg')} 
+                source={require('../../assets/images/plante/plante.jpg')}
                 style={{ width: '100%', height: '100%', borderRadius: 5 }}
             />
             <View style={styles.plantInfoContainer}>
@@ -33,9 +52,7 @@ const Plantes = ({ navigation }) => {
     );
 
     return (
-        <View
-            style={styles.backgroundImage}
-        >
+        <View style={styles.backgroundImage}>
             <View style={styles.overlay}>
                 {plantsData ? (
                     <FlatList

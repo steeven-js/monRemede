@@ -78,8 +78,12 @@ const PlantNavBar = ({ route, screenNames }) => {
                 >
                     <View style={styles.divAboveTabs}>
                         <View style={styles.divAboveTabsContent}>
-                            <BackIcon name="arrow-back" size={30} color="#fff" onPress={() => navigation.goBack()} />
-                            <StarIcon name="star" size={30} color="#fff" onPress={addToFavoritesHandler} />
+                            <TouchableOpacity style={styles.back}>
+                                <BackIcon name="arrow-back" size={30} color="#fff" onPress={() => navigation.goBack()} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.star}>
+                                <StarIcon name="star" size={30} color="#fff" onPress={addToFavoritesHandler} />
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View style={styles.container}>
@@ -93,7 +97,7 @@ const PlantNavBar = ({ route, screenNames }) => {
                                     }}
                                     style={[styles.textColor, styles.tab, { borderBottomColor: isFocused && activeScreen === screenName ? colorMapping[screenName] : 'transparent' }]}
                                 >
-                                    <Text style={[ styles.divText, styles.textColor]}>
+                                    <Text style={[styles.divText, styles.textColor]}>
                                         {screenName}
                                     </Text>
                                 </TouchableOpacity>

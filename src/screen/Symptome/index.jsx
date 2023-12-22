@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     FlatList,
@@ -8,18 +8,24 @@ import {
     TouchableOpacity,
     Text,
 } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchSymptomes } from '../../../redux/fetchApi';
 import styles from './styles';
 
 const Usages = ({ navigation }) => {
-    const dispatch = useDispatch();
-    const symptomesData = useSelector((state) => state.symptomes.data);
+    const [symptomesData, setSymptomesData] = useState(null);
 
-    // Check if data is already available; if not, fetch it
-    if (!symptomesData) {
-        dispatch(fetchSymptomes());
-    }
+    useEffect(() => {
+        const fetchSymptomes = async () => {
+            try {
+                const response = await fetch('http://apimonremede.jsprod.fr/api/symptomes');
+                const data = await response.json();
+                setSymptomesData(data);
+            } catch (error) {
+                console.error('Error fetching symptomes:', error);
+            }
+        };
+
+        fetchSymptomes();
+    }, []); // Empty dependency array means this effect runs once, similar to componentDidMount
 
     const renderSymptomeItem = ({ item }) => (
         <TouchableOpacity
@@ -36,9 +42,7 @@ const Usages = ({ navigation }) => {
     );
 
     return (
-        <View
-            style={styles.backgroundImage}
-        >
+        <View style={styles.backgroundImage}>
             <View style={styles.overlay}>
                 {symptomesData ? (
                     <FlatList

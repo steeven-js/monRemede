@@ -1,20 +1,28 @@
-import { View, Text, ImageBackground, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Image } from 'react-native';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { View, Text } from 'react-native';
 import { fetchPlant } from '../../../redux/fetchApi';
 import styles from './styles';
 
 const Precaution = ({ route }) => {
     const { plantId } = route.params;
-    const dispatch = useDispatch();
+    const [plant, setPlant] = useState(null);
 
     // Fetch plant data on component mount
     useEffect(() => {
-        dispatch(fetchPlant(plantId));
-    }, [dispatch, plantId]);
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`http://apimonremede.jsprod.fr/api/plants/${plantId}`);
+                const data = await response.json();
+                setPlant(data);
+            } catch (error) {
+                console.error('Error fetching plant:', error);
+            }
+        };
 
-    // Retrieve the plant data from the Redux store
-    const plant = useSelector((state) => state.plants.selectedPlant);
+        if (!plant) {
+            fetchData();
+        }
+    }, [plant, plantId]);
 
     if (!plant) {
         // If the data is not available yet, you can render a loading indicator or return null
@@ -29,9 +37,7 @@ const Precaution = ({ route }) => {
     const { precautions } = plant;
 
     return (
-        <View
-            style={styles.backgroundImage}
-        >
+        <View style={styles.backgroundImage}>
             <View style={styles.overlay}>
                 <View style={styles.container}>
                     <View style={styles.content}>
@@ -48,6 +54,6 @@ const Precaution = ({ route }) => {
             </View>
         </View>
     );
-}
+};
 
 export default Precaution;

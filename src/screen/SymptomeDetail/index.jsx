@@ -1,36 +1,56 @@
-import React, { useEffect } from 'react';
-import { View, Text, ImageBackground, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+    View,
+    Text,
+    ImageBackground,
+    StyleSheet,
+    ScrollView,
+    TouchableOpacity,
+    Image,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchSymptome } from '../../../redux/fetchApi';
 import BackIcon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 
 const SymptomeDetail = ({ route, navigation }) => {
     const { symptomeId, symptomeName } = route.params;
-    const dispatch = useDispatch();
-    const symptomePlants = useSelector((state) => state.symptomes.symptomePlants);
+    const [symptomePlants, setSymptomePlants] = useState(null);
 
     // Check if data is already available, if not, fetch it
     useEffect(() => {
-        dispatch(fetchSymptome(symptomeId));
-    }, []);
+        const fetchSymptome = async () => {
+            try {
+                const response = await fetch(`http://apimonremede.jsprod.fr/api/symptomes/${symptomeId}`);
+                const data = await response.json();
+                setSymptomePlants(data);
+            } catch (error) {
+                console.error('Error fetching symptome:', error);
+            }
+        };
+
+        fetchSymptome();
+    }, [symptomeId]); // Dependency array includes symptomeId to refetch data when it changes
 
     return (
-        <View
-            style={styles.backgroundImage}
-        >
+        <View style={styles.backgroundImage}>
             <LinearGradient
-                colors={['#2e6a30', '#439a46']} // Dégradé de deux tons de vert foncé
-                locations={[0, 0.65]} // Positions relatives des couleurs
+                colors={['#2e6a30', '#439a46']}
+                locations={[0, 0.65]}
                 useAngle
                 angle={180}
                 style={styles.header}
             >
                 <View style={styles.divAboveTabs}>
-                    <BackIcon name="arrow-back" size={30} color="#fff" onPress={() => navigation.goBack()} />
+                    <BackIcon
+                        name="arrow-back"
+                        size={30}
+                        color="#fff"
+                        onPress={() => navigation.goBack()}
+                    />
                     <Text style={styles.divText}>{symptomeName}</Text>
-                    <Text style={styles.divText}>{symptomePlants?.plants_count}</Text>
+                    <Text style={styles.divText}>
+                        {symptomePlants?.plants_count}
+                    </Text>
                 </View>
             </LinearGradient>
 

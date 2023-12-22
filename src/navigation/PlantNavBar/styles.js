@@ -16,6 +16,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        width: '100%',
+        height: 50,
     },
     container: {
         position: 'absolute',
@@ -44,6 +46,19 @@ const styles = StyleSheet.create({
         borderBottomColor: 'transparent',
         textAlign: 'center',
         width: '100%',
+    },
+    back: {
+        width: 30,
+        // backgroundColor: 'red',
+        width: 'auto',
+        padding: 10,
+    },
+    star: {
+        width: 30,
+        // backgroundColor: 'red',
+        width: 30,
+        width: 'auto',
+        padding: 10,
     },
 });
 
