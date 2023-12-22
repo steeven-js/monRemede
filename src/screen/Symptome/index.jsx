@@ -25,7 +25,7 @@ const Usages = ({ navigation }) => {
         };
 
         fetchSymptomes();
-    }, []); // Empty dependency array means this effect runs once, similar to componentDidMount
+    }, []);
 
     const renderSymptomeItem = ({ item }) => (
         <TouchableOpacity
@@ -42,7 +42,7 @@ const Usages = ({ navigation }) => {
     );
 
     return (
-        <View style={styles.backgroundImage}>
+        <View style={styles.background}>
             <View style={styles.overlay}>
                 {symptomesData ? (
                     <FlatList

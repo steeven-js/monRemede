@@ -5,7 +5,7 @@ const numColumns = 2;
 const columnWidth = width / numColumns;
 
 const styles = StyleSheet.create({
-    backgroundImage: {
+    background: {
         flex: 1,
         resizeMode: 'cover',
         justifyContent: 'center',

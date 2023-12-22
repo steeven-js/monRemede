@@ -5,7 +5,7 @@ const numColumns = 2;
 const columnWidth = width / numColumns;
 
 export default StyleSheet.create({
-    backgroundImage: {
+    background: {
         flex: 1,
         resizeMode: 'cover',
         justifyContent: 'center',
@@ -16,16 +16,19 @@ export default StyleSheet.create({
     },
     container: {
         backgroundColor: 'transparent',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     spacing: {
         color: 'white',
+        height: 150,
     },
     plant: {
         width: columnWidth - 20,
         height: columnWidth - 20,
         borderWidth: 1,
         borderColor: 'rgba(255, 255, 255, 0.6)',
-        borderRadius: 5,
+        borderRadius: 15,
         marginBottom: 10,
         justifyContent: 'center',
         alignItems: 'center',
@@ -38,7 +41,7 @@ export default StyleSheet.create({
         height: columnWidth - 20,
         borderWidth: 1,
         borderColor: 'rgba(255, 255, 255, 0.6)',
-        borderRadius: 5,
+        borderRadius: 15,
         marginBottom: 10,
         justifyContent: 'center',
         alignItems: 'center',
@@ -52,8 +55,8 @@ export default StyleSheet.create({
         left: 0,
         width: '100%',
         backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        borderBottomLeftRadius: 5,
-        borderBottomRightRadius: 5,
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
         padding: 5,
     },
     plantName: {

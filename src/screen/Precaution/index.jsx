@@ -37,7 +37,7 @@ const Precaution = ({ route }) => {
     const { precautions } = plant;
 
     return (
-        <View style={styles.backgroundImage}>
+        <View style={styles.background}>
             <View style={styles.overlay}>
                 <View style={styles.container}>
                     <View style={styles.content}>

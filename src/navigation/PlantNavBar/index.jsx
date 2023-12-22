@@ -83,7 +83,7 @@ const PlantNavBar = ({ route, screenNames }) => {
             <View>
                 <ImageBackground
                     source={require('../../assets/images/plante/plante.jpg')}
-                    style={styles.backgroundImage}
+                    style={styles.background}
                 >
                     <View style={styles.divAboveTabs}>
                         <View style={styles.divAboveTabsContent}>

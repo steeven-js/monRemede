@@ -30,10 +30,6 @@ const Plantes = ({ navigation }) => {
             }
         };
 
-        if (!plantsData) {
-            fetchPlantsData();
-        }
-
         const unsubscribe = firebase.auth().onAuthStateChanged((authUser) => {
             setUser(authUser);
             if (authUser && initialLoad.current) {
@@ -44,7 +40,7 @@ const Plantes = ({ navigation }) => {
         });
 
         return () => unsubscribe();
-    }, [plantsData]);
+    }, []);
 
     const loadFavorites = async (userId) => {
         try {
@@ -76,7 +72,7 @@ const Plantes = ({ navigation }) => {
         >
             <Image
                 source={require('../../assets/images/plante/plante.jpg')}
-                style={{ width: '100%', height: '100%', borderRadius: 5 }}
+                style={{ width: '100%', height: '100%', borderRadius: 15 }}
             />
             <View style={styles.plantInfoContainer}>
                 <Text style={styles.plantName}>{item.name}</Text>
@@ -85,7 +81,7 @@ const Plantes = ({ navigation }) => {
     );
 
     return (
-        <View style={styles.backgroundImage}>
+        <View style={styles.background}>
             <View style={styles.overlay}>
                 {plantsData ? (
                     <FlatList

@@ -32,7 +32,7 @@ const SymptomeDetail = ({ route, navigation }) => {
     }, [symptomeId]); // Dependency array includes symptomeId to refetch data when it changes
 
     return (
-        <View style={styles.backgroundImage}>
+        <View style={styles.background}>
             <LinearGradient
                 colors={['#2e6a30', '#439a46']}
                 locations={[0, 0.65]}

@@ -48,7 +48,7 @@ const Favoris = ({ navigation }) => {
 
     return (
         <View
-            style={styles.backgroundImage}
+            style={styles.background}
         >
             <View style={styles.overlay}>
                 <View style={styles.container}>

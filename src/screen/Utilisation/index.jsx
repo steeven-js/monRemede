@@ -41,7 +41,7 @@ const Utilisation = ({ route }) => {
     const utilisationsExterne = utilisations.filter(item => item.type === 'externe');
 
     return (
-        <View style={styles.backgroundImage}>
+        <View style={styles.background}>
             <View style={styles.overlay}>
                 <View style={styles.container}>
                     <View style={styles.content}>

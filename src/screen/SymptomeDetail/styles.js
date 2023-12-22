@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
-    backgroundImage: {
+    background: {
         flex: 1,
         resizeMode: 'cover',
         justifyContent: 'center',
