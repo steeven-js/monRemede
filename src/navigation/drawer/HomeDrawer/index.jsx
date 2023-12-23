@@ -7,6 +7,10 @@ import Login from '../../../screen/Login';
 import SymptomeDetail from '../../../screen/SymptomeDetail';
 import PlantDetail from '../../../screen/PlantDetail';
 import Home from '../../../screen/Home';
+import Info from '../../../screen/Info';
+import Propriete from '../../../screen/Propriete';
+import Utilisation from '../../../screen/Utilisation';
+import Precaution from '../../../screen/Precaution';
 
 const Drawer = createDrawerNavigator();
 
@@ -61,6 +65,26 @@ const HomeDrawer = () => {
             <Drawer.Screen
                 name="PlantDetail"
                 component={PlantDetail}
+                options={{ headerShown: false, drawerLabel: () => null }}
+            />
+            <Drawer.Screen
+                name="Info"
+                component={Info}
+                options={{ headerShown: false, drawerLabel: () => null }}
+            />
+            <Drawer.Screen
+                name="Propriete"
+                component={Propriete}
+                options={{ headerShown: false, drawerLabel: () => null }}
+            />
+            <Drawer.Screen
+                name="Utilisation"
+                component={Utilisation}
+                options={{ headerShown: false, drawerLabel: () => null }}
+            />
+            <Drawer.Screen
+                name="Precaution"
+                component={Precaution}
                 options={{ headerShown: false, drawerLabel: () => null }}
             />
         </Drawer.Navigator>

@@ -70,7 +70,7 @@ const Plantes = ({ navigation }) => {
                 styles.spacing,
             ]}
             onPress={() => {
-                navigation.navigate('PlantDetail', {
+                navigation.navigate('Info', {
                     plantId: item.id,
                     plantName: item.name,
                 });
