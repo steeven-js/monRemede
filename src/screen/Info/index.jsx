@@ -9,6 +9,7 @@ const Info = ({ route }) => {
     const { symptomeId } = route.params;
     const { symptomeName } = route.params;
     const [plant, setPlant] = useState(null);
+    console.log('route:', route.params?.originRoute)
 
     // Fetch plant data on component mount
     useEffect(() => {

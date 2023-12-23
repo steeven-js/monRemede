@@ -4,7 +4,7 @@ import firestore from '@react-native-firebase/firestore';
 import { firebase } from '@react-native-firebase/auth';
 import styles from './styles';
 
-const Favoris = ({ navigation }) => {
+const Favoris = ({ route, navigation }) => {
     const [user, setUser] = useState(null);
     const [favorites, setFavorites] = useState([]);
     const [plantsData, setPlantsData] = useState([]);
@@ -52,7 +52,7 @@ const Favoris = ({ navigation }) => {
             <TouchableOpacity
                 style={styles.favorite}
                 onPress={() => {
-                    navigation.navigate('PlantDetail', { plantId: item.plantId });
+                    navigation.navigate('Info', { plantId: item.plantId, originRoute: route.name });
                 }}
             >
                 <Image

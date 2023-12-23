@@ -74,11 +74,15 @@ const PlantNavBar = ({ plantId }) => {
             symptomeName: route.params?.symptomeName
         });
 
-        console.log('symptomeId', route.params?.symptomeId, 'symptomeName', route.params?.symptomeName);
+        // console.log('symptomeId', route.params?.symptomeId, 'symptomeName', route.params?.symptomeName);
     };
 
     const backPlantDetail = () => {
         navigation.navigate('Plantes médicinales');
+    };
+
+    const backFavoris = () => {
+        navigation.navigate('Favoris');
     };
 
     const backToOriginRoute = () => {
@@ -86,6 +90,8 @@ const PlantNavBar = ({ plantId }) => {
             backSymptomeDetail();
         } else if (route.params?.originRoute === 'Plantes médicinales') {
             backPlantDetail();
+        } else if (route.params?.originRoute === 'Favoris') {
+            backFavoris();
         } else {
             // Handle unrecognized or undefined originRoute
             console.warn('Unrecognized or undefined originRoute:', route.params?.originRoute);
