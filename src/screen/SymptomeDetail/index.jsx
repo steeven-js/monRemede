@@ -36,7 +36,7 @@ const SymptomeDetail = ({ route, navigation }) => {
         <TouchableOpacity
             style={[styles.favorite, styles.spacing]}
             onPress={() => {
-                navigation.navigate('PlantDetail', {
+                navigation.navigate('Info', {
                     plantId: item.id,
                     symptomeId: symptomeId,
                     symptomeName: symptomeName,
