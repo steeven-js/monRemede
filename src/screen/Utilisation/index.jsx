@@ -7,8 +7,6 @@ const Utilisation = ({ route }) => {
     const { plantId } = route.params;
     const [plant, setPlant] = useState(null);
 
-    console.log('plantId', plantId);
-
     // Fetch plant data on component mount
     useEffect(() => {
         const fetchPlant = async () => {
@@ -35,7 +33,6 @@ const Utilisation = ({ route }) => {
 
     // Extract the relevant information from the plant data
     const { utilisations } = plant;
-    console.log('utilisations', utilisations)
 
     // Filter utilisations based on type (interne or externe)
     const utilisationsInterne = utilisations.filter(item => item.type === 'interne');

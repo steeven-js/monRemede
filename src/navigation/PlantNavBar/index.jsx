@@ -11,6 +11,8 @@ const PlantNavBar = ({ plantId }) => {
     const route = useRoute();
     const [user, setUser] = useState(null);
 
+    console.log('route', route)
+
 
     const navigateToScreen = (screenName) => {
         navigation.navigate(screenName, { plantId });

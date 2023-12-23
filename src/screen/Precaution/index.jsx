@@ -7,8 +7,6 @@ const Precaution = ({ route }) => {
     const { plantId } = route.params;
     const [plant, setPlant] = useState(null);
 
-    console.log('plantId', plantId);
-
     // Fetch plant data on component mount
     useEffect(() => {
         const fetchPlant = async () => {
@@ -35,7 +33,6 @@ const Precaution = ({ route }) => {
 
     // Extract the relevant information from the plant data
     const { precautions } = plant;
-    console.log('precautions', precautions)
 
     return (
         <View style={styles.background}>

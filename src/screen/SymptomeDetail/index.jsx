@@ -38,8 +38,9 @@ const SymptomeDetail = ({ route, navigation }) => {
             onPress={() => {
                 navigation.navigate('Info', {
                     plantId: item.id,
-                    symptomeId: symptomeId,
+                    symptomeId: symptomeId, // Pass symptomeId to Info screen
                     symptomeName: symptomeName,
+                    originRoute: 'SymptomeDetail',
                 });
             }}
         >

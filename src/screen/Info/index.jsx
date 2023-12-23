@@ -7,8 +7,6 @@ const Info = ({ route }) => {
     const { plantId } = route.params;
     const [plant, setPlant] = useState(null);
 
-    console.log('plantId', plantId);
-
     // Fetch plant data on component mount
     useEffect(() => {
         const fetchPlant = async () => {
