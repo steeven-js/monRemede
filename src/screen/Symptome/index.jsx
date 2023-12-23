@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-    View,
-    FlatList,
-    StyleSheet,
-    ImageBackground,
-    Dimensions,
-    TouchableOpacity,
-    Text,
-} from 'react-native';
+import { View, FlatList, TouchableOpacity, Text } from 'react-native';
 import styles from './styles';
 
 const Usages = ({ navigation }) => {

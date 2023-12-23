@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button } from 'react-native';
 import { useDispatch } from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -26,10 +26,8 @@ const Register = ({ navigation }) => {
             await auth().signOut();
             console.log('Utilisateur déconnecté avec succès !');
 
-            // Dispatch l'action pour mettre à jour le state Redux avec l'utilisateur
             dispatch(setUser(null));
 
-            // Rediriger vers la page d'accueil
             navigation.navigate('Home');
         } catch (error) {
             console.error('Erreur lors de la déconnexion :', error.message);
@@ -47,7 +45,6 @@ const Register = ({ navigation }) => {
         });
 
         return () => {
-            // Se désabonner lorsque le composant est démonté
             unsubscribe();
         };
     }, []);

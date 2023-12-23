@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Button, Dimensions, Image, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, Button, Image, FlatList } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { firebase } from '@react-native-firebase/auth';
 import styles from './styles';
@@ -80,7 +80,7 @@ const Favoris = ({ route, navigation }) => {
                                 data={favorites}
                                 keyExtractor={item => item.id}
                                 renderItem={renderItem}
-                                numColumns={2} // Nombre de colonnes dans la grille (ajustez selon vos besoins)
+                                numColumns={2}
                             />
                         )}
                     </View>

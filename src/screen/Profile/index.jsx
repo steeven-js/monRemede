@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import BackIcon from 'react-native-vector-icons/Ionicons';
 import IconLogout from 'react-native-vector-icons/AntDesign';
@@ -10,7 +10,6 @@ const Profile = ({ navigation }) => {
     const [userEmail, setUserEmail] = useState('');
 
     useEffect(() => {
-        // Check if the user is authenticated when the component mounts
         const unsubscribe = auth().onAuthStateChanged((user) => {
             if (user) {
                 setIsUserAuthenticated(true);
@@ -21,12 +20,10 @@ const Profile = ({ navigation }) => {
             }
         });
 
-        // Unsubscribe when the component unmounts
         return () => unsubscribe();
     }, []);
 
     const handleLogin = () => {
-        // Navigate to LoginScreen
         navigation.navigate('LoginScreen');
     };
 

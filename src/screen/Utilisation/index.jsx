@@ -10,7 +10,6 @@ const Utilisation = ({ route }) => {
     const { symptomeName } = route.params;
     const [plant, setPlant] = useState(null);
 
-    // Fetch plant data on component mount
     useEffect(() => {
         const fetchPlant = async () => {
             try {
@@ -26,7 +25,6 @@ const Utilisation = ({ route }) => {
     }, [plantId]);
 
     if (!plant) {
-        // If the data is not available yet, you can render a loading indicator or return null
         return (
             <View>
                 <Text>Loading...</Text>
@@ -34,10 +32,8 @@ const Utilisation = ({ route }) => {
         );
     }
 
-    // Extract the relevant information from the plant data
     const { utilisations } = plant;
 
-    // Filter utilisations based on type (interne or externe)
     const utilisationsInterne = utilisations.filter(item => item.type === 'interne');
     const utilisationsExterne = utilisations.filter(item => item.type === 'externe');
 

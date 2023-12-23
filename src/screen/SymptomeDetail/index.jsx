@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-    View,
-    Text,
-    ImageBackground,
-    StyleSheet,
-    ScrollView,
-    TouchableOpacity,
-    Image,
-    FlatList,
-} from 'react-native';
+import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import BackIcon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
@@ -17,7 +8,6 @@ const SymptomeDetail = ({ route, navigation }) => {
     const { symptomeId, symptomeName } = route.params;
     const [symptomePlants, setSymptomePlants] = useState(null);
 
-    // Check if data is already available, if not, fetch it
     useEffect(() => {
         const fetchSymptome = async () => {
             try {
@@ -30,7 +20,7 @@ const SymptomeDetail = ({ route, navigation }) => {
         };
 
         fetchSymptome();
-    }, [symptomeId]); // Dependency array includes symptomeId to refetch data when it changes
+    }, [symptomeId]);
 
     const renderItem = ({ item }) => (
         <TouchableOpacity
@@ -38,7 +28,7 @@ const SymptomeDetail = ({ route, navigation }) => {
             onPress={() => {
                 navigation.navigate('Info', {
                     plantId: item.id,
-                    symptomeId: symptomeId, // Pass symptomeId to Info screen
+                    symptomeId: symptomeId,
                     symptomeName: symptomeName,
                     originRoute: 'SymptomeDetail',
                 });

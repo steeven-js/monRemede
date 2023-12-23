@@ -9,9 +9,7 @@ const Info = ({ route }) => {
     const { symptomeId } = route.params;
     const { symptomeName } = route.params;
     const [plant, setPlant] = useState(null);
-    console.log('route:', route.params?.originRoute)
 
-    // Fetch plant data on component mount
     useEffect(() => {
         const fetchPlant = async () => {
             try {
@@ -27,7 +25,6 @@ const Info = ({ route }) => {
     }, [plantId]);
 
     if (!plant) {
-        // If the data is not available yet, you can render a loading indicator or return null
         return (
             <View>
                 <Text>Loading...</Text>

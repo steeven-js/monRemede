@@ -73,8 +73,6 @@ const PlantNavBar = ({ plantId }) => {
             symptomeId: route.params?.symptomeId,
             symptomeName: route.params?.symptomeName
         });
-
-        // console.log('symptomeId', route.params?.symptomeId, 'symptomeName', route.params?.symptomeName);
     };
 
     const backPlantDetail = () => {
@@ -93,8 +91,7 @@ const PlantNavBar = ({ plantId }) => {
         } else if (route.params?.originRoute === 'Favoris') {
             backFavoris();
         } else {
-            // Handle unrecognized or undefined originRoute
-            console.warn('Unrecognized or undefined originRoute:', route.params?.originRoute);
+            navigation.navigate('Plantes médicinales');
         }
     };
 
@@ -105,7 +102,6 @@ const PlantNavBar = ({ plantId }) => {
 
         return () => unsubscribe();
     }, [])
-
 
     return (
         <View>

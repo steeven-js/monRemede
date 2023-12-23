@@ -1,13 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
-    View,
-    StyleSheet,
-    ImageBackground,
-    Dimensions,
-    TouchableOpacity,
-    Image,
-    Text,
-    FlatList,
+    View, TouchableOpacity, Image, Text, FlatList,
 } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { firebase } from '@react-native-firebase/auth';

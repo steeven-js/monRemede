@@ -2,9 +2,7 @@ import styles from './styles';
 import { ImageBackground } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
-// Functional components
 const Splash = () => {
-    // Returning
     return (
         <ImageBackground
             source={require('../../assets/images/backgrounds/splash_bg.png')}
@@ -19,5 +17,4 @@ const Splash = () => {
     );
 };
 
-// Exporting
 export default Splash;

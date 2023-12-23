@@ -10,7 +10,6 @@ const Propriete = ({ route }) => {
     const { symptomeName } = route.params;
     const [plant, setPlant] = useState(null);
 
-    // Fetch plant data on component mount
     useEffect(() => {
         const fetchPlant = async () => {
             try {
@@ -26,7 +25,6 @@ const Propriete = ({ route }) => {
     }, [plantId]);
 
     if (!plant) {
-        // If the data is not available yet, you can render a loading indicator or return null
         return (
             <View>
                 <Text>Loading...</Text>
@@ -34,7 +32,6 @@ const Propriete = ({ route }) => {
         );
     }
 
-    // Extract the relevant information from the plant data
     const { proprietes } = plant;
 
     return (
