@@ -1,6 +1,9 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import BackIcon from 'react-native-vector-icons/Ionicons';
+import StarIcon from 'react-native-vector-icons/FontAwesome6';
+import styles from './styles';
 
 const PlantNavBar = ({ plantId }) => {
     const navigation = useNavigation();
@@ -28,33 +31,36 @@ const PlantNavBar = ({ plantId }) => {
     };
 
     return (
-        <View style={styles.navBar}>
-            <TouchableOpacity onPress={() => navigateToScreen('Info')}>
-                <Text style={{ color: getTextColor('Info') }}>Info</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigateToScreen('Propriete')}>
-                <Text style={{ color: getTextColor('Propriete') }}>Propriete</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigateToScreen('Utilisation')}>
-                <Text style={{ color: getTextColor('Utilisation') }}>Utilisation</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigateToScreen('Precaution')}>
-                <Text style={{ color: getTextColor('Precaution') }}>Precaution</Text>
-            </TouchableOpacity>
+        <View>
+            <View>
+                <ImageBackground
+                    source={require('../../assets/images/plante/plante.jpg')}
+                    style={styles.backgroundImage}
+                >
+                    <View style={styles.divAboveTabs}>
+                        <View style={styles.divAboveTabsContent}>
+                            <BackIcon name="arrow-back" size={30} color="#fff" onPress={() => navigation.navigate('Plantes médicinales')} />
+                            <StarIcon name="star" size={30} color="#fff"/>
+                        </View>
+                    </View>
+                </ImageBackground>
+            </View>
+            <View style={styles.navBar}>
+                <TouchableOpacity onPress={() => navigateToScreen('Info')}>
+                    <Text style={{ color: getTextColor('Info') }}>Info</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigateToScreen('Propriete')}>
+                    <Text style={{ color: getTextColor('Propriete') }}>Propriete</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigateToScreen('Utilisation')}>
+                    <Text style={{ color: getTextColor('Utilisation') }}>Utilisation</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigateToScreen('Precaution')}>
+                    <Text style={{ color: getTextColor('Precaution') }}>Precaution</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    navBar: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        height: 60,
-        elevation: 3,
-        paddingHorizontal: 15,
-    },
-});
 
 export default PlantNavBar;

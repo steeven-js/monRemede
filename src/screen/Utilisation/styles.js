@@ -3,12 +3,6 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        resizeMode: 'cover',
-        justifyContent: 'center',
-    },
-    overlay: {
-        flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.4)', // couleur noire semi-transparente
     },
     container: {
         backgroundColor: '#f1e3c6',
