@@ -73,6 +73,7 @@ const Plantes = ({ navigation }) => {
                 navigation.navigate('Info', {
                     plantId: item.id,
                     plantName: item.name,
+                    originRoute: 'Plantes médicinales',
                 });
             }}
         >

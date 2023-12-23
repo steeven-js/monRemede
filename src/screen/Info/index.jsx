@@ -5,6 +5,9 @@ import styles from './styles';
 
 const Info = ({ route }) => {
     const { plantId } = route.params;
+    const { originRoute } = route.params;
+    const { symptomeId } = route.params;
+    const { symptomeName } = route.params;
     const [plant, setPlant] = useState(null);
 
     // Fetch plant data on component mount
@@ -33,7 +36,7 @@ const Info = ({ route }) => {
 
     return (
         <View style={styles.background}>
-            <PlantNavBar plantId={plantId} />
+            <PlantNavBar plantId={plantId} originRoute={originRoute} symptomeId={symptomeId} symptomeName={symptomeName} />
             <View style={styles.container}>
                 <View style={styles.content}>
                     <View style={styles.section}>

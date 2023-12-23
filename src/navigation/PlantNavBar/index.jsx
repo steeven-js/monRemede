@@ -11,11 +11,13 @@ const PlantNavBar = ({ plantId }) => {
     const route = useRoute();
     const [user, setUser] = useState(null);
 
-    console.log('route', route)
-
-
     const navigateToScreen = (screenName) => {
-        navigation.navigate(screenName, { plantId });
+        navigation.navigate(screenName, {
+            plantId,
+            originRoute: route.params?.originRoute,
+            symptomeId: route.params?.symptomeId,
+            symptomeName: route.params?.symptomeName,
+        });
     };
 
     const isActiveScreen = (screenName) => route.name === screenName;
@@ -27,9 +29,9 @@ const PlantNavBar = ({ plantId }) => {
             case 'Propriete':
                 return isActiveScreen(screenName) ? '#0f0' : '#000';
             case 'Utilisation':
-                return isActiveScreen(screenName) ? '#f00' : '#000';
-            case 'Precaution':
                 return isActiveScreen(screenName) ? '#ff0' : '#000';
+            case 'Precaution':
+                return isActiveScreen(screenName) ? '#f00' : '#000';
             default:
                 return '#000';
         }
@@ -71,10 +73,23 @@ const PlantNavBar = ({ plantId }) => {
             symptomeId: route.params?.symptomeId,
             symptomeName: route.params?.symptomeName
         });
+
+        console.log('symptomeId', route.params?.symptomeId, 'symptomeName', route.params?.symptomeName);
     };
 
     const backPlantDetail = () => {
         navigation.navigate('Plantes médicinales');
+    };
+
+    const backToOriginRoute = () => {
+        if (route.params?.originRoute === 'SymptomeDetail') {
+            backSymptomeDetail();
+        } else if (route.params?.originRoute === 'Plantes médicinales') {
+            backPlantDetail();
+        } else {
+            // Handle unrecognized or undefined originRoute
+            console.warn('Unrecognized or undefined originRoute:', route.params?.originRoute);
+        }
     };
 
     useEffect(() => {
@@ -95,10 +110,8 @@ const PlantNavBar = ({ plantId }) => {
                 >
                     <View style={styles.divAboveTabs}>
                         <View style={styles.divAboveTabsContent}>
-                            <TouchableOpacity style={styles.back}>
-                                {route.params?.symptomeId ? (
-                                    <BackIcon name="arrow-back" size={30} color="#fff" onPress={backSymptomeDetail} />
-                                ) : <BackIcon name="arrow-back" size={30} color="#fff" onPress={backPlantDetail} />}
+                            <TouchableOpacity style={styles.back} onPress={backToOriginRoute}>
+                                <BackIcon name="arrow-back" size={30} color="#fff" />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.star}>
                                 <StarIcon name="star" size={30} color="#fff" onPress={addToFavoritesHandler} />
@@ -120,6 +133,7 @@ const PlantNavBar = ({ plantId }) => {
                 <TouchableOpacity onPress={() => navigateToScreen('Precaution')}>
                     <Text style={{ color: getTextColor('Precaution') }}>Precaution</Text>
                 </TouchableOpacity>
+
             </View>
         </View >
     );
