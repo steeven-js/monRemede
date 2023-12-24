@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, Button, Image, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, Button, Image, FlatList, ActivityIndicator } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { firebase } from '@react-native-firebase/auth';
 import styles from './styles';
@@ -8,6 +8,7 @@ const Favoris = ({ route, navigation }) => {
     const [user, setUser] = useState(null);
     const [favorites, setFavorites] = useState([]);
     const [plantsData, setPlantsData] = useState([]);
+    const [loading, setLoading] = useState(true); // Add loading state
     const initialLoad = useRef(true);
 
     useEffect(() => {
@@ -41,6 +42,7 @@ const Favoris = ({ route, navigation }) => {
             }
             const plants = await res.json();
             setPlantsData(plants);
+            setLoading(false); // Set loading to false when data is fetched
         } catch (error) {
             console.error('Error fetching plants:', error);
         }
@@ -71,7 +73,7 @@ const Favoris = ({ route, navigation }) => {
             <View style={styles.overlay}>
                 <View style={styles.container}>
                     <View>
-                        {favorites.length === 0 && <Text>No favorites yet.</Text>}
+                        {loading && <ActivityIndicator size="large" color="#00ff00" />} 
                         {!user && (
                             <Button title="Se connecter" onPress={() => { navigation.navigate('LoginScreen') }} />
                         )}
@@ -82,7 +84,7 @@ const Favoris = ({ route, navigation }) => {
                                 renderItem={renderItem}
                                 numColumns={2}
                                 onRefresh={fetchPlantsData}
-                                refreshing={!plantsData}
+                                refreshing={loading}
                                 onEndReachedThreshold={0.5}
                                 onEndReached={() => {
                                     console.log('End reached');
