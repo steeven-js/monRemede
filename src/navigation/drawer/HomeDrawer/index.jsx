@@ -5,7 +5,6 @@ import Profile from '../../../screen/Profile';
 import Register from '../../../screen/Register';
 import Login from '../../../screen/Login';
 import SymptomeDetail from '../../../screen/SymptomeDetail';
-import PlantDetail from '../../../screen/PlantDetail';
 import Home from '../../../screen/Home';
 import Info from '../../../screen/Info';
 import Propriete from '../../../screen/Propriete';
@@ -60,11 +59,6 @@ const HomeDrawer = () => {
             <Drawer.Screen
                 name="SymptomeDetail"
                 component={SymptomeDetail}
-                options={{ headerShown: false, drawerLabel: () => null }}
-            />
-            <Drawer.Screen
-                name="PlantDetail"
-                component={PlantDetail}
                 options={{ headerShown: false, drawerLabel: () => null }}
             />
             <Drawer.Screen
