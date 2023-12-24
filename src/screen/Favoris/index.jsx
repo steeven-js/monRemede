@@ -81,6 +81,12 @@ const Favoris = ({ route, navigation }) => {
                                 keyExtractor={item => item.id}
                                 renderItem={renderItem}
                                 numColumns={2}
+                                onRefresh={fetchPlantsData}
+                                refreshing={!plantsData}
+                                onEndReachedThreshold={0.5}
+                                onEndReached={() => {
+                                    console.log('End reached');
+                                }}
                             />
                         )}
                     </View>

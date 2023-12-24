@@ -1,39 +1,41 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-    View, TouchableOpacity, Image, Text, FlatList,
-} from 'react-native';
+import { View, TouchableOpacity, Image, Text, FlatList, ActivityIndicator, } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { firebase } from '@react-native-firebase/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFetchedData, selectFetchedData } from '../../../redux/reducer/plantSlice';
+import axios from 'axios';
 import styles from './styles';
 
 const Plantes = ({ navigation }) => {
     const [user, setUser] = useState(null);
-    const [plantsData, setPlantsData] = useState(null);
     const [favorites, setFavorites] = useState([]);
     const initialLoad = useRef(true);
+    const dispatch = useDispatch();
+    const plantsData = useSelector(selectFetchedData);
+
+    const fetchPlants = async () => {
+        try {
+            const response = await axios.get('http://apimonremede.jsprod.fr/api/plants/');
+            dispatch(setFetchedData(response.data));
+        } catch (error) {
+            console.error('Error fetching plants:', error);
+        }
+    };
 
     useEffect(() => {
-        const fetchPlantsData = async () => {
-            try {
-                const response = await fetch('http://apimonremede.jsprod.fr/api/plants/');
-                const data = await response.json();
-                setPlantsData(data);
-            } catch (error) {
-                console.error('Error fetching plants:', error);
-            }
-        };
 
         const unsubscribe = firebase.auth().onAuthStateChanged((authUser) => {
             setUser(authUser);
             if (authUser && initialLoad.current) {
                 loadFavorites(authUser.uid);
-                fetchPlantsData();
                 initialLoad.current = false;
             }
         });
 
+        fetchPlants();
         return () => unsubscribe();
-    }, []);
+    }, [dispatch]);
 
     const loadFavorites = async (userId) => {
         try {
@@ -90,9 +92,15 @@ const Plantes = ({ navigation }) => {
                         keyExtractor={(item) => item.id.toString()}
                         numColumns={2}
                         contentContainerStyle={styles.container}
+                        onRefresh={fetchPlants}
+                        refreshing={!plantsData}
+                        onEndReachedThreshold={0.5}
+                        onEndReached={() => {
+                            console.log('End reached');
+                        }}
                     />
                 ) : (
-                    <Text>Loading...</Text>
+                    <ActivityIndicator size="large" color="#00ff00" />
                 )}
             </View>
         </View>

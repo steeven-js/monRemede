@@ -1,23 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { View, FlatList, TouchableOpacity, Text } from 'react-native';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { View, FlatList, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
+import { setFetchedData, selectFetchedData } from '../../../redux/reducer/symptomeSlice';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import axios from 'axios';
 import styles from './styles';
 
 const Usages = ({ navigation }) => {
-    const [symptomesData, setSymptomesData] = useState(null);
+    const dispatch = useDispatch();
+    const symptomesData = useSelector(selectFetchedData);
+
+    const fetchSymptomes = async () => {
+        try {
+            const response = await axios.get('http://apimonremede.jsprod.fr/api/symptomes');
+            dispatch(setFetchedData(response.data));
+        } catch (error) {
+            console.error('Error fetching symptomes:', error);
+        }
+    };
 
     useEffect(() => {
-        const fetchSymptomes = async () => {
-            try {
-                const response = await fetch('http://apimonremede.jsprod.fr/api/symptomes');
-                const data = await response.json();
-                setSymptomesData(data);
-            } catch (error) {
-                console.error('Error fetching symptomes:', error);
-            }
-        };
-
         fetchSymptomes();
-    }, []);
+    }, [dispatch]);
 
     const renderSymptomeItem = ({ item }) => (
         <TouchableOpacity
@@ -34,19 +38,25 @@ const Usages = ({ navigation }) => {
     );
 
     return (
-        <View style={styles.background}>
+        <SafeAreaView style={styles.background}>
             <View style={styles.overlay}>
                 {symptomesData ? (
                     <FlatList
                         data={symptomesData}
                         renderItem={renderSymptomeItem}
                         keyExtractor={(item) => item.id.toString()}
+                        onRefresh={fetchSymptomes}
+                        refreshing={!symptomesData}
+                        onEndReachedThreshold={0.5}
+                        onEndReached={() => {
+                            console.log('End reached');
+                        }}
                     />
                 ) : (
-                    <Text>Loading...</Text>
+                    <ActivityIndicator size="large" color="#00ff00" />
                 )}
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 

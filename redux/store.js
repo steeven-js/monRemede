@@ -3,14 +3,17 @@
 import { configureStore } from '@reduxjs/toolkit';
 import symptomeReducer from './reducer/symptomeSlice';
 import plantReducer from './reducer/plantSlice';
-import userReducer from './reducer/userReducer';
 
 const store = configureStore({
     reducer: {
         symptomes: symptomeReducer,
         plants: plantReducer,
-        user: userReducer,
     },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            immutableCheck: false,
+            serializableCheck: false,
+        }),
 });
 
 export default store;
