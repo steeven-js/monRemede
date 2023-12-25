@@ -14,7 +14,7 @@ const Symptomes = () => {
         dispatch(fetchSymptomes());
     }, [dispatch]);
 
-    console.log('symptomesData', symptomesData);
+    // console.log('symptomesData', symptomesData);
 
     const renderSymptomeItem = ({ item }) => (
         <TouchableOpacity
