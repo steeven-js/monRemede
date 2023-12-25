@@ -1,25 +1,18 @@
-import React, { useEffect } from 'react';
-import {
-    View,
-    FlatList,
-    TouchableOpacity,
-    Text,
-    ActivityIndicator,
-} from 'react-native';
+import { View, FlatList, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSymptomes } from '../../../redux/reducer/symptomeSlice';
+import React, { useEffect } from 'react';
+
 import styles from './styles';
 
-const Symptomes = ({ navigation }) => {
+const Symptomes = () => {
     const dispatch = useDispatch();
     const symptomesData = useSelector((state) => state.symptomes.data);
 
     useEffect(() => {
-        if (!symptomesData) {
-            dispatch(fetchSymptomes());
-        }
-    }, [dispatch, symptomesData]);
+        dispatch(fetchSymptomes());
+    }, [dispatch]);
 
     console.log('symptomesData', symptomesData);
 
@@ -45,7 +38,7 @@ const Symptomes = ({ navigation }) => {
                         data={symptomesData}
                         renderItem={renderSymptomeItem}
                         keyExtractor={(item) => item.id.toString()}
-                        onRefresh={() => dispatch(fetchSymptomes())}
+                        onRefresh={fetchSymptomes}
                         refreshing={!symptomesData}
                         onEndReachedThreshold={0.5}
                         onEndReached={() => {
