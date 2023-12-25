@@ -1,20 +1,31 @@
-// SymptomeSlice.js
-import { createSlice } from '@reduxjs/toolkit';
+// symptomeSlice.js
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const SymptomeSlice = createSlice({
+export const fetchSymptomes = createAsyncThunk('fetchSymptomes', async () => {
+  const data = await fetch('https://apimonremede.jsprod.fr/api/symptomes');
+  return data.json();
+});
+
+const symptomsSlice = createSlice({
   name: 'symptomes',
   initialState: {
-    fetchedData: null,
+    isLoading: false,
+    data: null,
+    error: false
   },
-  reducers: {
-    setFetchedData: (state, action) => {
-      state.fetchedData = action.payload;
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchSymptomes.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchSymptomes.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = action.payload;
+      })
+      .addCase(fetchSymptomes.rejected, (state, action) => {
+        state.status = true;
+      });
   },
 });
 
-export const { setFetchedData } = SymptomeSlice.actions;
-
-export const selectFetchedData = (state) => state.symptomes.fetchedData;
-
-export default SymptomeSlice.reducer;
+export default symptomsSlice.reducer;

@@ -1,13 +1,11 @@
 // store.js
 
 import { configureStore } from '@reduxjs/toolkit';
-import symptomeReducer from './reducer/symptomeSlice';
-import plantReducer from './reducer/plantSlice';
+import symptomeReducer from './reducer/symptomeSlice'
 
 const store = configureStore({
     reducer: {
         symptomes: symptomeReducer,
-        plants: plantReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

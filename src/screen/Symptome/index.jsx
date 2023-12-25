@@ -1,27 +1,27 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { View, FlatList, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
-import { setFetchedData, selectFetchedData } from '../../../redux/reducer/symptomeSlice';
+import {
+    View,
+    FlatList,
+    TouchableOpacity,
+    Text,
+    ActivityIndicator,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSymptomes } from '../../../redux/reducer/symptomeSlice';
 import styles from './styles';
 
-const Usages = ({ navigation }) => {
+const Symptomes = ({ navigation }) => {
     const dispatch = useDispatch();
-    const symptomesData = useSelector(selectFetchedData);
-
-    const fetchSymptomes = async () => {
-        try {
-            const response = await axios.get('http://apimonremede.jsprod.fr/api/symptomes');
-            dispatch(setFetchedData(response.data));
-        } catch (error) {
-            console.error('Error fetching symptomes:', error);
-        }
-    };
+    const symptomesData = useSelector((state) => state.symptomes.data);
 
     useEffect(() => {
-        fetchSymptomes();
-    }, [dispatch]);
+        if (!symptomesData) {
+            dispatch(fetchSymptomes());
+        }
+    }, [dispatch, symptomesData]);
+
+    console.log('symptomesData', symptomesData);
 
     const renderSymptomeItem = ({ item }) => (
         <TouchableOpacity
@@ -45,7 +45,7 @@ const Usages = ({ navigation }) => {
                         data={symptomesData}
                         renderItem={renderSymptomeItem}
                         keyExtractor={(item) => item.id.toString()}
-                        onRefresh={fetchSymptomes}
+                        onRefresh={() => dispatch(fetchSymptomes())}
                         refreshing={!symptomesData}
                         onEndReachedThreshold={0.5}
                         onEndReached={() => {
@@ -60,4 +60,4 @@ const Usages = ({ navigation }) => {
     );
 };
 
-export default Usages;
+export default Symptomes;
