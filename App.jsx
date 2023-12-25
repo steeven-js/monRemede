@@ -1,38 +1,41 @@
 // App
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
-import { Provider } from 'react-redux';
-import store from './redux/store';
 import HomeDrawer from './src/navigation/drawer/HomeDrawer';
 import Splash from './src/screen/splash';
+import { fetchSymptomes } from './redux/reducer/symptomeSlice';
+import { fetchPlantes } from './redux/reducer/plantSlice';
 
 const App = () => {
-
-  // Local states
+  const dispatch = useDispatch();
   const [isStarting, setIsStarting] = useState(true);
 
-  // Hooks
   useEffect(() => {
-    // Mise à jour de l'état après un délai de 2500 millisecondes (2.5 secondes)
-    setTimeout(() => {
-      // Mise à jour de l'état
-      setIsStarting(false);
-    }, 2500);
-  }, []);
+    const fetchData = async () => {
+      // Dispatch de l'action pour récupérer les symptômes
+      await dispatch(fetchSymptomes());
+      await dispatch(fetchPlantes());
 
-  // Vérification
+      // Mettez à jour l'état après un délai de 2500 millisecondes (2.5 secondes)
+      setTimeout(() => {
+        setIsStarting(false);
+      }, 2500);
+    };
+
+    fetchData();
+  }, [dispatch]);
+
   if (isStarting) {
-    // Retourner l'écran de chargement
     return <Splash />;
   }
 
   return (
-    <Provider store={store}>
       <NavigationContainer>
         <HomeDrawer />
       </NavigationContainer>
-    </Provider>
   );
 };
+
 
 export default App;

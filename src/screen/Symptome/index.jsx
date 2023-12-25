@@ -1,18 +1,12 @@
 import { View, FlatList, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchSymptomes } from '../../../redux/reducer/symptomeSlice';
-import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import React from 'react';
 
 import styles from './styles';
 
-const Symptomes = () => {
-    const dispatch = useDispatch();
+const Symptomes = ({ navigation }) => {
     const symptomesData = useSelector((state) => state.symptomes.data);
-
-    useEffect(() => {
-        dispatch(fetchSymptomes());
-    }, [dispatch]);
 
     // console.log('symptomesData', symptomesData);
 
@@ -38,12 +32,12 @@ const Symptomes = () => {
                         data={symptomesData}
                         renderItem={renderSymptomeItem}
                         keyExtractor={(item) => item.id.toString()}
-                        onRefresh={fetchSymptomes}
-                        refreshing={!symptomesData}
+                        refreshing={symptomesData}
                         onEndReachedThreshold={0.5}
                         onEndReached={() => {
                             console.log('End reached');
                         }}
+                        showsVerticalScrollIndicator={false}
                     />
                 ) : (
                     <ActivityIndicator size="large" color="#00ff00" />

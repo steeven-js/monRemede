@@ -6,23 +6,20 @@ import {
   Text,
   FlatList,
   ActivityIndicator,
-} from 'react-native';import { useDispatch, useSelector } from 'react-redux';
-import { fetchPlantes } from '../../../redux/reducer/plantSlice';
+} from 'react-native';
+import { useSelector } from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
 import { firebase } from '@react-native-firebase/auth';
 
 import styles from './styles';
 
-const Plantes = () => {
-  const dispatch = useDispatch();
+const Plantes = ({ navigation }) => {
   const plantesData = useSelector((state) => state.plantes.data);
   const [user, setUser] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const initialLoad = useRef(true);
 
   useEffect(() => {
-    dispatch(fetchPlantes());
-
     const unsubscribe = firebase.auth().onAuthStateChanged((authUser) => {
       setUser(authUser);
       if (authUser && initialLoad.current) {
@@ -32,10 +29,9 @@ const Plantes = () => {
     });
 
     return () => unsubscribe();
+  }, []);
 
-  }, [dispatch]);
-
-  console.log('plantesData', plantesData);
+  // console.log('plantesData', plantesData);
 
   const loadFavorites = async (userId) => {
     try {
@@ -43,7 +39,7 @@ const Plantes = () => {
         .collection('favoris')
         .where('userId', '==', userId)
         .get();
-      const favoritePlants = favoritesSnapshot.docs.map(doc => ({
+      const favoritePlants = favoritesSnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
@@ -54,7 +50,7 @@ const Plantes = () => {
   };
 
   const getPlantItemStyle = (item) => {
-    const isFavorite = favorites.some(favorite => favorite.plantId === item.id);
+    const isFavorite = favorites.some((favorite) => favorite.plantId === item.id);
     return isFavorite ? styles.favoritePlant : styles.plant;
   };
 
@@ -65,7 +61,7 @@ const Plantes = () => {
         styles.spacing,
       ]}
       onPress={() => {
-        navigation.navigate('PlantDetail', {
+        navigation.navigate('Info', {
           plantId: item.id,
           plantName: item.name,
         });
@@ -91,6 +87,7 @@ const Plantes = () => {
             keyExtractor={(item) => item.id.toString()}
             numColumns={2}
             contentContainerStyle={styles.container}
+            showsVerticalScrollIndicator={false}
           />
         ) : (
           <ActivityIndicator size="large" color="#00ff00" />
@@ -98,6 +95,6 @@ const Plantes = () => {
       </View>
     </View>
   );
-}
+};
 
-export default Plantes
+export default Plantes;
