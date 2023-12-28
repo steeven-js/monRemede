@@ -6,6 +6,8 @@ const styles = StyleSheet.create({
     },
     icon: {
         padding: 10,
+        width: 50,
+        height: 50,
     },
     TopNavBar: {
         padding: 10,
