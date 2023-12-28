@@ -5,6 +5,7 @@ import caution from '../assets/icons/caution.png';
 import info from '../assets/icons/info.png';
 import propriete from '../assets/icons/propriete.png';
 import usage from '../assets/icons/usage.png';
+import feuille from '../assets/icons/feuille.png';
 
 export default {
     favoris,
@@ -14,4 +15,5 @@ export default {
     info,
     propriete,
     usage,
+    feuille,
 };

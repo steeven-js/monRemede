@@ -1,7 +1,9 @@
-import { View, FlatList, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
+import { View, FlatList, TouchableOpacity, Text, ActivityIndicator, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 import React from 'react';
+
+import { icons } from '../../constants';
 
 import styles from './styles';
 
@@ -20,7 +22,15 @@ const Symptomes = ({ navigation }) => {
                 });
             }}
         >
-            <Text style={styles.symptomeName}>{item.name}</Text>
+            <View style={styles.rowContainer}>
+                <View style={styles.left}>
+                    <Image source={icons.soin} style={styles.icon} />
+                    <Text style={styles.symptomeName}>{item.name}</Text>
+                </View>
+                <View style={styles.right}>
+                    <Image source={icons.feuille} style={styles.icon} />
+                </View>
+            </View>
         </TouchableOpacity>
     );
 

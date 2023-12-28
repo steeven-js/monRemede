@@ -15,13 +15,35 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         borderRadius: 5,
         overflow: 'hidden',
-        backgroundColor: 'rgba(30, 30, 30, 0.8)', // dark background color
+        backgroundColor: 'rgba(30, 30, 30, 0.6)', // dark background color
         padding: 10,
     },
     symptomeName: {
         color: 'white',
         textAlign: 'center',
         fontFamily: 'Dosis-Regular',
+        marginLeft: 10,
+    },
+    icon: {
+        padding: 10,
+        width: 40,
+        height: 40,
+    },
+    rowContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    left: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    right: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
     },
 });
 
