@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, Image } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { firebase } from '@react-native-firebase/auth';
 import BackIcon from 'react-native-vector-icons/Ionicons';
 import StarIcon from 'react-native-vector-icons/FontAwesome6';
 import styles from './styles';
 
+import { icons } from '../../constants';
+
 const Colors = {
     active: '#00f',
     inactive: '#000',
-    // Otros colores aquí...
 };
 
 const PlantNavBar = ({ data, plantId }) => {
@@ -116,19 +117,21 @@ const PlantNavBar = ({ data, plantId }) => {
                     </View>
                 </ImageBackground>
             </View >
-            <View style={styles.navBar}>
-                <TouchableOpacity onPress={() => navigateToScreen('Info')} style={{ borderBottomColor: getTextColor('Info'), borderBottomWidth: isActiveScreen('Info') ? 2 : 0 }}>
-                    <Text style={{ color: getTextColor('Info') }}>Info</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigateToScreen('Propriete')} style={{ borderBottomColor: getTextColor('Propriete'), borderBottomWidth: isActiveScreen('Propriete') ? 2 : 0 }}>
-                    <Text style={{ color: getTextColor('Propriete') }}>Propriete</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigateToScreen('Utilisation')} style={{ borderBottomColor: getTextColor('Utilisation'), borderBottomWidth: isActiveScreen('Utilisation') ? 2 : 0 }}>
-                    <Text style={{ color: getTextColor('Utilisation') }}>Utilisation</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigateToScreen('Precaution')} style={{ borderBottomColor: getTextColor('Precaution'), borderBottomWidth: isActiveScreen('Precaution') ? 2 : 0 }}>
-                    <Text style={{ color: getTextColor('Precaution') }}>Precaution</Text>
-                </TouchableOpacity>
+            <View style={styles.container}>
+                <View style={styles.content}>
+                    <TouchableOpacity onPress={() => navigateToScreen('Info')} style={{ borderBottomColor: getTextColor('Info'), borderBottomWidth: isActiveScreen('Info') ? 2 : 0, padding: 10 }}>
+                        <Image source={icons.info} style={styles.icon} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigateToScreen('Propriete')} style={{ borderBottomColor: getTextColor('Propriete'), borderBottomWidth: isActiveScreen('Propriete') ? 2 : 0, padding: 10 }}>
+                        <Image source={icons.propriete} style={styles.icon} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigateToScreen('Utilisation')} style={{ borderBottomColor: getTextColor('Utilisation'), borderBottomWidth: isActiveScreen('Utilisation') ? 2 : 0, padding: 10 }}>
+                        <Image source={icons.usage} style={styles.icon} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigateToScreen('Precaution')} style={{ borderBottomColor: getTextColor('Precaution'), borderBottomWidth: isActiveScreen('Precaution') ? 2 : 0, padding: 10 }}>
+                        <Image source={icons.caution} style={styles.icon} />
+                    </TouchableOpacity>
+                </View>
             </View>
         </View >
     );

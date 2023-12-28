@@ -31,7 +31,7 @@ const TopBar = ({ navigation, route }) => {
             {/* Onglets */}
             <View style={styles.container}>
                 <TouchableOpacity onPress={() => navigateToScreen('Usages thérapeutiques')} style={[styles.tab, route && route.name === 'Usages thérapeutiques' && styles.activeTab1]}>
-                    <Image source={icons.usage} style={styles.icon} />
+                    <Image source={icons.soin} style={styles.icon} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigateToScreen('Plantes médicinales')} style={[styles.tab, route && route.name === 'Plantes médicinales' && styles.activeTab2]}>
                     <Image source={icons.plante} style={styles.icon} />
