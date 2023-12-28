@@ -47,12 +47,29 @@ const PlantNavBar = ({ data, plantId }) => {
     const addToFavoritesHandler = async () => {
         if (!user) {
             console.log("L'utilisateur n'est pas connecté");
-            // Puedes redirigir a la pantalla de inicio de sesión aquí si es necesario.
             return;
         }
 
         try {
-            // Resto del código...
+            const plantId = route.params?.plantId;
+            const existingFavoriteQuery = await firebase.firestore().collection('favoris')
+                .where('userId', '==', user.uid)
+                .where('plantId', '==', plantId)
+                .get();
+
+            if (!existingFavoriteQuery.empty) {
+                const existingFavoriteDoc = existingFavoriteQuery.docs[0];
+                await existingFavoriteDoc.ref.delete();
+                console.log("Plante retirée des favoris avec succès!");
+                return;
+            }
+
+            await firebase.firestore().collection('favoris').add({
+                userId: user.uid,
+                plantId: plantId,
+            });
+
+            console.log("Plante ajoutée aux favoris avec succès!");
         } catch (error) {
             console.error("Erreur lors de la gestion des favoris:", error);
         }
