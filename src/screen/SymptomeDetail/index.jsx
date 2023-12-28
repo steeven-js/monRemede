@@ -35,7 +35,7 @@ const SymptomeDetail = ({ route, navigation }) => {
             }}
         >
             <Image
-                source={require('../../assets/images/plante/plante.jpg')}
+                source={require('../../assets/images/plante/no-image.png')}
                 style={styles.plantImage}
             />
             <View style={styles.favoriteInfoContainer}>

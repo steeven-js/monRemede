@@ -31,8 +31,6 @@ const Plantes = ({ navigation }) => {
     return () => unsubscribe();
   }, []);
 
-  // console.log('plantesData', plantesData);
-
   const loadFavorites = async (userId) => {
     try {
       const favoritesSnapshot = await firestore()
@@ -54,28 +52,33 @@ const Plantes = ({ navigation }) => {
     return isFavorite ? styles.favoritePlant : styles.plant;
   };
 
-  const renderPlantItem = ({ item }) => (
-    <TouchableOpacity
-      style={[
-        getPlantItemStyle(item),
-        styles.spacing,
-      ]}
-      onPress={() => {
-        navigation.navigate('Info', {
-          plantId: item.id,
-          plantName: item.name,
-        });
-      }}
-    >
-      <Image
-        source={require('../../assets/images/plante/plante.jpg')}
-        style={styles.plantImage}
-      />
-      <View style={styles.plantInfoContainer}>
-        <Text style={styles.plantName}>{item.name}</Text>
-      </View>
-    </TouchableOpacity>
-  );
+  const renderPlantItem = ({ item }) => {
+    const hasMedia = item.media && item.media.length > 0;
+    const imageUrl = hasMedia ? item.media[0]?.original_url : null;
+
+    return (
+      <TouchableOpacity
+        style={[
+          getPlantItemStyle(item),
+          styles.spacing,
+        ]}
+        onPress={() => {
+          navigation.navigate('Info', {
+            plantId: item.id,
+            plantName: item.name,
+          });
+        }}
+      >
+        <Image
+          source={imageUrl ? { uri: imageUrl } : require('../../assets/images/plante/no-image.png')}
+          style={styles.plantImage}
+        />
+        <View style={styles.plantInfoContainer}>
+          <Text style={styles.plantName}>{item.name}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View style={styles.background}>

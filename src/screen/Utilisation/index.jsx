@@ -18,8 +18,10 @@ const Utilisation = ({ route }) => {
 
     const { utilisations } = data;
 
-    const utilisationsInterne = utilisations.filter(item => item.type === 'interne');
-    const utilisationsExterne = utilisations.filter(item => item.type === 'externe');
+    console.log('utilisations', utilisations);
+
+    const utilisationsInterne = utilisations.filter(item => item.type === 'interne') || [];
+    const utilisationsExterne = utilisations.filter(item => item.type === 'externe') || [];
 
     return (
         <View style={styles.background}>
@@ -27,9 +29,13 @@ const Utilisation = ({ route }) => {
                 <ActivityIndicator size="large" color="#00ff00" />
             ) : error ? (
                 <Text>Something went wrong</Text>
+            ) : !data || !data.utilisations ? (
+                <View>
+                    <Text>Utilisations data is missing or undefined.</Text>
+                </View>
             ) : (
                 <>
-                    <PlantNavBar plantId={plantId} originRoute={originRoute} symptomeId={symptomeId} symptomeName={symptomeName} />
+                    <PlantNavBar data={data} plantId={plantId} originRoute={originRoute} symptomeId={symptomeId} symptomeName={symptomeName} />
                     <View style={styles.container}>
                         <View style={styles.content}>
                             <View style={styles.section}>
@@ -37,7 +43,7 @@ const Utilisation = ({ route }) => {
                             </View>
                             <View style={[styles.section, styles.borderBottom]}>
                                 <Text style={styles.soustitre}>Usage Interne</Text>
-                                {utilisationsInterne.map((utilisationItem) => (
+                                {data.utilisations.filter(item => item.type === 'interne').map((utilisationItem) => (
                                     <Text key={utilisationItem.id} style={styles.text}>
                                         {utilisationItem.value}
                                     </Text>
@@ -45,7 +51,7 @@ const Utilisation = ({ route }) => {
                             </View>
                             <View style={styles.section}>
                                 <Text style={styles.soustitre}>Usage Externe</Text>
-                                {utilisationsExterne.map((utilisationItem) => (
+                                {data.utilisations.filter(item => item.type === 'externe').map((utilisationItem) => (
                                     <Text key={utilisationItem.id} style={styles.text}>
                                         {utilisationItem.value}
                                     </Text>

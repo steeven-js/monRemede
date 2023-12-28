@@ -6,7 +6,7 @@ import BackIcon from 'react-native-vector-icons/Ionicons';
 import StarIcon from 'react-native-vector-icons/FontAwesome6';
 import styles from './styles';
 
-const PlantNavBar = ({ plantId }) => {
+const PlantNavBar = ({ data, plantId }) => {
     const navigation = useNavigation();
     const route = useRoute();
     const [user, setUser] = useState(null);
@@ -103,11 +103,16 @@ const PlantNavBar = ({ plantId }) => {
         return () => unsubscribe();
     }, [])
 
+    const hasMedia = data.media && data.media.length > 0;
+    const imageUrl = hasMedia ? data.media[0]?.original_url : null;
+
+    console.log('original_url:', imageUrl);
+
     return (
         <View>
             <View>
                 <ImageBackground
-                    source={require('../../assets/images/plante/plante.jpg')}
+                    source={imageUrl ? { uri: imageUrl } : require('../../assets/images/plante/no-image.png')}
                     style={styles.backgroundImage}
                 >
                     <View style={styles.divAboveTabs}>

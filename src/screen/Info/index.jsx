@@ -24,7 +24,7 @@ const Info = ({ route }) => {
                 <Text>Something went wrong</Text>
             ) : (
                 <>
-                    <PlantNavBar plantId={plantId} originRoute={originRoute} symptomeId={symptomeId} symptomeName={symptomeName} />
+                    <PlantNavBar data={data} plantId={plantId} originRoute={originRoute} symptomeId={symptomeId} symptomeName={symptomeName} />
                     <View style={styles.container}>
                         <View style={styles.content}>
                             <View style={styles.section}>
