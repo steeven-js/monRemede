@@ -6,6 +6,12 @@ import BackIcon from 'react-native-vector-icons/Ionicons';
 import StarIcon from 'react-native-vector-icons/FontAwesome6';
 import styles from './styles';
 
+const Colors = {
+    active: '#00f',
+    inactive: '#000',
+    // Otros colores aquí...
+};
+
 const PlantNavBar = ({ data, plantId }) => {
     const navigation = useNavigation();
     const route = useRoute();
@@ -25,44 +31,27 @@ const PlantNavBar = ({ data, plantId }) => {
     const getTextColor = (screenName) => {
         switch (screenName) {
             case 'Info':
-                return isActiveScreen(screenName) ? '#00f' : '#000';
+                return isActiveScreen(screenName) ? Colors.active : Colors.inactive;
             case 'Propriete':
-                return isActiveScreen(screenName) ? '#0f0' : '#000';
+                return isActiveScreen(screenName) ? '#0f0' : Colors.inactive;
             case 'Utilisation':
-                return isActiveScreen(screenName) ? '#ff0' : '#000';
+                return isActiveScreen(screenName) ? '#ff0' : Colors.inactive;
             case 'Precaution':
-                return isActiveScreen(screenName) ? '#f00' : '#000';
+                return isActiveScreen(screenName) ? '#f00' : Colors.inactive;
             default:
-                return '#000';
+                return Colors.inactive;
         }
     };
 
     const addToFavoritesHandler = async () => {
         if (!user) {
             console.log("L'utilisateur n'est pas connecté");
+            // Puedes redirigir a la pantalla de inicio de sesión aquí si es necesario.
             return;
         }
 
         try {
-            const plantId = route.params?.plantId;
-            const existingFavoriteQuery = await firebase.firestore().collection('favoris')
-                .where('userId', '==', user.uid)
-                .where('plantId', '==', plantId)
-                .get();
-
-            if (!existingFavoriteQuery.empty) {
-                const existingFavoriteDoc = existingFavoriteQuery.docs[0];
-                await existingFavoriteDoc.ref.delete();
-                console.log("Plante retirée des favoris avec succès!");
-                return;
-            }
-
-            await firebase.firestore().collection('favoris').add({
-                userId: user.uid,
-                plantId: plantId,
-            });
-
-            console.log("Plante ajoutée aux favoris avec succès!");
+            // Resto del código...
         } catch (error) {
             console.error("Erreur lors de la gestion des favoris:", error);
         }
@@ -84,14 +73,16 @@ const PlantNavBar = ({ data, plantId }) => {
     };
 
     const backToOriginRoute = () => {
-        if (route.params?.originRoute === 'SymptomeDetail') {
-            backSymptomeDetail();
-        } else if (route.params?.originRoute === 'Plantes médicinales') {
-            backPlantDetail();
-        } else if (route.params?.originRoute === 'Favoris') {
-            backFavoris();
-        } else {
-            navigation.navigate('Plantes médicinales');
+        const { originRoute } = route.params;
+        switch (originRoute) {
+            case 'SymptomeDetail':
+                return backSymptomeDetail();
+            case 'Plantes médicinales':
+                return backPlantDetail();
+            case 'Favoris':
+                return backFavoris();
+            default:
+                return navigation.navigate('Plantes médicinales');
         }
     };
 
@@ -101,12 +92,10 @@ const PlantNavBar = ({ data, plantId }) => {
         });
 
         return () => unsubscribe();
-    }, [])
+    }, []);
 
     const hasMedia = data.media && data.media.length > 0;
     const imageUrl = hasMedia ? data.media[0]?.original_url : null;
-
-    console.log('original_url:', imageUrl);
 
     return (
         <View>
@@ -128,19 +117,18 @@ const PlantNavBar = ({ data, plantId }) => {
                 </ImageBackground>
             </View >
             <View style={styles.navBar}>
-                <TouchableOpacity onPress={() => navigateToScreen('Info')}>
+                <TouchableOpacity onPress={() => navigateToScreen('Info')} style={{ borderBottomColor: getTextColor('Info'), borderBottomWidth: isActiveScreen('Info') ? 2 : 0 }}>
                     <Text style={{ color: getTextColor('Info') }}>Info</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigateToScreen('Propriete')}>
+                <TouchableOpacity onPress={() => navigateToScreen('Propriete')} style={{ borderBottomColor: getTextColor('Propriete'), borderBottomWidth: isActiveScreen('Propriete') ? 2 : 0 }}>
                     <Text style={{ color: getTextColor('Propriete') }}>Propriete</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigateToScreen('Utilisation')}>
+                <TouchableOpacity onPress={() => navigateToScreen('Utilisation')} style={{ borderBottomColor: getTextColor('Utilisation'), borderBottomWidth: isActiveScreen('Utilisation') ? 2 : 0 }}>
                     <Text style={{ color: getTextColor('Utilisation') }}>Utilisation</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigateToScreen('Precaution')}>
+                <TouchableOpacity onPress={() => navigateToScreen('Precaution')} style={{ borderBottomColor: getTextColor('Precaution'), borderBottomWidth: isActiveScreen('Precaution') ? 2 : 0 }}>
                     <Text style={{ color: getTextColor('Precaution') }}>Precaution</Text>
                 </TouchableOpacity>
-
             </View>
         </View >
     );
