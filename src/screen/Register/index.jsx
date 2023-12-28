@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
-import { useDispatch } from 'react-redux';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 
 const Register = ({ navigation }) => {
-    const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [user, setUser] = useState(null);
@@ -25,8 +23,6 @@ const Register = ({ navigation }) => {
         try {
             await auth().signOut();
             console.log('Utilisateur déconnecté avec succès !');
-
-            dispatch(setUser(null));
 
             navigation.navigate('Home');
         } catch (error) {

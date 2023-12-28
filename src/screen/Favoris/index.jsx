@@ -1,22 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, Button, Image, FlatList, ActivityIndicator } from 'react-native';
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    Button,
+    Image,
+    FlatList,
+    ActivityIndicator,
+} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { firebase } from '@react-native-firebase/auth';
+import useFetchPlants from '../../../hook/useFetchPlants';
 import styles from './styles';
 
 const Favoris = ({ route, navigation }) => {
     const [user, setUser] = useState(null);
     const [favorites, setFavorites] = useState([]);
-    const [plantsData, setPlantsData] = useState([]);
-    const [loading, setLoading] = useState(true); // Add loading state
     const initialLoad = useRef(true);
+    const { data: plantsData, isLoading, error, refetch } = useFetchPlants();
 
     useEffect(() => {
         const unsubscribe = firebase.auth().onAuthStateChanged((authUser) => {
             setUser(authUser);
             if (authUser && initialLoad.current) {
                 loadFavorites(authUser.uid);
-                fetchPlantsData();
                 initialLoad.current = false;
             }
         });
@@ -26,43 +33,63 @@ const Favoris = ({ route, navigation }) => {
 
     const loadFavorites = async (userId) => {
         try {
-            const favoritesSnapshot = await firestore().collection('favoris').where('userId', '==', userId).get();
-            const favoritePlants = favoritesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            const favoritesSnapshot = await firestore()
+                .collection('favoris')
+                .where('userId', '==', userId)
+                .get();
+            const favoritePlants = favoritesSnapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
             setFavorites(favoritePlants);
         } catch (error) {
-            console.error("Erreur lors du chargement des favoris :", error);
-        }
-    };
-
-    const fetchPlantsData = async () => {
-        try {
-            const res = await fetch('http://apimonremede.jsprod.fr/api/plants/');
-            if (!res.ok) {
-                throw new Error('Failed to fetch plants');
-            }
-            const plants = await res.json();
-            setPlantsData(plants);
-            setLoading(false); // Set loading to false when data is fetched
-        } catch (error) {
-            console.error('Error fetching plants:', error);
+            console.error('Error loading favorites:', error);
         }
     };
 
     const renderItem = ({ item }) => {
-        const plant = plantsData.find(p => p.id === item.plantId);
+        const plant = plantsData.find((p) => p.id === item.plantId);
+
+        if (!plant) {
+            // Handle the case where plant is undefined
+            return (
+                <View style={styles.favorite}>
+                    <Image
+                        source={require('../../assets/images/plante/no-image.png')}
+                        style={styles.plantImage}
+                    />
+                    <View style={styles.favoriteInfoContainer}>
+                        <Text style={styles.favoriteName}>Unknown Plant</Text>
+                    </View>
+                </View>
+            );
+        }
+
+        const hasMedia = plant.media && plant.media.length > 0;
+        const imageUrl = hasMedia ? plant.media[0]?.original_url : null;
+
         return (
             <TouchableOpacity
                 style={styles.favorite}
                 onPress={() => {
-                    navigation.navigate('Info', { plantId: item.plantId, originRoute: route.name });
+                    navigation.navigate('Info', {
+                        plantId: item.plantId,
+                        originRoute: route.name,
+                    });
                 }}
             >
                 <Image
-                    source={require('../../assets/images/plante/no-image.png')}
+                    source={
+                        imageUrl
+                            ? { uri: imageUrl }
+                            : require('../../assets/images/plante/no-image.png')
+                    }
                     style={styles.plantImage}
                 />
                 <View style={styles.favoriteInfoContainer}>
-                    <Text style={styles.favoriteName}>{plant ? plant.name : 'Unknown Plant'}</Text>
+                    <Text style={styles.favoriteName}>
+                        {plant.name || 'Unknown Plant'}
+                    </Text>
                 </View>
             </TouchableOpacity>
         );
@@ -71,29 +98,22 @@ const Favoris = ({ route, navigation }) => {
     return (
         <View style={styles.background}>
             <View style={styles.overlay}>
-                <View style={styles.container}>
-                    <View>
-                        {!user && (
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                <Button title="Se connecter" onPress={() => navigation.navigate('LoginScreen')} />
-                            </View>
-                        )}
-                        {user && favorites.length > 0 && plantsData.length > 0 && (
-                            <FlatList
-                                data={favorites}
-                                keyExtractor={item => item.id}
-                                renderItem={renderItem}
-                                numColumns={2}
-                                onRefresh={fetchPlantsData}
-                                refreshing={loading}
-                                onEndReachedThreshold={0.5}
-                                onEndReached={() => {
-                                    // console.log('End reached');
-                                }}
-                            />
-                        )}
-                    </View>
-                </View>
+                {plantsData ? (
+                    <FlatList
+                        data={favorites}
+                        keyExtractor={(item) => item.id}
+                        renderItem={renderItem}
+                        numColumns={2}
+                        onRefresh={refetch}
+                        refreshing={isLoading}
+                        onEndReachedThreshold={0.5}
+                        onEndReached={() => {
+                            // console.log('End reached');
+                        }}
+                    />
+                ) : (
+                    <ActivityIndicator size="large" color="#00ff00" />
+                )}
             </View>
         </View>
     );

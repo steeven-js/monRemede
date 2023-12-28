@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../../../redux/actions/userActions';
 import auth from '@react-native-firebase/auth';
 import BackIcon from 'react-native-vector-icons/Ionicons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from './styles';
 
 const Connexion = ({ navigation }) => {
-    const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [afficherMotDePasse, setAfficherMotDePasse] = useState(false);
@@ -21,8 +18,6 @@ const Connexion = ({ navigation }) => {
             const userCredential = await auth().signInWithEmailAndPassword(email, password);
             const user = userCredential.user;
 
-            // Dispatch l'action pour mettre à jour le state Redux avec l'utilisateur
-            dispatch(setUser(user));
             console.log('Utilisateur connecté avec succès !');
 
             // Réinitialiser les champs d'entrée après une identification réussie
