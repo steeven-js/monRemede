@@ -16,13 +16,6 @@ const Utilisation = ({ route }) => {
         );
     }
 
-    const { utilisations } = data;
-
-    console.log('utilisations', utilisations);
-
-    const utilisationsInterne = utilisations.filter(item => item.type === 'interne') || [];
-    const utilisationsExterne = utilisations.filter(item => item.type === 'externe') || [];
-
     return (
         <View style={styles.background}>
             {isLoading ? (
