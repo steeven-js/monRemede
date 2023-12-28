@@ -73,9 +73,10 @@ const Favoris = ({ route, navigation }) => {
             <View style={styles.overlay}>
                 <View style={styles.container}>
                     <View>
-                        {loading && <ActivityIndicator size="large" color="#00ff00" />} 
                         {!user && (
-                            <Button title="Se connecter" onPress={() => { navigation.navigate('LoginScreen') }} />
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <Button title="Se connecter" onPress={() => navigation.navigate('LoginScreen')} />
+                            </View>
                         )}
                         {user && favorites.length > 0 && plantsData.length > 0 && (
                             <FlatList
@@ -87,7 +88,7 @@ const Favoris = ({ route, navigation }) => {
                                 refreshing={loading}
                                 onEndReachedThreshold={0.5}
                                 onEndReached={() => {
-                                    console.log('End reached');
+                                    // console.log('End reached');
                                 }}
                             />
                         )}

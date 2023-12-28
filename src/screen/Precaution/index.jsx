@@ -10,7 +10,7 @@ const Precaution = ({ route }) => {
 
     if (!data) {
         return (
-            <View>
+            <View style={styles.loadingContainer}>
                 <ActivityIndicator size="large" color="#00ff00" />
             </View>
         );
@@ -21,7 +21,9 @@ const Precaution = ({ route }) => {
     return (
         <View style={styles.background}>
             {isLoading ? (
-                <ActivityIndicator size="large" color="#00ff00" />
+                <View style={styles.loadingContainer}>
+                    <ActivityIndicator size="large" color="#00ff00" />
+                </View>
             ) : error ? (
                 <Text>Something went wrong</Text>
             ) : (

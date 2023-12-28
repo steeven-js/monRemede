@@ -67,6 +67,11 @@ const styles = StyleSheet.create({
         height: '100%',
         borderRadius: 15,
     },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 });
 
 export default styles;

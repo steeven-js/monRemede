@@ -42,6 +42,11 @@ const styles = StyleSheet.create({
         fontFamily: 'Dosis-Medium',
         color: 'black',
     },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 });
 
 export default styles;

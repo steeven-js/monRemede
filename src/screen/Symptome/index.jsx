@@ -1,60 +1,76 @@
+import React from 'react';
 import { View, FlatList, TouchableOpacity, Text, ActivityIndicator, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useSelector } from 'react-redux';
-import React from 'react';
-
+import useFetchSymptoms from '../../../hook/useFetchSymptoms';
 import { icons } from '../../constants';
-
 import styles from './styles';
 
 const Symptomes = ({ navigation }) => {
-    const symptomesData = useSelector((state) => state.symptomes.data);
+    const { data, isLoading, error } = useFetchSymptoms();
 
-    // console.log('symptomesData', symptomesData);
+    const renderSymptomeItem = ({ item }) => {
+        const hasMedia = item.media && item.media.length > 0;
+        const imageUrl = hasMedia ? item.media[0]?.original_url : null;
 
-    const renderSymptomeItem = ({ item }) => (
-        <TouchableOpacity
-            style={styles.symptomeItem}
-            onPress={() => {
-                navigation.navigate('SymptomeDetail', {
-                    symptomeId: item.id,
-                    symptomeName: item.name,
-                });
-            }}
-        >
-            <View style={styles.rowContainer}>
-                <View style={styles.left}>
-                    <Image source={icons.soin} style={styles.icon} />
-                    <Text style={styles.symptomeName}>{item.name}</Text>
+        return (
+            <TouchableOpacity
+                style={styles.symptomeItem}
+                onPress={() => {
+                    navigation.navigate('SymptomeDetail', {
+                        symptomeId: item.id,
+                        symptomeName: item.name,
+                    });
+                }}
+            >
+                <View style={styles.rowContainer}>
+                    <View style={styles.left}>
+                        <Image
+                            source={imageUrl ? { uri: imageUrl } : icons.soin}
+                            style={styles.icon}
+                        />
+                        <Text style={styles.symptomeName}>{item.name}</Text>
+                    </View>
+                    <View style={styles.right}>
+                        <Image source={icons.feuille} style={styles.icon} />
+                    </View>
                 </View>
-                <View style={styles.right}>
-                    <Image source={icons.feuille} style={styles.icon} />
-                </View>
-            </View>
-        </TouchableOpacity>
-    );
+            </TouchableOpacity>
+        );
+    };
 
     return (
         <SafeAreaView style={styles.background}>
             <View style={styles.overlay}>
-                {symptomesData ? (
+                {isLoading ? (
+                    <View style={styles.loadingContainer}>
+                        <ActivityIndicator size="large" color="#00ff00" />
+                    </View>
+                ) : error ? (
+                    <View style={styles.errorContainer}>
+                        <Text>Error loading data. Please try again.</Text>
+                    </View>
+                ) : !data ? (
+                    <View style={styles.noDataContainer}>
+                        <Text>No data available.</Text>
+                    </View>
+                ) : (
                     <FlatList
-                        data={symptomesData}
+                        data={data}
                         renderItem={renderSymptomeItem}
                         keyExtractor={(item) => item.id.toString()}
-                        refreshing={symptomesData}
+                        refreshing={isLoading}
                         onEndReachedThreshold={0.5}
                         onEndReached={() => {
-                            console.log('End reached');
+                            // console.log('End reached');
                         }}
                         showsVerticalScrollIndicator={false}
                     />
-                ) : (
-                    <ActivityIndicator size="large" color="#00ff00" />
                 )}
             </View>
         </SafeAreaView>
     );
+
+
 };
 
 export default Symptomes;

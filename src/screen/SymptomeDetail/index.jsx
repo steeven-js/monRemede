@@ -1,26 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity, Image, FlatList, ActivityIndicator } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import BackIcon from 'react-native-vector-icons/Ionicons';
+import useFetchSymptom from '../../../hook/useFetchSymptom';
 import styles from './styles';
 
 const SymptomeDetail = ({ route, navigation }) => {
     const { symptomeId, symptomeName } = route.params;
-    const [symptomePlants, setSymptomePlants] = useState(null);
-
-    useEffect(() => {
-        const fetchSymptome = async () => {
-            try {
-                const response = await fetch(`http://apimonremede.jsprod.fr/api/symptomes/${symptomeId}`);
-                const data = await response.json();
-                setSymptomePlants(data);
-            } catch (error) {
-                console.error('Error fetching symptome:', error);
-            }
-        };
-
-        fetchSymptome();
-    }, [symptomeId]);
+    const { data: symptomePlants, isLoading, error, refetch } = useFetchSymptom(symptomeId);
 
     const renderItem = ({ item }) => (
         <TouchableOpacity
@@ -68,15 +55,23 @@ const SymptomeDetail = ({ route, navigation }) => {
             </LinearGradient>
 
             <View style={styles.overlay}>
-                {symptomePlants && symptomePlants.plants ? (
+                {isLoading ? (
+                    <View style={styles.loadingContainer}>
+                        <ActivityIndicator size="large" color="#00ff00" />
+                    </View>
+                ) : error ? (
+                    <Text>Error loading plants. Please try again.</Text>
+                ) : symptomePlants && symptomePlants.plants ? (
                     <FlatList
                         data={symptomePlants.plants}
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={renderItem}
                         numColumns={2}
+                        onRefresh={refetch}
+                        refreshing={isLoading}
                     />
                 ) : (
-                    <Text>Loading plants...</Text>
+                    <Text>No plants available.</Text>
                 )}
             </View>
         </View>

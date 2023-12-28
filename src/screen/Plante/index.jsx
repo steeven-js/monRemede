@@ -7,17 +7,25 @@ import {
   FlatList,
   ActivityIndicator,
 } from 'react-native';
-import { useSelector } from 'react-redux';
+import useFetchPlants from '../../../hook/useFetchPlants';
 import firestore from '@react-native-firebase/firestore';
 import { firebase } from '@react-native-firebase/auth';
 
 import styles from './styles';
 
 const Plantes = ({ navigation }) => {
-  const plantesData = useSelector((state) => state.plantes.data);
   const [user, setUser] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const initialLoad = useRef(true);
+  const { data, isLoading, error, refetch } = useFetchPlants();
+
+  if (!data) {
+    return (
+      <View>
+        <ActivityIndicator size="large" color="#00ff00" />
+      </View>
+    );
+  }
 
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged((authUser) => {
@@ -83,14 +91,16 @@ const Plantes = ({ navigation }) => {
   return (
     <View style={styles.background}>
       <View style={styles.overlay}>
-        {plantesData ? (
+        {data ? (
           <FlatList
-            data={plantesData}
+            data={data}
             renderItem={renderPlantItem}
             keyExtractor={(item) => item.id.toString()}
             numColumns={2}
             contentContainerStyle={styles.container}
             showsVerticalScrollIndicator={false}
+            onRefresh={refetch}
+            refreshing={isLoading}
           />
         ) : (
           <ActivityIndicator size="large" color="#00ff00" />
