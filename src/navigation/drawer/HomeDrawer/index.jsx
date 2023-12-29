@@ -5,7 +5,7 @@ import Profile from '../../../screen/Profile';
 import Register from '../../../screen/Register';
 import Login from '../../../screen/Login';
 import SymptomeDetail from '../../../screen/SymptomeDetail';
-import Home from '../../../screen/Home';
+import Home from '../../stacks/Home';
 import Info from '../../../screen/Info';
 import Propriete from '../../../screen/Propriete';
 import Utilisation from '../../../screen/Utilisation';

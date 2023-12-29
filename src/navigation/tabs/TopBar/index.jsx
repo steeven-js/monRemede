@@ -4,7 +4,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import SearchIcon from 'react-native-vector-icons/Ionicons';
 import MenuIcon from 'react-native-vector-icons/Ionicons';
 
-import { icons } from '../../constants';
+import { icons } from '../../../constants';
 
 import styles from './styles';
 

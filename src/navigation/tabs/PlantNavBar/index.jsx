@@ -6,7 +6,7 @@ import BackIcon from 'react-native-vector-icons/Ionicons';
 import StarIcon from 'react-native-vector-icons/FontAwesome6';
 import styles from './styles';
 
-import { icons } from '../../constants';
+import { icons } from '../../../constants';
 
 const Colors = {
     active: '#00f',
@@ -119,7 +119,7 @@ const PlantNavBar = ({ data, plantId }) => {
         <View>
             <View>
                 <ImageBackground
-                    source={imageUrl ? { uri: imageUrl } : require('../../assets/images/plante/no-image.png')}
+                    source={imageUrl ? { uri: imageUrl } : require('../../../assets/images/plante/no-image.png')}
                     style={styles.backgroundImage}
                 >
                     <View style={styles.divAboveTabs}>

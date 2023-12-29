@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
-import PlantNavBar from '../../navigation/PlantNavBar';
+import PlantNavBar from '../../navigation/tabs/PlantNavBar';
 import useFetchPlant from '../../../hook/useFetchPlant';
 import styles from './styles';
 
