@@ -9,27 +9,32 @@ const SymptomeDetail = ({ route, navigation }) => {
     const { symptomeId, symptomeName } = route.params;
     const { data: symptomePlants, isLoading, error, refetch } = useFetchSymptom(symptomeId);
 
-    const renderItem = ({ item }) => (
-        <TouchableOpacity
-            style={[styles.favorite, styles.spacing]}
-            onPress={() => {
-                navigation.navigate('Info', {
-                    plantId: item.id,
-                    symptomeId: symptomeId,
-                    symptomeName: symptomeName,
-                    originRoute: 'SymptomeDetail',
-                });
-            }}
-        >
-            <Image
-                source={require('../../assets/images/plante/no-image.png')}
-                style={styles.plantImage}
-            />
-            <View style={styles.favoriteInfoContainer}>
-                <Text style={styles.favoriteName}>{item.name}</Text>
-            </View>
-        </TouchableOpacity>
-    );
+    const renderItem = ({ item }) => {
+        const hasMedia = item.media && item.media.length > 0;
+        const imageUrl = hasMedia ? item.media[0]?.original_url : null;
+
+        return (
+            <TouchableOpacity
+                style={[styles.favorite, styles.spacing]}
+                onPress={() => {
+                    navigation.navigate('Info', {
+                        plantId: item.id,
+                        symptomeId: symptomeId,
+                        symptomeName: symptomeName,
+                        originRoute: 'SymptomeDetail',
+                    });
+                }}
+            >
+                <Image
+                    source={imageUrl ? { uri: imageUrl } : require('../../assets/images/plante/no-image.png')}
+                    style={styles.plantImage}
+                />
+                <View style={styles.favoriteInfoContainer}>
+                    <Text style={styles.favoriteName}>{item.name}</Text>
+                </View>
+            </TouchableOpacity>
+        );
+    };
 
     return (
         <View style={styles.background}>
@@ -48,9 +53,15 @@ const SymptomeDetail = ({ route, navigation }) => {
                         onPress={() => navigation.goBack()}
                     />
                     <Text style={styles.textTopNavBar}>{symptomeName}</Text>
-                    <Text style={styles.textTopNavBar}>
-                        {symptomePlants?.plants_count}
-                    </Text>
+                    {isLoading ? (
+                        <ActivityIndicator size="small" color="#00ff00" />
+                    ) : error ? (
+                        <Text>Error loading plants. Please try again.</Text>
+                    ) : (
+                        <Text style={styles.textTopNavBar}>
+                            {symptomePlants?.plants_count}
+                        </Text>
+                    )}
                 </View>
             </LinearGradient>
 
