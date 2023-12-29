@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
 import auth from '@react-native-firebase/auth';
 import Profile from '../../../screen/Profile';
 import Register from '../../../screen/Register';
@@ -10,6 +10,9 @@ import Info from '../../../screen/Info';
 import Propriete from '../../../screen/Propriete';
 import Utilisation from '../../../screen/Utilisation';
 import Precaution from '../../../screen/Precaution';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { ImageBackground, View, Image, Text } from 'react-native';
+import styles from './styles';
 
 const Drawer = createDrawerNavigator();
 
@@ -26,7 +29,31 @@ const HomeDrawer = () => {
     }, []);
 
     return (
-        <Drawer.Navigator>
+        <Drawer.Navigator
+            drawerContent={(props) => {
+                return (
+                    <SafeAreaView>
+                        <ImageBackground
+                            source={require('../../../assets/images/backgrounds/liquid-cheese-background.png')}
+                            style={styles.drawerHeaderImageBackground}
+                        >
+                            <View style={styles.logoWrapper}>
+                                <Image
+                                    source={require('../../../assets/images/logos/logo_light.png')}
+                                    style={styles.logo}
+                                />
+                            </View>
+                            <View>
+                                <Text style={styles.brandName}>mon Remède</Text>
+                                <Text style={styles.brandSlogan}>Plantes médicinales</Text>
+                            </View>
+                        </ImageBackground>
+                        <DrawerItemList {...props} />
+                    </SafeAreaView>
+                )
+
+            }}
+        >
             <Drawer.Screen
                 name="Home"
                 component={Home}
