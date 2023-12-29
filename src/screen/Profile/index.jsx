@@ -24,7 +24,7 @@ const Profile = ({ navigation }) => {
     }, []);
 
     const handleLogin = () => {
-        navigation.navigate('LoginScreen');
+        navigation.navigate('Se connecté');
     };
 
     const handleLogout = async () => {
@@ -42,7 +42,7 @@ const Profile = ({ navigation }) => {
     return (
         <View style={styles.profile}>
             <View style={styles.nav}>
-                <BackIcon name="arrow-back" size={30} color="#000" onPress={() => navigation.navigate('Home')} />
+                <BackIcon name="arrow-back" size={30} color="#000" onPress={() => navigation.navigate('Plantes médicinales')} />
                 <Text style={[styles.font]}>Profile</Text>
                 <IconLogout name="logout" size={30} color="#000" onPress={handleLogout} />
             </View>

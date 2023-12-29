@@ -7,6 +7,7 @@ import {
   FlatList,
   ActivityIndicator,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import useFetchPlants from '../../../hook/useFetchPlants';
 import firestore from '@react-native-firebase/firestore';
 import { firebase } from '@react-native-firebase/auth';
@@ -89,9 +90,21 @@ const Plantes = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.background}>
+    <SafeAreaView style={styles.background}>
       <View style={styles.overlay}>
-        {data ? (
+        {isLoading ? (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color="#00ff00" />
+          </View>
+        ) : error ? (
+          <View style={styles.errorContainer}>
+            <Text>Error loading data. Please try again.</Text>
+          </View>
+        ) : !data ? (
+          <View style={styles.noDataContainer}>
+            <Text>No data available.</Text>
+          </View>
+        ) : (
           <FlatList
             data={data}
             renderItem={renderPlantItem}
@@ -102,11 +115,9 @@ const Plantes = ({ navigation }) => {
             onRefresh={refetch}
             refreshing={isLoading}
           />
-        ) : (
-          <ActivityIndicator size="large" color="#00ff00" />
         )}
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

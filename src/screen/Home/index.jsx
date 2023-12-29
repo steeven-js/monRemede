@@ -10,7 +10,6 @@ const HomeStack = createStackNavigator();
 const Home = () => {
     return (
         <HomeStack.Navigator
-            initialRouteName="Plantes médicinales"
             screenOptions={{
                 header: (props) => <TopBar {...props} />,
                 animationEnabled: false,

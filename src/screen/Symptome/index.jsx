@@ -6,7 +6,7 @@ import { icons } from '../../constants';
 import styles from './styles';
 
 const Symptomes = ({ navigation }) => {
-    const { data, isLoading, error } = useFetchSymptoms();
+    const { data, isLoading, error, refetch } = useFetchSymptoms();
 
     const renderSymptomeItem = ({ item }) => {
         const hasMedia = item.media && item.media.length > 0;
@@ -58,12 +58,10 @@ const Symptomes = ({ navigation }) => {
                         data={data}
                         renderItem={renderSymptomeItem}
                         keyExtractor={(item) => item.id.toString()}
-                        refreshing={isLoading}
                         onEndReachedThreshold={0.5}
-                        onEndReached={() => {
-                            // console.log('End reached');
-                        }}
                         showsVerticalScrollIndicator={false}
+                        onRefresh={refetch}
+                        refreshing={isLoading}
                     />
                 )}
             </View>
