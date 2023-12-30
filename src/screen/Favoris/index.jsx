@@ -119,8 +119,10 @@ const Favoris = ({ route, navigation }) => {
                 </View>
             )}
             <View style={styles.overlay}>
-                {isLoading && !plantsData && (
-                    <ActivityIndicator size="large" color="#00ff00" />
+                {isLoading && (
+                    <View style={styles.loadingContainer}>
+                        <ActivityIndicator size="large" color="#00ff00" />
+                    </View>
                 )}
 
                 {error && (
@@ -135,12 +137,9 @@ const Favoris = ({ route, navigation }) => {
                         keyExtractor={(item) => item.id}
                         renderItem={renderItem}
                         numColumns={2}
-                        onRefresh={refetch}
                         refreshing={isLoading}
-                        onEndReachedThreshold={0.5}
-                        onEndReached={() => {
-                            // console.log('End reached');
-                        }}
+                        showsVerticalScrollIndicator={false}
+                        onRefresh={refetch}
                     />
                 )}
 
