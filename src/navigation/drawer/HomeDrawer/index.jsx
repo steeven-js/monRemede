@@ -83,31 +83,6 @@ const HomeDrawer = () => {
                     />
                 </>
             )}
-            <Drawer.Screen
-                name="SymptomeDetail"
-                component={SymptomeDetail}
-                options={{ headerShown: false, drawerLabel: () => null }}
-            />
-            <Drawer.Screen
-                name="Info"
-                component={Info}
-                options={{ headerShown: false, drawerLabel: () => null }}
-            />
-            <Drawer.Screen
-                name="Propriete"
-                component={Propriete}
-                options={{ headerShown: false, drawerLabel: () => null }}
-            />
-            <Drawer.Screen
-                name="Utilisation"
-                component={Utilisation}
-                options={{ headerShown: false, drawerLabel: () => null }}
-            />
-            <Drawer.Screen
-                name="Precaution"
-                component={Precaution}
-                options={{ headerShown: false, drawerLabel: () => null }}
-            />
         </Drawer.Navigator>
     )
 }

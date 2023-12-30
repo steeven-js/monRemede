@@ -1,23 +1,20 @@
-// App
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeDrawer from './src/navigation/drawer/HomeDrawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import Splash from './src/screen/splash';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './src/navigation/stacks/Home';
 import SymptomeStack from './src/navigation/stacks/SymptomStack';
 import PlanteStack from './src/navigation/stacks/Plante';
 
 const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const App = () => {
   const [isStarting, setIsStarting] = useState(true);
 
   useEffect(() => {
-    // Updating state value after 2500 milliseconds(2.5 seconds) of delay.
     setTimeout(() => {
-      // Updating states
       setIsStarting(false);
     }, 2500);
   }, []);
@@ -27,18 +24,22 @@ const App = () => {
   }
 
   return (
-    // <NavigationContainer>
-    //   <HomeDrawer />
-    // </NavigationContainer>
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="HomeStack" component={Home} />
-        <Stack.Screen name="SymptomeStack" component={SymptomeStack} />
-        <Stack.Screen name="PlanteStack" component={PlanteStack} />
-      </Stack.Navigator>
+      <Drawer.Navigator initialRouteName="HomeStack" screenOptions={{ headerShown: false }}>
+        <Drawer.Screen name="HomeStack" component={HomeStack} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 };
 
+const HomeStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="SymptomeStack" component={SymptomeStack} />
+      <Stack.Screen name="PlanteStack" component={PlanteStack} />
+    </Stack.Navigator>
+  );
+};
 
 export default App;
