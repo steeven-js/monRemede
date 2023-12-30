@@ -23,7 +23,8 @@ const TopBar = ({ navigation, route }) => {
         >
             {/* Div au-dessus des onglets */}
             <View style={styles.TopNavBar}>
-                <MenuIcon name="menu" size={30} color="#fff" onPress={() => navigation.openDrawer()} />
+                {/* <MenuIcon name="menu" size={30} color="#fff" onPress={() => navigation.openDrawer()} /> */}
+                <MenuIcon name="menu" size={30} color="#fff" onPress={() => {console.log('hello');}} />
                 <Text style={styles.textTopNavBar}>{route && route.name}</Text>
                 <SearchIcon name="search" size={30} color="#fff" />
             </View>

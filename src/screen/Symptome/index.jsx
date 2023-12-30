@@ -4,9 +4,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import useFetchSymptoms from '../../../hook/useFetchSymptoms';
 import { icons } from '../../constants';
 import styles from './styles';
+import { useNavigation } from '@react-navigation/native';
 
-const Symptomes = ({ navigation }) => {
+const Symptomes = () => {
     const { data, isLoading, error, refetch } = useFetchSymptoms();
+    const navigation = useNavigation();
 
     const renderSymptomeItem = ({ item }) => {
         const hasMedia = item.media && item.media.length > 0;
@@ -15,11 +17,20 @@ const Symptomes = ({ navigation }) => {
         return (
             <TouchableOpacity
                 style={styles.symptomeItem}
+                // onPress={() => {
+                //     navigation.navigate('SymptomeDetail', {
+                //         symptomeId: item.id,
+                //         symptomeName: item.name,
+                //     });
+                // }}
                 onPress={() => {
-                    navigation.navigate('SymptomeDetail', {
-                        symptomeId: item.id,
-                        symptomeName: item.name,
-                    });
+                    navigation.navigate('SymptomeStack', {
+                        screen: 'SymptomeDetail',
+                        params: {
+                            symptomeId: item.id,
+                            symptomeName: item.name,
+                        },
+                    })
                 }}
             >
                 <View style={styles.rowContainer}>

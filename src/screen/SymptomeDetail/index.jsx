@@ -16,13 +16,24 @@ const SymptomeDetail = ({ route, navigation }) => {
         return (
             <TouchableOpacity
                 style={[styles.favorite, styles.spacing]}
+                // onPress={() => {
+                //     navigation.navigate('Info', {
+                //         plantId: item.id,
+                //         symptomeId: symptomeId,
+                //         symptomeName: symptomeName,
+                //         originRoute: 'SymptomeDetail',
+                //     });
+                // }}
                 onPress={() => {
-                    navigation.navigate('Info', {
-                        plantId: item.id,
-                        symptomeId: symptomeId,
-                        symptomeName: symptomeName,
-                        originRoute: 'SymptomeDetail',
-                    });
+                    navigation.navigate('PlanteStack', {
+                        screen: 'Info',
+                        params: {
+                            plantId: item.id,
+                            symptomeId: symptomeId,
+                            symptomeName: symptomeName,
+                            originRoute: 'SymptomeDetail',
+                        },
+                    })
                 }}
             >
                 <Image

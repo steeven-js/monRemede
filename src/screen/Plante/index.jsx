@@ -71,11 +71,20 @@ const Plantes = ({ navigation }) => {
           getPlantItemStyle(item),
           styles.spacing,
         ]}
+        // onPress={() => {
+        //   navigation.navigate('Info', {
+        //     plantId: item.id,
+        //     plantName: item.name,
+        //   });
+        // }}
         onPress={() => {
-          navigation.navigate('Info', {
-            plantId: item.id,
-            plantName: item.name,
-          });
+          navigation.navigate('PlanteStack', {
+            screen: 'Info',
+            params: {
+              plantId: item.id,
+              plantName: item.name,
+            },
+          })
         }}
       >
         <Image
