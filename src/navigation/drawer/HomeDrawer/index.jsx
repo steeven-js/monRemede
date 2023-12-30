@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
-import auth from '@react-native-firebase/auth';
-import Profile from '../../../screen/Profile';
-import Register from '../../../screen/Register';
-import Login from '../../../screen/Login';
-import SymptomeDetail from '../../../screen/SymptomeDetail';
-import Home from '../../stacks/Home';
-import Info from '../../../screen/Info';
-import Propriete from '../../../screen/Propriete';
-import Utilisation from '../../../screen/Utilisation';
-import Precaution from '../../../screen/Precaution';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { ImageBackground, View, Image, Text } from 'react-native';
+import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import auth from '@react-native-firebase/auth';
+import HomeStack from '../../stacks/HomeStack';
+import Profile from '../../../screen/Profile';
+import Connexion from '../../../screen/Login';
+import Register from '../../../screen/Register';
+
 import styles from './styles';
 
 const Drawer = createDrawerNavigator();
@@ -30,6 +26,8 @@ const HomeDrawer = () => {
 
     return (
         <Drawer.Navigator
+            initialRouteName="HomeStack"
+            screenOptions={{ headerShown: false }}
             drawerContent={(props) => {
                 return (
                     <SafeAreaView>
@@ -55,15 +53,15 @@ const HomeDrawer = () => {
             }}
         >
             <Drawer.Screen
-                name="Home"
-                component={Home}
+                name="Accueil" 
+                component={HomeStack}
                 options={{ headerShown: false }}
             />
             {isUserAuthenticated ? (
                 <>
                     {/* Afficher les écrans lorsque l'utilisateur est connecté */}
                     <Drawer.Screen
-                        name="ProfileScreen"
+                        name="Mon Profil"
                         component={Profile}
                         options={{ headerShown: false }}
                     />
@@ -72,12 +70,12 @@ const HomeDrawer = () => {
                 <>
                     {/* Afficher les écrans lorsque l'utilisateur n'est pas connecté */}
                     <Drawer.Screen
-                        name="LoginScreen"
-                        component={Login}
+                        name="Se connecter"
+                        component={Connexion}
                         options={{ headerShown: false }}
                     />
                     <Drawer.Screen
-                        name="RegisterScreen"
+                        name="S'inscrire"
                         component={Register}
                         options={{ headerShown: false, drawerLabel: () => null }}
                     />

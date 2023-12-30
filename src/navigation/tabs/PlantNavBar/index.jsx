@@ -136,16 +136,52 @@ const PlantNavBar = ({ data, plantId }) => {
             </View >
             <View style={styles.container}>
                 <View style={styles.content}>
-                    <TouchableOpacity onPress={() => navigateToScreen('Info')} style={{ borderBottomColor: getTextColor('Info'), borderBottomWidth: isActiveScreen('Info') ? 2 : 0, padding: 10 }}>
+                    <TouchableOpacity
+                        onPress={() => navigateToScreen('Info')}
+                        style={[
+                            styles.touchableOpacity,
+                            {
+                                borderBottomColor: getTextColor('Info'),
+                                borderBottomWidth: isActiveScreen('Info') ? 2 : 0,
+                            },
+                        ]}
+                    >
                         <Image source={icons.info} style={styles.icon} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigateToScreen('Propriete')} style={{ borderBottomColor: getTextColor('Propriete'), borderBottomWidth: isActiveScreen('Propriete') ? 2 : 0, padding: 10 }}>
+                    <TouchableOpacity
+                        onPress={() => navigateToScreen('Propriete')}
+                        style={[
+                            styles.touchableOpacity,
+                            {
+                                borderBottomColor: getTextColor('Propriete'),
+                                borderBottomWidth: isActiveScreen('Propriete') ? 2 : 0,
+                            },
+                        ]}
+                    >
                         <Image source={icons.propriete} style={styles.icon} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigateToScreen('Utilisation')} style={{ borderBottomColor: getTextColor('Utilisation'), borderBottomWidth: isActiveScreen('Utilisation') ? 2 : 0, padding: 10 }}>
+                    <TouchableOpacity
+                        onPress={() => navigateToScreen('Utilisation')}
+                        style={[
+                            styles.touchableOpacity,
+                            {
+                                borderBottomColor: getTextColor('Utilisation'),
+                                borderBottomWidth: isActiveScreen('Utilisation') ? 2 : 0,
+                            },
+                        ]}
+                    >
                         <Image source={icons.usage} style={styles.icon} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigateToScreen('Precaution')} style={{ borderBottomColor: getTextColor('Precaution'), borderBottomWidth: isActiveScreen('Precaution') ? 2 : 0, padding: 10 }}>
+                    <TouchableOpacity
+                        onPress={() => navigateToScreen('Precaution')}
+                        style={[
+                            styles.touchableOpacity,
+                            {
+                                borderBottomColor: getTextColor('Precaution'),
+                                borderBottomWidth: isActiveScreen('Precaution') ? 2 : 0,
+                            },
+                        ]}
+                    >
                         <Image source={icons.caution} style={styles.icon} />
                     </TouchableOpacity>
                 </View>

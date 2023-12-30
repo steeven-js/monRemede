@@ -1,9 +1,9 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react'
-import TopBar from '../../tabs/TopBar';
-import Symptome from '../../../screen/Symptome';
-import Plantes from '../../../screen/Plante';
-import Favoris from '../../../screen/Favoris';
+import TopBar from '../../navigation/tabs/TopBar';
+import Symptome from '../Symptome';
+import Plantes from '../Plante';
+import Favoris from '../Favoris';
 
 const HomeStack = createStackNavigator();
 
