@@ -36,4 +36,12 @@ export default StyleSheet.create({
     fontSize: 12,
     color: '#fff',
   },
+  drawerItemLabel: {
+    fontFamily: DOSIS_MEDIUM,
+    fontSize: 14,
+  },
+  drawerItemIcon: {
+    width: 25,
+    height: 25
+  },
 });

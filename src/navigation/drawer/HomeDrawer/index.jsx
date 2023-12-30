@@ -53,17 +53,39 @@ const HomeDrawer = () => {
             }}
         >
             <Drawer.Screen
-                name="Accueil" 
+                name="Accueil"
                 component={HomeStack}
-                options={{ headerShown: false }}
+                options={{
+                    headerShown: false,
+                    drawerIcon: () => (
+                        <Image
+                            source={
+                                require('../../../assets/icons/soin.png')
+                            }
+                            style={styles.drawerItemIcon}
+                        />
+                    ),
+                    drawerLabelStyle: styles.drawerItemLabel,
+                }}
             />
             {isUserAuthenticated ? (
                 <>
                     {/* Afficher les écrans lorsque l'utilisateur est connecté */}
                     <Drawer.Screen
-                        name="Mon Profil"
+                        name="Mon Profile"
                         component={Profile}
-                        options={{ headerShown: false }}
+                        options={{
+                            headerShown: false,
+                            drawerIcon: () => (
+                                <Image
+                                    source={
+                                        require('../../../assets/icons/info.png')
+                                    }
+                                    style={styles.drawerItemIcon}
+                                />
+                            ),
+                            drawerLabelStyle: styles.drawerItemLabel,
+                        }}
                     />
                 </>
             ) : (
@@ -72,12 +94,18 @@ const HomeDrawer = () => {
                     <Drawer.Screen
                         name="Se connecter"
                         component={Connexion}
-                        options={{ headerShown: false }}
+                        options={{
+                            headerShown: false,
+                            drawerLabelStyle: styles.drawerItemLabel,
+                        }}
                     />
                     <Drawer.Screen
                         name="S'inscrire"
                         component={Register}
-                        options={{ headerShown: false, drawerLabel: () => null }}
+                        options={{
+                            headerShown: false,
+                            drawerLabelStyle: styles.drawerItemLabel,
+                        }}
                     />
                 </>
             )}
