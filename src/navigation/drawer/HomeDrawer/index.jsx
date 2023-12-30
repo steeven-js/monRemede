@@ -42,8 +42,8 @@ const HomeDrawer = () => {
                                 />
                             </View>
                             <View>
-                                <Text style={styles.brandName}>mon Remède</Text>
-                                <Text style={styles.brandSlogan}>Plantes médicinales</Text>
+                                <Text style={styles.brandName}>Mon Remède</Text>
+                                <Text style={styles.brandSlogan}>Les soins par les plantes</Text>
                             </View>
                         </ImageBackground>
                         <DrawerItemList {...props} />
@@ -96,6 +96,14 @@ const HomeDrawer = () => {
                         component={Connexion}
                         options={{
                             headerShown: false,
+                            drawerIcon: () => (
+                                <Image
+                                    source={
+                                        require('../../../assets/icons/soin.png')
+                                    }
+                                    style={styles.drawerItemIcon}
+                                />
+                            ),
                             drawerLabelStyle: styles.drawerItemLabel,
                         }}
                     />
@@ -104,6 +112,14 @@ const HomeDrawer = () => {
                         component={Register}
                         options={{
                             headerShown: false,
+                            drawerIcon: () => (
+                                <Image
+                                    source={
+                                        require('../../../assets/icons/soin.png')
+                                    }
+                                    style={styles.drawerItemIcon}
+                                />
+                            ),
                             drawerLabelStyle: styles.drawerItemLabel,
                         }}
                     />
