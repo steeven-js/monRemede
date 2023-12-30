@@ -71,11 +71,20 @@ const Favoris = ({ route, navigation }) => {
         return (
             <TouchableOpacity
                 style={styles.favorite}
+                // onPress={() => {
+                //     navigation.navigate('Info', {
+                //         plantId: item.plantId,
+                //         originRoute: route.name,
+                //     });
+                // }}
                 onPress={() => {
-                    navigation.navigate('Info', {
-                        plantId: item.plantId,
-                        originRoute: route.name,
-                    });
+                    navigation.navigate('PlanteStack', {
+                        screen: 'Info',
+                        params: {
+                            plantId: item.plantId,
+                            originRoute: route.name,
+                        },
+                    })
                 }}
             >
                 <Image
