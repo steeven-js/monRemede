@@ -105,9 +105,31 @@ const Favoris = ({ route, navigation }) => {
     };
 
     return (
+
         <View style={styles.background}>
+            {!isLoading && !user && (
+                <View style={styles.loginButtonContainer}>
+                    <Button
+                        title="Se connecter"
+                        onPress={() => {
+                            navigation.navigate('S\'inscrire')
+                        }}
+                        disabled={isLoading}
+                    />
+                </View>
+            )}
             <View style={styles.overlay}>
-                {plantsData ? (
+                {isLoading && !plantsData && (
+                    <ActivityIndicator size="large" color="#00ff00" />
+                )}
+
+                {error && (
+                    <Text style={styles.errorText}>
+                        Une erreur s'est produite : {error.message}
+                    </Text>
+                )}
+
+                {!isLoading && !error && plantsData && (
                     <FlatList
                         data={favorites}
                         keyExtractor={(item) => item.id}
@@ -120,9 +142,9 @@ const Favoris = ({ route, navigation }) => {
                             // console.log('End reached');
                         }}
                     />
-                ) : (
-                    <ActivityIndicator size="large" color="#00ff00" />
                 )}
+
+
             </View>
         </View>
     );

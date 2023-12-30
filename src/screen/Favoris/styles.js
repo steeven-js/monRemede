@@ -58,6 +58,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    loginButtonContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    },
+
+    loginButton: {
+        // ... (vos styles pour le bouton de connexion)
+    },
+
+    loginButtonText: {
+        // ... (vos styles pour le texte du bouton de connexion)
+    },
 });
 
 export default styles;
