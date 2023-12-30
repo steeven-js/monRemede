@@ -112,7 +112,7 @@ const Favoris = ({ route, navigation }) => {
                     <Button
                         title="Se connecter"
                         onPress={() => {
-                            navigation.navigate('S\'inscrire')
+                            navigation.navigate('Se connecter')
                         }}
                         disabled={isLoading}
                     />
