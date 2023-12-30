@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, Image, TouchableOpacity } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import MenuIcon from 'react-native-vector-icons/Ionicons';
 import auth from '@react-native-firebase/auth';
-import BackIcon from 'react-native-vector-icons/Ionicons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from './styles';
+
+import { icons } from '../../constants';
 
 const Connexion = ({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -35,9 +38,21 @@ const Connexion = ({ navigation }) => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.login}>
+            <LinearGradient
+                colors={['#2e6a30', '#439a46']} // Dégradé de deux tons de vert foncé
+                locations={[0, 0.65]} // Positions relatives des couleurs
+                useAngle
+                angle={180}
+                style={styles.header}
+            >
+                <MenuIcon name="menu" size={30} color="#fff" onPress={() => navigation.openDrawer()} />
+                <Text style={styles.textTopNavBar}>Se connecter</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('Plantes médicinales')}>
+                    <Image source={icons.plante} style={styles.icon} />
+                </TouchableOpacity>
+            </LinearGradient>
             <View>
-                <BackIcon name="arrow-back" size={30} color="#000" onPress={() => navigation.navigate('Home')} />
                 <Text>Connexion</Text>
                 <TextInput
                     style={styles.input}
@@ -60,9 +75,9 @@ const Connexion = ({ navigation }) => {
                     onPress={() => setAfficherMotDePasse(!afficherMotDePasse)}
                 />
                 <Text>Vous n'avez pas de compte ? </Text>
-                <Text onPress={() => navigation.navigate('RegisterScreen')}>Inscription</Text>
+                <Text onPress={() => navigation.navigate('S\'inscrire')}>Inscription</Text>
             </View>
-        </SafeAreaView>
+        </View>
     );
 };
 
