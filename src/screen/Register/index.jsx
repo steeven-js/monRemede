@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import MenuIcon from 'react-native-vector-icons/Ionicons';
@@ -69,7 +69,6 @@ const Register = ({ navigation }) => {
 
     return (
         <View style={[styles.mainWrapper, { backgroundColor: COLORS.primary }]}>
-
             <LinearGradient
                 colors={['#2e6a30', '#439a46']}
                 locations={[0, 0.65]}
@@ -84,81 +83,73 @@ const Register = ({ navigation }) => {
                 </TouchableOpacity>
             </LinearGradient>
 
-            {/* Form wrapper */}
             <Animatable.View
                 animation="fadeInUp"
                 delay={100}
                 style={[styles.formWrapper, { backgroundColor: COLORS.primary }]}>
-
-                {/* Screen info component */}
                 <Animatable.View animation="fadeInUp" delay={500}>
                     <ScreenInfo info="Bonjour, veuillez saisir vos informations de compte pour créer un nouveau compte client sur Mon Remède." />
                 </Animatable.View>
 
-                {/* Vertical spacer */}
                 <View style={styles.verticalSpacer} />
                 <View style={styles.verticalSpacer} />
 
-                <Text style={styles.title}>Inscription</Text>
-                {user ? (
-                    <View>
-                        <Text>Bienvenue {user.email}</Text>
-                        <Button title="Déconnexion" onPress={handleLogout} />
-                    </View>
+                {isLoading ? (
+                    <ActivityIndicator size="large" color={COLORS.white} />
                 ) : (
-                    <View>
-                        <Animatable.View animation="fadeInUp" delay={700}>
-                            <CustomTextInput
-                                label="Email"
-                                placeholder="Email"
-                                value={email}
-                                onChangeText={(text) => setEmail(text)}
-                                autoCapitalize="none"
-                                keyboardType="email-address"
-                            />
-                        </Animatable.View>
+                    <>
+                        {user ? (
+                            <View>
+                                <Text>Bienvenue {user.email}</Text>
+                                <Button title="Déconnexion" onPress={handleLogout} />
+                            </View>
+                        ) : (
+                            <View>
+                                <Animatable.View animation="fadeInUp" delay={700}>
+                                    <CustomTextInput
+                                        label="Email"
+                                        placeholder="Email"
+                                        value={email}
+                                        onChangeText={(text) => setEmail(text)}
+                                        autoCapitalize="none"
+                                        keyboardType="email-address"
+                                    />
+                                </Animatable.View>
 
-                        {/* Vertical spacer */}
-                        <View style={styles.verticalSpacer} />
+                                <View style={styles.verticalSpacer} />
 
-                        <Animatable.View animation="fadeInUp" delay={900}>
-                            <PasswordTextInput
-                                label="Mot de passe"
-                                placeholder="Mot de passe"
-                                value={password}
-                                onChangeText={(text) => setPassword(text)}
-                                afficherMotDePasse={afficherMotDePasse}
-                                setAfficherMotDePasse={setAfficherMotDePasse}
-                            />
-                        </Animatable.View>
+                                <Animatable.View animation="fadeInUp" delay={900}>
+                                    <PasswordTextInput
+                                        label="Mot de passe"
+                                        placeholder="Mot de passe"
+                                        value={password}
+                                        onChangeText={(text) => setPassword(text)}
+                                        afficherMotDePasse={afficherMotDePasse}
+                                        setAfficherMotDePasse={setAfficherMotDePasse}
+                                    />
+                                </Animatable.View>
 
-                        {/* Vertical spacer */}
-                        <View style={styles.verticalSpacer} />
+                                <View style={styles.verticalSpacer} />
 
-                        {/* Button component */}
-                        <Animatable.View animation="fadeInUp" delay={1300}>
-                            <Button
-                                label="S'inscrire"
-                                onPress={handleSignUp}
-                            />
-                        </Animatable.View>
+                                <Animatable.View animation="fadeInUp" delay={1300}>
+                                    <Button
+                                        label="S'inscrire"
+                                        onPress={handleSignUp}
+                                    />
+                                </Animatable.View>
 
-                        {/* Vertical spacer */}
-                        <View style={styles.verticalSpacer} />
+                                <View style={styles.verticalSpacer} />
 
-                        {/* Question & link component wrapper */}
-                        <Animatable.View
-                            animation="fadeInUp"
-                            delay={1500}
-                            style={styles.questionAndLinkWrapper}>
-                            {/* Question component */}
-                            <Question question="Vous avez déjà un compte?" />
-
-                            {/* Login component */}
-                            <Link label="Se connecter" onPress={() => navigation.navigate('Se connecter')} />
-                        </Animatable.View>
-
-                    </View>
+                                <Animatable.View
+                                    animation="fadeInUp"
+                                    delay={1500}
+                                    style={styles.questionAndLinkWrapper}>
+                                    <Question question="Vous avez déjà un compte?" />
+                                    <Link label="Se connecter" onPress={() => navigation.navigate('Se connecter')} />
+                                </Animatable.View>
+                            </View>
+                        )}
+                    </>
                 )}
             </Animatable.View>
         </View>
