@@ -72,6 +72,7 @@ const Connexion = ({ navigation }) => {
                     <Image source={icons.plante} style={styles.icon} />
                 </TouchableOpacity>
             </LinearGradient>
+
             {/* Form wrapper */}
             <Animatable.View
                 animation="fadeInUp"
@@ -80,33 +81,37 @@ const Connexion = ({ navigation }) => {
 
                 {/* Screen info component */}
                 <Animatable.View animation="fadeInUp" delay={500}>
-                    <ScreenInfo info="hey, enter your account details to get log in to your account." />
+                    <ScreenInfo info="Bonjour, veuillez fournir vos informations d'identification pour accéder à votre compte." />
                 </Animatable.View>
 
                 {/* Vertical spacer */}
                 <View style={styles.verticalSpacer} />
                 <View style={styles.verticalSpacer} />
 
-                <CustomTextInput
-                    label="Email"
-                    placeholder="Email"
-                    value={email}
-                    onChangeText={(text) => setEmail(text)}
-                    autoCapitalize="none"
-                    keyboardType="email-address"
-                />
+                <Animatable.View animation="fadeInUp" delay={700}>
+                    <CustomTextInput
+                        label="Email"
+                        placeholder="Email"
+                        value={email}
+                        onChangeText={(text) => setEmail(text)}
+                        autoCapitalize="none"
+                        keyboardType="email-address"
+                    />
+                </Animatable.View>
 
                 {/* Vertical spacer */}
                 <View style={styles.verticalSpacer} />
 
-                <PasswordTextInput
-                    label="Password"
-                    placeholder="Mot de passe"
-                    value={password}
-                    onChangeText={(text) => setPassword(text)}
-                    afficherMotDePasse={afficherMotDePasse}
-                    setAfficherMotDePasse={setAfficherMotDePasse}
-                />
+                <Animatable.View animation="fadeInUp" delay={900}>
+                    <PasswordTextInput
+                        label="Password"
+                        placeholder="Mot de passe"
+                        value={password}
+                        onChangeText={(text) => setPassword(text)}
+                        afficherMotDePasse={afficherMotDePasse}
+                        setAfficherMotDePasse={setAfficherMotDePasse}
+                    />
+                </Animatable.View>
 
                 {/* Vertical spacer */}
                 <View style={styles.verticalSpacer} />

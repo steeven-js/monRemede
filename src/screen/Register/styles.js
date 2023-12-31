@@ -1,8 +1,36 @@
 import { StyleSheet } from 'react-native';
+import {
+    STANDARD_SPACING,
+    STANDARD_FLEX,
+    SCREEN_WIDTH,
+    SCREEN_HEIGHT
+} from '../../config/Constants';
 
 const styles = StyleSheet.create({
-    register: {
-        flex: 1,
+    mainWrapper: {
+        flex: STANDARD_FLEX,
+    },
+    formWrapper: {
+        width: SCREEN_WIDTH,
+        // height: SCREEN_HEIGHT * 0.75,
+        // position: 'absolute',
+        // bottom: 0,
+        padding: STANDARD_SPACING * 6,
+        borderTopLeftRadius: STANDARD_SPACING * 6,
+        borderTopRightRadius: STANDARD_SPACING * 6,
+        justifyContent: 'center',
+    },
+    verticalSpacer: {
+        marginVertical: STANDARD_SPACING * 1.5,
+    },
+    socialMediaIconsWrapper: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+    },
+    questionAndLinkWrapper: {
+        flexDirection: 'row',
+        alignSelf: 'center',
     },
     header: {
         flexDirection: 'row',

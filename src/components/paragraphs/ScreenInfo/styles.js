@@ -10,6 +10,6 @@ export default StyleSheet.create({
     info: {
         fontFamily: DOSIS_REGULAR,
         fontSize: FONT_SIZE_XS,
-        textTransform: 'capitalize',
+        // textTransform: 'capitalize',
     },
 });
