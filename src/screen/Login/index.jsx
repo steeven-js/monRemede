@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { LinearGradient } from 'react-native-linear-gradient';
 import MenuIcon from 'react-native-vector-icons/Ionicons';
 import auth from '@react-native-firebase/auth';
@@ -58,7 +58,7 @@ const Connexion = ({ navigation }) => {
     };
 
     return (
-        <View style={[styles.mainWrapper, { backgroundColor: COLORS.primary }]}>
+        <View style={[styles.mainWrapper, { backgroundColor: COLORS.accent }]}>
             <LinearGradient
                 colors={['#2e6a30', '#439a46']}
                 locations={[0, 0.65]}
@@ -104,7 +104,7 @@ const Connexion = ({ navigation }) => {
 
                 <Animatable.View animation="fadeInUp" delay={900}>
                     <PasswordTextInput
-                        label="Password"
+                        label="Mot de passe"
                         placeholder="Mot de passe"
                         value={password}
                         onChangeText={(text) => setPassword(text)}
@@ -139,26 +139,6 @@ const Connexion = ({ navigation }) => {
 
                 {/* Social media icons wrapper */}
                 <View style={styles.socialMediaIconsWrapper}>
-                    <Animatable.View animation="bounceIn" delay={1700}>
-                        <TouchableOpacity>
-                            <SvgXml
-                                xml={ic_facebook}
-                                width={STANDARD_SOCIAL_ICON_SIZE}
-                                height={STANDARD_SOCIAL_ICON_SIZE}
-                            />
-                        </TouchableOpacity>
-                    </Animatable.View>
-
-                    <Animatable.View animation="bounceIn" delay={1900}>
-                        <TouchableOpacity>
-                            <SvgXml
-                                xml={ic_twitter}
-                                width={STANDARD_SOCIAL_ICON_SIZE}
-                                height={STANDARD_SOCIAL_ICON_SIZE}
-                            />
-                        </TouchableOpacity>
-                    </Animatable.View>
-
                     <Animatable.View animation="bounceIn" delay={2100}>
                         <TouchableOpacity>
                             <SvgXml

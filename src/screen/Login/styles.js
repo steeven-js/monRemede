@@ -12,13 +12,12 @@ const styles = StyleSheet.create({
     },
     formWrapper: {
         width: SCREEN_WIDTH,
-        // height: SCREEN_HEIGHT * 0.75,
-        // position: 'absolute',
-        // bottom: 0,
+        flex: STANDARD_FLEX,
+        height: SCREEN_HEIGHT,
         padding: STANDARD_SPACING * 6,
         borderTopLeftRadius: STANDARD_SPACING * 6,
         borderTopRightRadius: STANDARD_SPACING * 6,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
     },
     verticalSpacer: {
         marginVertical: STANDARD_SPACING * 1.5,

@@ -68,7 +68,7 @@ const Register = ({ navigation }) => {
     }, []);
 
     return (
-        <View style={[styles.mainWrapper, { backgroundColor: COLORS.primary }]}>
+        <View style={[styles.mainWrapper, { backgroundColor: COLORS.accent }]}>
             <LinearGradient
                 colors={['#2e6a30', '#439a46']}
                 locations={[0, 0.65]}
@@ -91,6 +91,7 @@ const Register = ({ navigation }) => {
                     <ScreenInfo info="Bonjour, veuillez saisir vos informations de compte pour créer un nouveau compte client sur Mon Remède." />
                 </Animatable.View>
 
+                {/* Vertical spacer */}
                 <View style={styles.verticalSpacer} />
                 <View style={styles.verticalSpacer} />
 

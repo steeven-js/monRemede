@@ -6,7 +6,7 @@ import { COLORS } from '../../../config/Colors';
 
 const OrDivider = ({label}) => {
     return (
-        <Text style={[styles.divider, { color: COLORS.secondary }]}>
+        <Text style={[styles.divider, { color: COLORS.textLowContrast }]}>
             {label}
         </Text>
     )

@@ -16,19 +16,19 @@ const CustomTextInput  = ({
     return (
         <>
             {/* Text input label */}
-            <Text style={[styles.textInputLabel, { color: COLORS.primary }]}>
+            <Text style={[styles.textInputLabel, { color: COLORS.textHighContrast }]}>
                 {label}
             </Text>
             {/* Text input */}
             <RNTextInput
                 placeholder={placeholder}
-                placeholderTextColor={COLORS.gray2}
+                placeholderTextColor={COLORS.textLowContrast}
                 style={[
                     styles.textInput,
                     {
-                        borderColor: COLORS.primary,
+                        borderColor: COLORS.secondaryDark,
                         backgroundColor: COLORS.secondary,
-                        color: COLORS.tertiary,
+                        color: COLORS.textHighContrast,
                     },
                 ]}
                 value={value}

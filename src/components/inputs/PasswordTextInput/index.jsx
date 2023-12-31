@@ -14,20 +14,20 @@ const PasswordTextInput = ({ label, placeholder, value, onChangeText }) => {
     return (
         <View>
             {/* Text input label */}
-            <Text style={[styles.textInputLabel, { color: COLORS.primary }]}>
+            <Text style={[styles.textInputLabel, { color: COLORS.textHighContrast }]}>
                 {label}
             </Text>
             {/* Password input */}
-            <View style={[styles.textInputContainer]}>
+            <View style={[styles.textInputWrapper]}>
                 <RNTextInput
                     placeholder={placeholder}
-                    placeholderTextColor={COLORS.gray2}
+                    placeholderTextColor={COLORS.textLowContrast}
                     style={[
                         styles.textInput,
                         {
-                            borderColor: COLORS.primary,
+                            borderColor: COLORS.secondaryDark,
                             backgroundColor: COLORS.secondary,
-                            color: COLORS.tertiary,
+                            color: COLORS.textHighContrast,
                         },
                     ]}
                     secureTextEntry={!showPassword}

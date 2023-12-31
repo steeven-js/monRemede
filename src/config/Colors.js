@@ -1,13 +1,16 @@
 const COLORS = {
-    primary: "#F3F4F8",
-    secondary: "#444262",
-    tertiary: "#FF7754",
-
-    gray: "#83829A",
-    gray2: "#C1C0C8",
-
-    white: "#F3F4F8",
-    lightWhite: "#FAFAFC",
+    primary: '#FFFFFF',
+    secondary: '#F6F5F6',
+    secondaryDark: '#EBEBEB',
+    accent: '#588157',
+    accentLightest: '#5881571A',
+    textHighContrast: '#344E41',
+    textLowContrast: '#888BA4',
 };
 
-export { COLORS };
+// Defining independent colors
+const IndependentColors = {
+    white: '#FFFFFF',
+  };
+
+export { COLORS, IndependentColors };

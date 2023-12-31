@@ -4,7 +4,7 @@ import { COLORS } from '../../../config/Colors';
 
 const ScreenInfo = ({ info }) => {
     return (
-        <Text style={[styles.info, { color: COLORS.secondary }]}>{info}</Text>
+        <Text style={[styles.info, { color: COLORS.textLowContrast }]}>{info}</Text>
     )
 }
 

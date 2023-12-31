@@ -7,7 +7,7 @@ import styles from './styles';
 const Link = ({ label, onPress }) => {
     return (
         <TouchableOpacity onPress={onPress}>
-            <Text style={[styles.label, { color: COLORS.secondary }]}>{label}</Text>
+            <Text style={[styles.label, { color: COLORS.accent }]}>{label}</Text>
         </TouchableOpacity>
     )
 }

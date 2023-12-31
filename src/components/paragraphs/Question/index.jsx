@@ -6,7 +6,7 @@ import styles from './styles';
 
 const Question = ({question}) => {
     return (
-        <Text style={[styles.question, { color: COLORS.secondary }]}>
+        <Text style={[styles.question, { color: COLORS.textLowContrast }]}>
             {question}
         </Text>
     )

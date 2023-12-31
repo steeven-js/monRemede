@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import {
     FONT_SIZE_MD,
-    POPPINS_MEDIUM,
+    DOSIS_MEDIUM,
     STANDARD_BORDER_RADIUS,
     STANDARD_BUTTON_HEIGHT,
 } from '../../../config/Constants';
@@ -15,7 +15,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
     buttonLabel: {
-        fontFamily: POPPINS_MEDIUM,
+        fontFamily: DOSIS_MEDIUM,
         fontSize: FONT_SIZE_MD,
     },
 });
