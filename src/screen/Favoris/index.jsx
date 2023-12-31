@@ -11,6 +11,10 @@ import {
 import firestore from '@react-native-firebase/firestore';
 import { firebase } from '@react-native-firebase/auth';
 import useFetchPlants from '../../../hook/useFetchPlants';
+import Question from '../../components/paragraphs/Question';
+import Link from '../../components/links/Link';
+import * as Animatable from 'react-native-animatable';
+
 import styles from './styles';
 
 const Favoris = ({ route, navigation }) => {
@@ -110,15 +114,41 @@ const Favoris = ({ route, navigation }) => {
                 )}
 
                 {!isLoading && !error && plantsData && user && (
-                    <FlatList
-                        data={favorites}
-                        keyExtractor={(item) => item.id}
-                        renderItem={renderItem}
-                        numColumns={2}
-                        refreshing={isLoading}
-                        showsVerticalScrollIndicator={false}
-                        onRefresh={refetch}
-                    />
+                    <>
+                        {favorites.length === 0 ? (
+                            <View style={styles.noFavorite}>
+                                <Animatable.View
+                                    animation="fadeInUp"
+                                    delay={100}
+                                    style={styles.questionAndLinkWrapper}>
+
+                                    {/* Question component */}
+                                    <Question question="Vous n'avez pas de plante dans vos favoris" />
+                                </Animatable.View>
+                                <Animatable.View
+                                    animation="fadeInUp"
+                                    delay={300}
+                                    style={styles.questionAndLinkWrapper}>
+
+                                    {/* Link component */}
+                                    <Link
+                                        label="Découvrir nos plantes médicinales"
+                                        onPress={() => navigation.navigate("Home")}
+                                    />
+                                </Animatable.View>
+                            </View>
+                        ) : (
+                            <FlatList
+                                data={favorites}
+                                keyExtractor={(item) => item.id}
+                                renderItem={renderItem}
+                                numColumns={2}
+                                refreshing={isLoading}
+                                showsVerticalScrollIndicator={false}
+                                onRefresh={refetch}
+                            />
+                        )}
+                    </>
                 )}
             </View>
         </View>

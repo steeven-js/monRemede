@@ -1,4 +1,8 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import {
+    STANDARD_FLEX,
+    STANDARD_SPACING,
+} from '../../config/Constants';
 
 const { width } = Dimensions.get('window');
 const numColumns = 2;
@@ -6,7 +10,7 @@ const columnWidth = width / numColumns;
 
 const styles = StyleSheet.create({
     background: {
-        flex: 1,
+        flex: STANDARD_FLEX,
         resizeMode: 'cover',
         justifyContent: 'center',
     },
@@ -24,12 +28,12 @@ const styles = StyleSheet.create({
         height: columnWidth - 20,
         borderWidth: 1,
         borderColor: 'rgba(255, 255, 255, 0.6)',
-        borderRadius: 15,
-        marginBottom: 10,
+        borderRadius: STANDARD_SPACING * 3,
+        marginBottom: STANDARD_SPACING * 2,
         justifyContent: 'center',
         alignItems: 'center',
         position: 'relative',
-        margin: 10,
+        margin: STANDARD_SPACING * 2,
         borderColor: 'yellow',
         height: 150,
     },
@@ -41,7 +45,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.7)',
         borderBottomLeftRadius: 15,
         borderBottomRightRadius: 15,
-        padding: 5,
+        padding: STANDARD_SPACING,
     },
     favoriteName: {
         color: 'white',
@@ -64,13 +68,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0.4)',
     },
-
-    loginButton: {
-        // ... (vos styles pour le bouton de connexion)
+    noFavorite: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-
-    loginButtonText: {
-        // ... (vos styles pour le texte du bouton de connexion)
+    questionAndLinkWrapper: {
+        flexDirection: 'row',
+        alignSelf: 'center',
+        paddingBottom: STANDARD_SPACING * 5,
     },
 });
 
