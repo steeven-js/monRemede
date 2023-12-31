@@ -60,7 +60,7 @@ const HomeDrawer = () => {
                     drawerIcon: () => (
                         <Image
                             source={
-                                require('../../../assets/icons/soin.png')
+                                require('../../../assets/icons/png/soin.png')
                             }
                             style={styles.drawerItemIcon}
                         />
@@ -79,7 +79,7 @@ const HomeDrawer = () => {
                             drawerIcon: () => (
                                 <Image
                                     source={
-                                        require('../../../assets/icons/info.png')
+                                        require('../../../assets/icons/png/info.png')
                                     }
                                     style={styles.drawerItemIcon}
                                 />
@@ -99,7 +99,7 @@ const HomeDrawer = () => {
                             drawerIcon: () => (
                                 <Image
                                     source={
-                                        require('../../../assets/icons/soin.png')
+                                        require('../../../assets/icons/png/soin.png')
                                     }
                                     style={styles.drawerItemIcon}
                                 />
@@ -115,7 +115,7 @@ const HomeDrawer = () => {
                             drawerIcon: () => (
                                 <Image
                                     source={
-                                        require('../../../assets/icons/soin.png')
+                                        require('../../../assets/icons/png/soin.png')
                                     }
                                     style={styles.drawerItemIcon}
                                 />

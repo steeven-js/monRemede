@@ -28,7 +28,7 @@ const Favoris = ({ route, navigation }) => {
             }
         });
 
-        return () => unsubscribe();
+        return unsubscribe;
     }, []);
 
     const loadFavorites = async (userId) => {
@@ -48,22 +48,7 @@ const Favoris = ({ route, navigation }) => {
     };
 
     const renderItem = ({ item }) => {
-        const plant = plantsData.find((p) => p.id === item.plantId);
-
-        if (!plant) {
-            // Handle the case where plant is undefined
-            return (
-                <View style={styles.favorite}>
-                    <Image
-                        source={require('../../assets/images/plante/no-image.png')}
-                        style={styles.plantImage}
-                    />
-                    <View style={styles.favoriteInfoContainer}>
-                        <Text style={styles.favoriteName}>Unknown Plant</Text>
-                    </View>
-                </View>
-            );
-        }
+        const plant = plantsData.find((p) => p.id === item.plantId) || {};
 
         const hasMedia = plant.media && plant.media.length > 0;
         const imageUrl = hasMedia ? plant.media[0]?.original_url : null;
@@ -71,12 +56,6 @@ const Favoris = ({ route, navigation }) => {
         return (
             <TouchableOpacity
                 style={styles.favorite}
-                // onPress={() => {
-                //     navigation.navigate('Info', {
-                //         plantId: item.plantId,
-                //         originRoute: route.name,
-                //     });
-                // }}
                 onPress={() => {
                     navigation.navigate('PlanteStack', {
                         screen: 'Info',
@@ -105,7 +84,6 @@ const Favoris = ({ route, navigation }) => {
     };
 
     return (
-
         <View style={styles.background}>
             {!isLoading && !user && (
                 <View style={styles.loginButtonContainer}>
@@ -131,7 +109,7 @@ const Favoris = ({ route, navigation }) => {
                     </Text>
                 )}
 
-                {!isLoading && !error && plantsData && (
+                {!isLoading && !error && plantsData && user && (
                     <FlatList
                         data={favorites}
                         keyExtractor={(item) => item.id}
@@ -142,8 +120,6 @@ const Favoris = ({ route, navigation }) => {
                         onRefresh={refetch}
                     />
                 )}
-
-
             </View>
         </View>
     );
