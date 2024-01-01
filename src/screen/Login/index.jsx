@@ -25,7 +25,7 @@ import OrDivider from '../../components/dividers/OrDivider';
 import Question from '../../components/paragraphs/Question';
 
 
-const Connexion = ({ navigation }) => {
+const Login = ({ navigation }) => {
     GoogleSignin.configure({
         scopes: ['https://www.googleapis.com/auth/drive.readonly'], // what API you want to access on behalf of the user, default is email and profile
         webClientId: '62541315106-4lcmcu1rom9hbm6megrl9ldlu94rj5hk.apps.googleusercontent.com', // client ID of type WEB for your server. Required to get the idToken on the user object, and for offline access.
@@ -211,4 +211,4 @@ const Connexion = ({ navigation }) => {
     );
 };
 
-export default Connexion;
+export default Login;

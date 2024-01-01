@@ -102,6 +102,14 @@ const Register = ({ navigation }) => {
         setUser(currentUser);
     };
 
+    const handleLogout = async () => {
+        try {
+            await auth().signOut();
+        } catch (error) {
+            console.error('Erreur lors de la déconnexion :', error.message);
+        }
+    };
+
     useEffect(() => {
         const unsubscribe = auth().onAuthStateChanged((user) => {
             setUser(user);

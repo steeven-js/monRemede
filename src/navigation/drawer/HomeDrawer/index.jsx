@@ -4,11 +4,13 @@ import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import auth from '@react-native-firebase/auth';
 import HomeStack from '../../stacks/HomeStack';
-import Profile from '../../../screen/Profile';
+import Profile from '../../../screen/MyProfile';
 import Connexion from '../../../screen/Login';
 import Register from '../../../screen/Register';
 
 import styles from './styles';
+import AuthStack from '../../stacks/AuthStack';
+import MyProfileStack from '../../stacks/MyProfileStack';
 
 const Drawer = createDrawerNavigator();
 
@@ -73,7 +75,7 @@ const HomeDrawer = () => {
                     {/* Afficher les écrans lorsque l'utilisateur est connecté */}
                     <Drawer.Screen
                         name="Mon Profile"
-                        component={Profile}
+                        component={MyProfileStack}
                         options={{
                             headerShown: false,
                             drawerIcon: () => (
@@ -93,7 +95,7 @@ const HomeDrawer = () => {
                     {/* Afficher les écrans lorsque l'utilisateur n'est pas connecté */}
                     <Drawer.Screen
                         name="Se connecter"
-                        component={Connexion}
+                        component={AuthStack}
                         options={{
                             headerShown: false,
                             drawerIcon: () => (
