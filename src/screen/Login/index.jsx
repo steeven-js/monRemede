@@ -59,7 +59,9 @@ const Connexion = ({ navigation }) => {
             setPassword('');
 
             // Rediriger vers la page d'accueil après l'authentification réussie
-            navigation.navigate('Home');
+            navigation.navigate('Home', {
+                screen: 'Plantes médicinales',
+            });
         } catch (error) {
             console.error('Erreur de connexion :', error.message);
 

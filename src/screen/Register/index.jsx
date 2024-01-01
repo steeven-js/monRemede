@@ -45,7 +45,11 @@ const Register = ({ navigation }) => {
 
             await auth().createUserWithEmailAndPassword(email, password);
             console.log('Utilisateur enregistré avec succès !');
-            navigation.navigate('Home');
+
+            // Rediriger vers la page d'accueil après l'authentification réussie
+            navigation.navigate('Home', {
+                screen: 'Plantes médicinales',
+            });
         } catch (error) {
             console.error('Erreur lors de l\'enregistrement de l\'utilisateur :', error.message);
 
