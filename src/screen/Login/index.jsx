@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'react-native-linear-gradient';
 import MenuIcon from 'react-native-vector-icons/Ionicons';
 import auth from '@react-native-firebase/auth';
@@ -8,18 +8,13 @@ import auth from '@react-native-firebase/auth';
 import Button from '../../components/buttons/Button';
 import CustomTextInput from '../../components/inputs/TextInput';
 import PasswordTextInput from '../../components/inputs/PasswordTextInput';
-import ic_facebook from '../../assets/icons/svg/ic_facebook';
-import ic_twitter from '../../assets/icons/svg/ic_twitter';
 import ic_google from '../../assets/icons/svg/ic_google';
 
 // Styles and configurations
 import { COLORS } from '../../config/Colors';
 import styles from './styles';
 import * as Animatable from 'react-native-animatable';
-import {
-    STANDARD_SOCIAL_ICON_SIZE,
-    STANDARD_VECTOR_ICON_SIZE,
-} from '../../config/Constants';
+import { STANDARD_SOCIAL_ICON_SIZE } from '../../config/Constants';
 
 import { icons } from '../../constants';
 import ScreenInfo from '../../components/paragraphs/ScreenInfo';
@@ -34,9 +29,25 @@ const Connexion = ({ navigation }) => {
     const [afficherMotDePasse, setAfficherMotDePasse] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
+    // New state variables for error messages
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [emptyFieldsError, setEmptyFieldsError] = useState('');
+
     const handleConnexion = async () => {
         try {
             setIsLoading(true);
+
+            // Clear previous error messages
+            setEmailError('');
+            setPasswordError('');
+            setEmptyFieldsError('');
+
+            // Check for empty input fields
+            if (!email || !password) {
+                setEmptyFieldsError('Veuillez remplir tous les champs');
+                return;
+            }
 
             const userCredential = await auth().signInWithEmailAndPassword(email, password);
             const user = userCredential.user;
@@ -51,7 +62,17 @@ const Connexion = ({ navigation }) => {
             navigation.navigate('Home');
         } catch (error) {
             console.error('Erreur de connexion :', error.message);
-            // Afficher un message d'erreur à l'utilisateur, par exemple avec une alerte
+
+            // Display error messages based on the type of error
+            if (error.code === 'auth/invalid-email') {
+                setEmailError('Adresse e-mail invalide');
+            } else if (error.code === 'auth/invalid-credential') {
+                setPasswordError('Mot de passe incorrect');
+            } else {
+                // Handle other types of errors
+                // Example: alert('Une erreur s\'est produite lors de la connexion');
+                // auth/too-many-requests]
+            }
         } finally {
             setIsLoading(false);
         }
@@ -73,18 +94,15 @@ const Connexion = ({ navigation }) => {
                 </TouchableOpacity>
             </LinearGradient>
 
-            {/* Form wrapper */}
             <Animatable.View
                 animation="fadeInUp"
                 delay={100}
                 style={[styles.formWrapper, { backgroundColor: COLORS.primary }]}>
 
-                {/* Screen info component */}
                 <Animatable.View animation="fadeInUp" delay={500}>
                     <ScreenInfo info="Bonjour, veuillez fournir vos informations d'identification pour accéder à votre compte." />
                 </Animatable.View>
 
-                {/* Vertical spacer */}
                 <View style={styles.verticalSpacer} />
                 <View style={styles.verticalSpacer} />
 
@@ -97,9 +115,9 @@ const Connexion = ({ navigation }) => {
                         autoCapitalize="none"
                         keyboardType="email-address"
                     />
+                    {emailError ? <Text style={styles.errorMessage}>{emailError}</Text> : null}
                 </Animatable.View>
 
-                {/* Vertical spacer */}
                 <View style={styles.verticalSpacer} />
 
                 <Animatable.View animation="fadeInUp" delay={900}>
@@ -111,33 +129,29 @@ const Connexion = ({ navigation }) => {
                         afficherMotDePasse={afficherMotDePasse}
                         setAfficherMotDePasse={setAfficherMotDePasse}
                     />
+                    {passwordError ? <Text style={styles.errorMessage}>{passwordError}</Text> : null}
                 </Animatable.View>
 
-                {/* Vertical spacer */}
                 <View style={styles.verticalSpacer} />
 
-                {/* Link component */}
                 <Animatable.View animation="fadeInUp" delay={1100}>
                     <Link label="Forgot password?" />
                 </Animatable.View>
 
-                {/* Vertical spacer */}
                 <View style={styles.verticalSpacer} />
 
-                {/* Button component */}
                 <Animatable.View animation="fadeInUp" delay={1300}>
                     <Button
                         label="Login"
-                        onPress={() => { handleConnexion() }}
+                        onPress={handleConnexion}
                     />
+                    {emptyFieldsError ? <Text style={styles.errorMessage}>{emptyFieldsError}</Text> : null}
                 </Animatable.View>
 
-                {/* Or divider component */}
                 <Animatable.View animation="fadeInUp" delay={1500}>
                     <OrDivider label="or login with" />
                 </Animatable.View>
 
-                {/* Social media icons wrapper */}
                 <View style={styles.socialMediaIconsWrapper}>
                     <Animatable.View animation="bounceIn" delay={2100}>
                         <TouchableOpacity>
@@ -150,17 +164,13 @@ const Connexion = ({ navigation }) => {
                     </Animatable.View>
                 </View>
 
-                {/* Vertical spacer */}
                 <View style={styles.verticalSpacer} />
 
                 <Animatable.View
                     animation="fadeInUp"
                     delay={2300}
                     style={styles.questionAndLinkWrapper}>
-                    {/* Question component */}
                     <Question question="Vous n'avez pas de compte ?" />
-
-                    {/* Link component */}
                     <Link
                         label="S'inscrire"
                         onPress={() => navigation.navigate("S'inscrire")}

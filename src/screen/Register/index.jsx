@@ -23,28 +23,43 @@ const Register = ({ navigation }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [user, setUser] = useState(null);
 
+    // New state variables for error messages
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [emptyFieldsError, setEmptyFieldsError] = useState('');
+
     const handleSignUp = async () => {
         try {
             setIsLoading(true);
+
+            // Clear previous error messages
+            setEmailError('');
+            setPasswordError('');
+            setEmptyFieldsError('');
+
+            // Check for empty input fields
+            if (!email || !password) {
+                setEmptyFieldsError('Veuillez remplir tous les champs');
+                return;
+            }
 
             await auth().createUserWithEmailAndPassword(email, password);
             console.log('Utilisateur enregistré avec succès !');
             navigation.navigate('Home');
         } catch (error) {
             console.error('Erreur lors de l\'enregistrement de l\'utilisateur :', error.message);
+
+            // Display error messages based on the type of error
+            if (error.code === 'auth/invalid-email') {
+                setEmailError('Adresse e-mail invalide');
+            } else if (error.code === 'auth/weak-password') {
+                setPasswordError('Le mot de passe doit comporter au moins 6 caractères');
+            } else {
+                // Handle other types of errors
+                // Example: alert('Une erreur s\'est produite lors de l\'enregistrement');
+            }
         } finally {
             setIsLoading(false);
-        }
-    };
-
-    const handleLogout = async () => {
-        try {
-            await auth().signOut();
-            console.log('Utilisateur déconnecté avec succès !');
-
-            navigation.navigate('Home');
-        } catch (error) {
-            console.error('Erreur lors de la déconnexion :', error.message);
         }
     };
 
@@ -115,6 +130,7 @@ const Register = ({ navigation }) => {
                                         autoCapitalize="none"
                                         keyboardType="email-address"
                                     />
+                                    {emailError ? <Text style={styles.errorMessage}>{emailError}</Text> : null}
                                 </Animatable.View>
 
                                 <View style={styles.verticalSpacer} />
@@ -128,6 +144,7 @@ const Register = ({ navigation }) => {
                                         afficherMotDePasse={afficherMotDePasse}
                                         setAfficherMotDePasse={setAfficherMotDePasse}
                                     />
+                                    {passwordError ? <Text style={styles.errorMessage}>{passwordError}</Text> : null}
                                 </Animatable.View>
 
                                 <View style={styles.verticalSpacer} />
@@ -137,6 +154,7 @@ const Register = ({ navigation }) => {
                                         label="S'inscrire"
                                         onPress={handleSignUp}
                                     />
+                                    {emptyFieldsError ? <Text style={styles.errorMessage}>{emptyFieldsError}</Text> : null}
                                 </Animatable.View>
 
                                 <View style={styles.verticalSpacer} />
