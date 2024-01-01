@@ -12,7 +12,28 @@
           "package_name": "com.monremede"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "62541315106-70u8qjs6iucsr9horoiurki9645quh7m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.monremede",
+            "certificate_hash": "89551a8918356c14898b20adcb96de868dc1c315"
+          }
+        },
+        {
+          "client_id": "62541315106-amvjq5s39kocpak8jlilnr0v142mas7q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.monremede",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "62541315106-4lcmcu1rom9hbm6megrl9ldlu94rj5hk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB7DYQRFT86C3wRh9p3R5Tuo_7Hw1sh_uQ"
@@ -20,7 +41,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "62541315106-4lcmcu1rom9hbm6megrl9ldlu94rj5hk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

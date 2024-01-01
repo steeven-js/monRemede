@@ -1725,6 +1725,11 @@
   resolved "https://registry.npmjs.org/@react-native-firebase/firestore/-/firestore-18.7.3.tgz"
   integrity sha512-ts5clqDnpXw2nnX7W9H9+AZbh0jyXNIjnhHfTnMpstpCDQ3DCld/d8Ta2n/jzLUGRhtkCd0iALXmvVQBNNOTSQ==
 
+"@react-native-google-signin/google-signin@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.npmjs.org/@react-native-google-signin/google-signin/-/google-signin-11.0.0.tgz"
+  integrity sha512-J8BFFGr5HcEWE2gRaVSJ0rQN8ztxYIr2wdWMG4PS1vhQZJqUzmRr6vpu12O1GppItq8ai7AA0rl/ja7hSytSXA==
+
 "@react-native/assets-registry@^0.72.0":
   version "0.72.0"
   resolved "https://registry.npmjs.org/@react-native/assets-registry/-/assets-registry-0.72.0.tgz"
