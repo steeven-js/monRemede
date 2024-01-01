@@ -17,6 +17,7 @@ const PlantNavBar = ({ data, plantId }) => {
     const navigation = useNavigation();
     const route = useRoute();
     const [user, setUser] = useState(null);
+    const [isFavorite, setIsFavorite] = useState(false); // New state variable
 
     const navigateToScreen = (screenName) => {
         navigation.navigate(screenName, {
@@ -60,6 +61,7 @@ const PlantNavBar = ({ data, plantId }) => {
             if (!existingFavoriteQuery.empty) {
                 const existingFavoriteDoc = existingFavoriteQuery.docs[0];
                 await existingFavoriteDoc.ref.delete();
+                setIsFavorite(false); // Plant removed from favorites
                 console.log("Plante retirée des favoris avec succès!");
                 return;
             }
@@ -69,6 +71,7 @@ const PlantNavBar = ({ data, plantId }) => {
                 plantId: plantId,
             });
 
+            setIsFavorite(true); // Plant added to favorites
             console.log("Plante ajoutée aux favoris avec succès!");
         } catch (error) {
             console.error("Erreur lors de la gestion des favoris:", error);
@@ -107,10 +110,28 @@ const PlantNavBar = ({ data, plantId }) => {
     useEffect(() => {
         const unsubscribe = firebase.auth().onAuthStateChanged((authUser) => {
             setUser(authUser);
+            if (authUser) {
+                checkIsFavorite(authUser.uid);
+            } else {
+                setIsFavorite(false);
+            }
         });
 
         return () => unsubscribe();
     }, []);
+
+    const checkIsFavorite = async (userId) => {
+        try {
+            const existingFavoriteQuery = await firebase.firestore().collection('favoris')
+                .where('userId', '==', userId)
+                .where('plantId', '==', plantId)
+                .get();
+
+            setIsFavorite(!existingFavoriteQuery.empty);
+        } catch (error) {
+            console.error("Erreur lors de la vérification des favoris:", error);
+        }
+    };
 
     const hasMedia = data.media && data.media.length > 0;
     const imageUrl = hasMedia ? data.media[0]?.original_url : null;
@@ -127,13 +148,18 @@ const PlantNavBar = ({ data, plantId }) => {
                             <TouchableOpacity style={styles.back} onPress={backToOriginRoute}>
                                 <BackIcon name="arrow-back" size={30} color="#fff" />
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.star}>
-                                <StarIcon name="star" size={30} color="#fff" onPress={addToFavoritesHandler} />
+                            <TouchableOpacity style={styles.star} onPress={addToFavoritesHandler}>
+                                {user && isFavorite ? (
+                                    <StarIcon name="star" size={30} color="yellow" />
+                                ) : (
+                                    <StarIcon name="star" size={30} color="#fff" />
+                                )}
                             </TouchableOpacity>
                         </View>
                     </View>
                 </ImageBackground>
             </View >
+
             <View style={styles.container}>
                 <View style={styles.content}>
                     <TouchableOpacity
@@ -186,7 +212,7 @@ const PlantNavBar = ({ data, plantId }) => {
                     </TouchableOpacity>
                 </View>
             </View>
-        </View >
+        </View>
     );
 };
 
